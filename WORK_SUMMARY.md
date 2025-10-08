@@ -24,106 +24,47 @@
 - **TCMAssessment**: Accordion with 16 symptom categories (Appetite, Taste, Stool, etc.)
 - **MiddleColumn**: Integrates all above with ScrollArea
 
-## Remaining Work - Phase 7: Right Sidebar (Items 23-32)
+### Phase 7: ✅ COMPLETE (Items 23-32)
+- **InfoCard**: Reusable wrapper for all AI structured notes cards (teal background, icon, copy button)
+- **ChiefComplaintCard**: Multiple chief complaints with ICD codes and individual copy buttons
+- **HPICard**: Single paragraph HPI with copy button
+- **SubjectiveCard**: PMH/FH/SH/ES sections with teal highlights and orange stress badge
+- **TCMReviewCard**: Two-column bullet grid for TCM review categories
+- **TongueExaminationCard**: Body and Coating sections with purple highlights
+- **PulseExaminationCard**: Single text description with purple highlights
+- **DiagnosisCard**: TCM diagnosis badge with multiple ICD code badges
+- **TreatmentCard**: Single treatment principle text
+- **AcupunctureCard**: Grouped acupuncture points by body region with color-coded notes
+- **RightSidebar**: Complete sidebar with CollapsibleSidebar, auto-updating toggle, refresh button, all 9 cards
 
-### Reference Images
-- `docs/ui/1.0 - AI Structured Notes.png` - Right sidebar detail view
-- `docs/ui/3.0 - All Shown.png` - Full three-column layout
+## Remaining Work - Phase 8: Integration
 
-### Components to Build
+### Next Steps
 
-#### 23. InfoCard (wrapper component)
-- Reusable card wrapper for all 9 right sidebar cards
-- Props: title, icon, children, hasCopy (boolean)
-- Light teal background, rounded corners
-- Copy button in top-right when hasCopy=true
-- Used by all cards below
+1. **Build MainLayout Component**
+   - Create `components/layout/MainLayout.tsx`
+   - Three-column grid: LeftSidebar + MiddleColumn + RightSidebar
+   - Responsive layout handling
+   - State management for active patient, sidebar toggles
 
-#### 24. ChiefComplaintCard
-- Uses InfoCard wrapper
-- Multiple chief complaints with ICD codes
-- Each complaint: text + ICD badge (gray background)
-- Copy button per complaint
+2. **Create Comprehensive Mock Data**
+   - Create `data/mockPatients.ts` with full patient dataset
+   - Include all fields: demographics, medical history, TCM data, AI notes
+   - Multiple patients with varying statuses
 
-#### 25. HPICard
-- Uses InfoCard
-- Single text paragraph
-- One copy button
-
-#### 26. SubjectiveCard
-- Uses InfoCard
-- 4 sections: PMH, FH, SH, ES (each with heading + text)
-- Highlighted keywords in teal color
-- Stress Level badge (7/10 with orange background)
-- One copy button for all
-
-#### 27. TCMReviewCard
-- Uses InfoCard
-- Two-column bullet grid layout
-- Categories with bullet lists (Appetite, Stool, Thirst, Sleep, Energy, Temperature, Sweat, Urine, Pain, Libido)
-- One copy button
-
-#### 28. ExaminationCard (reusable for Tongue & Pulse)
-- Uses InfoCard
-- Tongue: Body + Coating sections with purple text highlights
-- Pulse: Single text description
-- Separate cards, each with copy button
-
-#### 29. DiagnosisCard
-- Uses InfoCard
-- TCM diagnosis with badge
-- Multiple ICD codes with gray badges
-- One copy button
-
-#### 30. TreatmentCard
-- Uses InfoCard
-- Single text line (treatment principle)
-- One copy button
-
-#### 31. AcupunctureCard
-- Uses InfoCard
-- Grouped by body regions (Head/Neck, Hand, Forearm, Upper Arm, Abdomen/Back, Upper Leg, Lower Leg, Foot)
-- Each region: heading + list of point codes
-- Color-coded notes: orange "Right side only", purple "Both sides", default purple for point codes
-- One copy button
-
-#### 32. RightSidebar
-- Uses CollapsibleSidebar wrapper
-- Integrates all 9 cards in ScrollArea
-- Expanded: "AI Structured Notes" header + all cards
-- Collapsed: Just chevron (no vertical text needed)
-- Primary prop: "AI Structured Notes" title
-- Secondary prop: Auto-updating toggle + refresh button
-
-## Next Steps
-
-1. **Build InfoCard wrapper** (Item 23)
-   - Create `components/right/InfoCard.tsx`
-   - Teal background, icon in header, optional copy button
-
-2. **Build all 9 specific cards** (Items 24-31)
-   - Create files in `components/right/` folder
-   - Each uses InfoCard wrapper
-   - Follow exact styling from reference images
-   - Use StatusBadge for ICD codes, stress levels, TCM diagnoses
-
-3. **Build RightSidebar** (Item 32)
-   - Create `components/right/RightSidebar.tsx`
-   - Integrate all cards with CollapsibleSidebar
-   - Add to showcase page
-
-4. **Visual Testing with Playwright**
-   - Start dev server: `npm run dev`
-   - Navigate to localhost:3000
-   - Use Playwright MCP to take screenshots
-   - Compare with reference images in `docs/ui/`
-   - Iterate on styling differences until pixel-perfect
-
-5. **Integration** (Phase 8)
-   - Build MainLayout (three-column grid)
-   - Create comprehensive mock data
-   - Wire up app/page.tsx
+3. **Wire Up Main Application**
+   - Update `app/page.tsx` to use MainLayout
+   - Connect all components with real state
+   - Implement patient switching logic
    - Test all interactive features
+
+4. **Final Testing & Polish**
+   - Test all collapse/expand functionality
+   - Verify all copy buttons work
+   - Test patient switching
+   - Verify all styling matches reference images
+   - Test auto-updating toggle
+   - Verify responsive behavior
 
 ## Key Design Details
 
@@ -131,7 +72,8 @@
 - Teal: `#14B8A6` (teal-500) - Used for AI notes, TCM highlights
 - Status colors: teal (completed), blue (active), orange (waiting), purple (scheduled)
 - ICD badges: Gray background
-- Stress badge: Orange background
+- Stress badge: Orange background (orange-100/orange-700)
+- Purple highlights: Used in Tongue and Pulse examination cards
 
 ### Typography
 - Section headers: 12-14px, semibold
@@ -146,11 +88,11 @@
 ## Files Structure
 ```
 components/
-├── atomic/          ✅ 4 components
+├── atomic/          ✅ 4 components (StatusBadge, CopyButton, SectionHeader, PatientAvatar)
 ├── layout/          ✅ 1 component (CollapsibleSidebar)
-├── left/            ✅ 3 components
-├── middle/          ✅ 5 components
-└── right/           ⏳ 10 components (pending)
+├── left/            ✅ 3 components (PatientCard, PatientList, LeftSidebar)
+├── middle/          ✅ 5 components (TopNavigation, MedicalSection, TCMChecklistItem, TCMAssessment, MiddleColumn)
+└── right/           ✅ 10 components (InfoCard, ChiefComplaintCard, HPICard, SubjectiveCard, TCMReviewCard, TongueExaminationCard, PulseExaminationCard, DiagnosisCard, TreatmentCard, AcupunctureCard, RightSidebar)
 ```
 
 ## Commands

@@ -8,6 +8,8 @@ import { CollapsibleSidebar } from "@/components/layout/CollapsibleSidebar";
 import { PatientCard } from "@/components/left/PatientCard";
 import { PatientList } from "@/components/left/PatientList";
 import { LeftSidebar } from "@/components/left/LeftSidebar";
+import { MiddleColumn } from "@/components/middle/MiddleColumn";
+import { RightSidebar } from "@/components/right/RightSidebar";
 import { FileText, Activity } from "lucide-react";
 import { useState } from "react";
 
@@ -20,6 +22,83 @@ export default function ComponentsPage() {
   const [leftOpen, setLeftOpen] = useState(true);
   const [rightOpen, setRightOpen] = useState(true);
   const [selectedPatientId, setSelectedPatientId] = useState("3");
+  const [autoUpdate, setAutoUpdate] = useState(true);
+  const [aiEnabled, setAiEnabled] = useState(true);
+
+  // Mock data for MiddleColumn
+  const mockPatient = {
+    id: "3",
+    initials: "SC",
+    time: "9:30 AM",
+    status: "active" as const
+  };
+
+  // Mock data for RightSidebar
+  const mockAIData = {
+    chiefComplaints: [
+      {
+        text: "Chronic Fatigue for 6 months",
+        icdCode: "R53.83",
+        icdLabel: "Other fatigue"
+      },
+      {
+        text: "Bloating for 1 year",
+        icdCode: "R14.0",
+        icdLabel: "Abdominal distension (gaseous)"
+      }
+    ],
+    hpi: "Symptoms began gradually 6 months ago following a period of high stress at work. Initially manageable, fatigue has progressively worsened. Digestive symptoms started 3 months later. No fever, weight loss, or other concerning symptoms.",
+    subjective: {
+      pmh: "No significant past medical history. Previous episodes of mild anxiety during college years, resolved without treatment.",
+      pmhHighlights: ["No significant past medical history", "mild anxiety", "college years"],
+      fh: "Mother: Type 2 diabetes, hypertension. Father: History of digestive issues, gastritis. No family history of autoimmune conditions.",
+      fhHighlights: ["Type 2 diabetes", "hypertension", "digestive issues", "gastritis", "autoimmune conditions"],
+      sh: "Works as software engineer, sedentary lifestyle. Drinks 2-3 cups coffee daily. Occasional alcohol (1-2 drinks/week). Non-smoker. Lives with partner, supportive relationship.",
+      shHighlights: ["software engineer", "sedentary lifestyle", "coffee", "alcohol", "Non-smoker", "partner", "supportive relationship"],
+      es: "Worry and frustration",
+      stressLevel: "7/10"
+    },
+    tcmReview: {
+      "Appetite": ["Poor, especially morning"],
+      "Stool": ["Loose, 2-3x daily"],
+      "Thirst": ["Minimal, prefers warm drinks"],
+      "Urine": ["Pale, frequent"],
+      "Sleep": ["Light, frequent waking"],
+      "Energy": ["Very low, worse afternoon"],
+      "Temperature": ["Feels cold easily"],
+      "Sweat": ["Minimal, no night sweats"],
+      "Pain": ["Minimal"],
+      "Libido": ["Decreased"]}
+    ,
+    tongue: {
+      body: "Pale tongue body with thin white coating, slightly swollen with tooth marks on edges",
+      bodyHighlights: ["Pale", "swollen", "tooth marks", "edges"],
+      coating: "Thin white coating",
+      coatingHighlights: ["Thin white coating"]
+    },
+    pulse: {
+      text: "Deep, slow, and weak pulse bilaterally, particularly weak in the right cun position.",
+      highlights: ["Deep", "slow", "weak pulse bilaterally", "weak in the right cun position"]
+    },
+    diagnosis: {
+      tcmDiagnosis: "Spleen Qi Deficiency with Dampness",
+      icdCodes: [
+        { code: "R53.83", label: "Other fatigue" },
+        { code: "R14.0", label: "Abdominal distension (gaseous)" }
+      ]
+    },
+    treatment: "Tonify Spleen Qi and resolve dampness",
+    acupuncture: [
+      { name: "Head/Neck", points: ["GV-20", "EX-HN3 (Yintang)"] },
+      { name: "Hand", points: ["LI-4"], note: "Right side only", noteColor: "orange" as const },
+      { name: "Forearm", points: ["LI-10", "SI-10 (ST-9)"], note: "Both sides", noteColor: "purple" as const },
+      { name: "Upper Arm", points: ["LI-11"], note: "Both sides", noteColor: "purple" as const },
+      { name: "Abdomen/Back", points: ["CV-12", "ST-25", "BL-20, BL-21"] },
+      { name: "Upper Leg", points: ["ST-36", "GB-34 (1)"] },
+      { name: "Lower Leg", points: ["SP-6", "SP-9"] },
+      { name: "Foot", points: ["LV-3", "KI-3", "ST-44"] }
+    ]
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 p-8">
@@ -254,11 +333,71 @@ export default function ComponentsPage() {
           </div>
         </section>
 
-        {/* Phase 6-7: Feature Components */}
+        {/* Phase 6: Middle Column Components */}
         <section className="mb-12">
-          <h2 className="text-2xl font-semibold mb-6 border-b pb-2">Phase 6-7: Feature Components</h2>
+          <h2 className="text-2xl font-semibold mb-6 border-b pb-2">Phase 6: Middle Column Components</h2>
           <div className="space-y-8">
-            <p className="text-gray-500 italic">Coming soon...</p>
+
+            {/* MiddleColumn */}
+            <div className="bg-white p-6 rounded-lg border">
+              <h3 className="text-lg font-semibold mb-4">MiddleColumn (Navigation + Notes)</h3>
+              <p className="text-sm text-gray-600 mb-4">Two-column layout: Left has section navigation labels only, Right has clinical notes textarea</p>
+              <div className="h-[800px] border-2 border-gray-300">
+                <MiddleColumn
+                  patient={mockPatient}
+                  clinicalNotes="Chief Complaint
+Chronic fatigue and digestive issues for the past 6 months. Patient reports feeling constantly tired despite adequate sleep, along with bloating and irregular bowel movements.
+
+History of Present Illness
+Symptoms began gradually 6 months ago following a period of high stress at work. Initially mild fatigue that has progressively worsened. Digestive symptoms started 3 months later. No fever, weight loss, or other concerning symptoms.
+
+TCM Assessment
+Tongue: Pale tongue body with thin white coating, slightly swollen with tooth marks on edges
+Pulse: Deep, slow, and weak pulse bilaterally, particularly weak in the right cun position
+
+Treatment Plan
+1. Acupuncture treatment focusing on Spleen Qi deficiency
+2. Herbal formula: Si Jun Zi Tang modified
+3. Dietary recommendations for spleen support
+4. Follow-up in 2 weeks"
+                  onPrevious={() => console.log('Previous patient')}
+                  onNext={() => console.log('Next patient')}
+                  aiEnabled={aiEnabled}
+                  onAIToggle={setAiEnabled}
+                  onNotesChange={(notes) => console.log('Notes changed:', notes)}
+                />
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        {/* Phase 7: Right Sidebar Components */}
+        <section className="mb-12">
+          <h2 className="text-2xl font-semibold mb-6 border-b pb-2">Phase 7: Right Sidebar Components</h2>
+          <div className="space-y-8">
+
+            {/* RightSidebar */}
+            <div className="bg-white p-6 rounded-lg border">
+              <h3 className="text-lg font-semibold mb-4">RightSidebar with All AI Cards</h3>
+              <p className="text-sm text-gray-600 mb-4">Complete right sidebar with all structured notes cards - Toggle to see collapse/expand</p>
+              <div className="h-[800px] border-2 border-gray-300 flex">
+                <div className="flex-1 bg-gray-50 flex items-center justify-center">
+                  <p className="text-gray-500">Main Content Area</p>
+                </div>
+                <div className="border-l-2 border-red-500">
+                  <RightSidebar
+                    isOpen={rightOpen}
+                    onToggle={() => setRightOpen(!rightOpen)}
+                    autoUpdate={autoUpdate}
+                    onAutoUpdateChange={setAutoUpdate}
+                    onRefresh={() => console.log('Refresh AI notes')}
+                    data={mockAIData}
+                  />
+                </div>
+              </div>
+            </div>
+
           </div>
         </section>
       </div>

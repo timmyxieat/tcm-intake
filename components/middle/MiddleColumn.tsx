@@ -1,75 +1,53 @@
 "use client";
 
 import { TopNavigation } from "@/components/middle/TopNavigation";
-import { MedicalSection } from "@/components/middle/MedicalSection";
-import { TCMAssessment } from "@/components/middle/TCMAssessment";
+import { SectionLabel } from "@/components/middle/SectionLabel";
+import { TCMSection } from "@/components/middle/TCMSection";
+import { NotesTextarea } from "@/components/middle/NotesTextarea";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Patient } from "@/types";
 
 /**
  * MiddleColumn Component
  *
- * Complete middle column integrating:
- * - TopNavigation
- * - Medical sections (CC, HPI, PMH, FH, SH, ES)
- * - TCMAssessment
+ * Two-column layout for patient intake:
+ * - Left: Section navigation labels (CC, HPI, PMH, FH, SH, ES, TCM, Tongue, Pulse, Diagnosis, Points, Plan)
+ * - Right: Clinical notes textarea
  *
  * @param patient - Current patient data
- * @param medicalData - Medical history sections
- * @param tcmSymptoms - TCM assessment data
+ * @param clinicalNotes - Clinical notes text
  * @param onPrevious - Previous patient callback
  * @param onNext - Next patient callback
  * @param aiEnabled - AI toggle state
  * @param onAIToggle - AI toggle callback
+ * @param onNotesChange - Notes change callback
  *
  * @example
  * <MiddleColumn
  *   patient={currentPatient}
- *   medicalData={medicalHistory}
- *   tcmSymptoms={tcmData}
- *   onPrevious={() => goToPrev()}
- *   onNext={() => goToNext()}
- *   aiEnabled={true}
- *   onAIToggle={setAI}
+ *   clinicalNotes={notes}
+ *   onNotesChange={setNotes}
  * />
  */
 
-interface MedicalData {
-  cc: string;
-  hpi: string;
-  pmh: string;
-  fh: string;
-  sh: string;
-  es: string;
-}
-
-interface TCMSymptom {
-  label: string;
-  checked: boolean;
-}
-
 interface MiddleColumnProps {
   patient: Patient;
-  medicalData: MedicalData;
-  tcmSymptoms: Record<string, TCMSymptom[]>;
+  clinicalNotes?: string;
   onPrevious?: () => void;
   onNext?: () => void;
   aiEnabled?: boolean;
   onAIToggle?: (enabled: boolean) => void;
-  onMedicalChange?: (section: string, value: string) => void;
-  onSymptomChange?: (category: string, label: string, checked: boolean) => void;
+  onNotesChange?: (value: string) => void;
 }
 
 export function MiddleColumn({
   patient,
-  medicalData,
-  tcmSymptoms,
+  clinicalNotes = "",
   onPrevious,
   onNext,
   aiEnabled = true,
   onAIToggle,
-  onMedicalChange,
-  onSymptomChange
+  onNotesChange
 }: MiddleColumnProps) {
   return (
     <div className="flex flex-col h-full bg-white">
@@ -82,54 +60,38 @@ export function MiddleColumn({
         onAIToggle={onAIToggle}
       />
 
-      {/* Scrollable Content */}
-      <ScrollArea className="flex-1">
-        <div className="px-6">
-          {/* Medical Sections */}
-          <MedicalSection
-            title="CC"
-            content={medicalData.cc}
-            editable={true}
-            onChange={(value) => onMedicalChange?.("cc", value)}
-          />
-          <MedicalSection
-            title="HPI"
-            content={medicalData.hpi}
-            editable={true}
-            onChange={(value) => onMedicalChange?.("hpi", value)}
-          />
-          <MedicalSection
-            title="PMH"
-            content={medicalData.pmh}
-            editable={true}
-            onChange={(value) => onMedicalChange?.("pmh", value)}
-          />
-          <MedicalSection
-            title="FH"
-            content={medicalData.fh}
-            editable={true}
-            onChange={(value) => onMedicalChange?.("fh", value)}
-          />
-          <MedicalSection
-            title="SH"
-            content={medicalData.sh}
-            editable={true}
-            onChange={(value) => onMedicalChange?.("sh", value)}
-          />
-          <MedicalSection
-            title="ES"
-            content={medicalData.es}
-            editable={true}
-            onChange={(value) => onMedicalChange?.("es", value)}
-          />
+      {/* Two Column Layout */}
+      <div className="flex flex-1 overflow-hidden">
+        {/* Left Column: Section Navigation Labels */}
+        <ScrollArea className="w-44 border-r bg-gray-50">
+          <div className="py-2">
+            <SectionLabel label="CC" />
+            <SectionLabel label="HPI" />
+            <SectionLabel label="PMH" />
+            <SectionLabel label="FH" />
+            <SectionLabel label="SH" />
+            <SectionLabel label="ES" />
 
-          {/* TCM Assessment */}
-          <TCMAssessment
-            symptoms={tcmSymptoms}
-            onSymptomChange={onSymptomChange}
+            {/* TCM Section with Categories */}
+            <TCMSection />
+
+            <SectionLabel label="Tongue" />
+            <SectionLabel label="Pulse" />
+            <SectionLabel label="Diagnosis" />
+            <SectionLabel label="Points" />
+            <SectionLabel label="Plan" />
+          </div>
+        </ScrollArea>
+
+        {/* Right Column: Clinical Notes Textarea */}
+        <div className="flex-1 p-6">
+          <NotesTextarea
+            value={clinicalNotes}
+            onChange={onNotesChange}
+            placeholder="Enter clinical notes, treatment plan, and observations..."
           />
         </div>
-      </ScrollArea>
+      </div>
     </div>
   );
 }

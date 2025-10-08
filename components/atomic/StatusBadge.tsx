@@ -29,7 +29,7 @@ const variantStyles = {
   waiting: 'bg-orange-50 text-orange-600 border-orange-200',
   scheduled: 'bg-purple-50 text-purple-600 border-purple-200',
   icd: 'bg-gray-100 text-gray-600 border-gray-300',
-  stress: 'bg-yellow-100 text-yellow-800 border-yellow-200',
+  stress: 'bg-orange-100 text-orange-700 border-orange-200',
   tcm: 'bg-teal-100 text-teal-700 border-teal-200',
 };
 

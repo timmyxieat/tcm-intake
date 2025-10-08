@@ -2,7 +2,7 @@
 
 import { PatientAvatar } from "@/components/atomic/PatientAvatar";
 import { Switch } from "@/components/ui/switch";
-import { ChevronLeft, ChevronRight, Check } from "lucide-react";
+import { Check } from "lucide-react";
 import { Patient } from "@/types";
 
 /**
@@ -50,35 +50,17 @@ export function TopNavigation({
   lastSaved = "15:23"
 }: TopNavigationProps) {
   return (
-    <div className="flex items-center justify-between px-6 py-4 bg-white border-b">
-      {/* Left: Patient Navigation */}
-      <div className="flex items-center gap-3">
-        <button
-          onClick={onPrevious}
-          className="p-1 hover:bg-gray-100 rounded transition-colors"
-          aria-label="Previous patient"
-        >
-          <ChevronLeft className="h-5 w-5 text-gray-600" />
-        </button>
-
-        <div className="flex items-center gap-2">
-          <PatientAvatar
-            initials={patient.initials}
-            status={patient.status}
-            size="sm"
-          />
-          <span className="font-medium text-sm">
-            {patient.initials} {patient.time}
-          </span>
-        </div>
-
-        <button
-          onClick={onNext}
-          className="p-1 hover:bg-gray-100 rounded transition-colors"
-          aria-label="Next patient"
-        >
-          <ChevronRight className="h-5 w-5 text-gray-600" />
-        </button>
+    <div className="flex items-center justify-between px-4 py-3 bg-white border-b">
+      {/* Left: Patient Info */}
+      <div className="flex items-center gap-2">
+        <PatientAvatar
+          initials={patient.initials}
+          status={patient.status}
+          size="sm"
+        />
+        <span className="text-sm text-gray-500">
+          {patient.time}
+        </span>
       </div>
 
       {/* Right: Auto-saving Status and AI Toggle */}
