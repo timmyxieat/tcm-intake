@@ -53,13 +53,14 @@ Building a Traditional Chinese Medicine (TCM) intake application optimized for i
 
 ## **Phase 5: Left Sidebar Components**
 
-- [ ] 15. Build **PatientCard** component (left sidebar patient item)
+- [x] 15. Build **PatientCard** component (left sidebar patient item)
   - Uses: StatusBadge, PatientAvatar
-- [ ] 16. Build **PatientList** component (groups patients by status)
+- [x] 16. Build **PatientList** component (groups patients by status)
   - Categories: Completed, Active, Waiting, Scheduled
-- [ ] 17. Build **LeftSidebar** component (complete left column)
+- [x] 17. Build **LeftSidebar** component (complete left column)
   - Uses: PatientList, CollapsibleSidebar
   - Collapsed view: Shows vertical patient initials
+  - Added formatted date display below "Today's Patients" header
 
 ---
 
