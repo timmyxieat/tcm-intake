@@ -6,6 +6,7 @@ import { TCMSection } from "@/components/middle/TCMSection";
 import { NotesTextarea } from "@/components/middle/NotesTextarea";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Patient } from "@/types";
+import { useRef } from "react";
 
 /**
  * MiddleColumn Component
@@ -49,6 +50,14 @@ export function MiddleColumn({
   onAIToggle,
   onNotesChange
 }: MiddleColumnProps) {
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const handleSectionClick = (label: string) => {
+    const newText = clinicalNotes + (clinicalNotes ? "\n" : "") + label + "\n";
+    onNotesChange?.(newText);
+    textareaRef.current?.focus();
+  };
+
   return (
     <div className="flex flex-col h-full bg-white">
       {/* Top Navigation */}
@@ -65,27 +74,28 @@ export function MiddleColumn({
         {/* Left Column: Section Navigation Labels */}
         <ScrollArea className="w-44 border-r bg-gray-50">
           <div className="py-2">
-            <SectionLabel label="CC" />
-            <SectionLabel label="HPI" />
-            <SectionLabel label="PMH" />
-            <SectionLabel label="FH" />
-            <SectionLabel label="SH" />
-            <SectionLabel label="ES" />
+            <SectionLabel label="CC" onClick={() => handleSectionClick("CC")} />
+            <SectionLabel label="HPI" onClick={() => handleSectionClick("HPI")} />
+            <SectionLabel label="PMH" onClick={() => handleSectionClick("PMH")} />
+            <SectionLabel label="FH" onClick={() => handleSectionClick("FH")} />
+            <SectionLabel label="SH" onClick={() => handleSectionClick("SH")} />
+            <SectionLabel label="ES" onClick={() => handleSectionClick("ES")} />
 
             {/* TCM Section with Categories */}
-            <TCMSection />
+            <TCMSection onCategoryClick={handleSectionClick} />
 
-            <SectionLabel label="Tongue" />
-            <SectionLabel label="Pulse" />
-            <SectionLabel label="Diagnosis" />
-            <SectionLabel label="Points" />
-            <SectionLabel label="Plan" />
+            <SectionLabel label="Tongue" onClick={() => handleSectionClick("Tongue")} />
+            <SectionLabel label="Pulse" onClick={() => handleSectionClick("Pulse")} />
+            <SectionLabel label="Diagnosis" onClick={() => handleSectionClick("Diagnosis")} />
+            <SectionLabel label="Points" onClick={() => handleSectionClick("Points")} />
+            <SectionLabel label="Plan" onClick={() => handleSectionClick("Plan")} />
           </div>
         </ScrollArea>
 
         {/* Right Column: Clinical Notes Textarea */}
         <div className="flex-1 p-6">
           <NotesTextarea
+            ref={textareaRef}
             value={clinicalNotes}
             onChange={onNotesChange}
             placeholder="Enter clinical notes, treatment plan, and observations..."

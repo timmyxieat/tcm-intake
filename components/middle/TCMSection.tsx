@@ -17,6 +17,7 @@ import { ChevronDown } from "lucide-react";
 
 interface TCMSectionProps {
   categories?: string[];
+  onCategoryClick?: (category: string) => void;
 }
 
 const DEFAULT_CATEGORIES = [
@@ -38,7 +39,7 @@ const DEFAULT_CATEGORIES = [
   'Libido'
 ];
 
-export function TCMSection({ categories = DEFAULT_CATEGORIES }: TCMSectionProps) {
+export function TCMSection({ categories = DEFAULT_CATEGORIES, onCategoryClick }: TCMSectionProps) {
   const [isOpen, setIsOpen] = useState(true);
 
   return (
@@ -62,6 +63,7 @@ export function TCMSection({ categories = DEFAULT_CATEGORIES }: TCMSectionProps)
           {categories.map((category) => (
             <div
               key={category}
+              onClick={() => onCategoryClick?.(category)}
               className="py-2 px-4 pl-8 text-sm text-gray-600 hover:bg-gray-100 active:bg-gray-200 cursor-pointer border-l-2 border-teal-400 ml-4 transition-colors"
             >
               {category}

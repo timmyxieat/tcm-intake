@@ -1,6 +1,7 @@
 "use client";
 
 import { Textarea } from "@/components/ui/textarea";
+import * as React from "react";
 
 /**
  * NotesTextarea Component
@@ -26,17 +27,16 @@ interface NotesTextareaProps {
   placeholder?: string;
 }
 
-export function NotesTextarea({
-  value = "",
-  onChange,
-  placeholder = "Enter clinical notes..."
-}: NotesTextareaProps) {
-  return (
-    <Textarea
-      value={value}
-      onChange={(e) => onChange?.(e.target.value)}
-      placeholder={placeholder}
-      className="h-full w-full resize-none border-0 focus-visible:ring-0 text-sm"
-    />
-  );
-}
+export const NotesTextarea = React.forwardRef<HTMLTextAreaElement, NotesTextareaProps>(
+  function NotesTextarea({ value = "", onChange, placeholder = "Enter clinical notes..." }, ref) {
+    return (
+      <Textarea
+        ref={ref}
+        value={value}
+        onChange={(e) => onChange?.(e.target.value)}
+        placeholder={placeholder}
+        className="h-full w-full resize-none border border-gray-200 rounded-md p-4 focus-visible:ring-1 focus-visible:ring-teal-400 text-sm"
+      />
+    );
+  }
+);
