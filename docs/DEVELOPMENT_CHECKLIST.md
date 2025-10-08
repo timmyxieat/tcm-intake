@@ -45,7 +45,7 @@ Building a Traditional Chinese Medicine (TCM) intake application optimized for i
 
 ## **Phase 4: Layout Components**
 
-- [ ] 14. Build **CollapsibleSidebar** layout component (reused for both sidebars)
+- [x] 14. Build **CollapsibleSidebar** layout component (reused for both sidebars)
   - Props: position ("left" | "right"), collapsedContent, children
   - Handles collapse/expand logic with smooth transitions
 
