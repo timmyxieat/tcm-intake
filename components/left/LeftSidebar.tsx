@@ -64,6 +64,7 @@ export function LeftSidebar({
               initials={patient.initials}
               status={patient.status}
               size="sm"
+              isActive={patient.id === activePatientId}
             />
           ))}
         </div>

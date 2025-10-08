@@ -10,16 +10,18 @@ import type { PatientStatus } from "@/types";
  * @param initials - Patient initials (2 letters)
  * @param status - Patient status for color coding
  * @param size - Avatar size: 'sm' | 'md' | 'lg'
+ * @param isActive - Whether this patient is currently selected (adds outline)
  * @param className - Optional additional CSS classes
  *
  * @example
- * <PatientAvatar initials="DP" status="completed" size="md" />
+ * <PatientAvatar initials="DP" status="completed" size="md" isActive={true} />
  */
 
 interface PatientAvatarProps {
   initials: string;
   status: PatientStatus;
   size?: 'sm' | 'md' | 'lg';
+  isActive?: boolean;
   className?: string;
 }
 
@@ -28,6 +30,13 @@ const statusColors = {
   active: 'bg-blue-100 text-blue-700',
   waiting: 'bg-orange-100 text-orange-700',
   scheduled: 'bg-purple-100 text-purple-700',
+};
+
+const statusOutlineColors = {
+  completed: 'ring-teal-500',
+  active: 'ring-blue-500',
+  waiting: 'ring-orange-500',
+  scheduled: 'ring-purple-500',
 };
 
 const sizeStyles = {
@@ -40,6 +49,7 @@ export function PatientAvatar({
   initials,
   status,
   size = 'md',
+  isActive = false,
   className
 }: PatientAvatarProps) {
   return (
@@ -48,6 +58,8 @@ export function PatientAvatar({
         "flex items-center justify-center rounded-full font-medium",
         statusColors[status],
         sizeStyles[size],
+        isActive && "ring-2 ring-offset-2",
+        isActive && statusOutlineColors[status],
         className
       )}
     >

@@ -19,6 +19,7 @@ import { useState } from "react";
 export default function ComponentsPage() {
   const [leftOpen, setLeftOpen] = useState(true);
   const [rightOpen, setRightOpen] = useState(true);
+  const [selectedPatientId, setSelectedPatientId] = useState("3");
 
   return (
     <div className="min-h-screen bg-gray-50 p-8">
@@ -213,7 +214,7 @@ export default function ComponentsPage() {
             {/* PatientList */}
             <div className="bg-white p-6 rounded-lg border">
               <h3 className="text-lg font-semibold mb-4">PatientList</h3>
-              <p className="text-sm text-gray-600 mb-4">Simple list of patients with status badges (no grouping)</p>
+              <p className="text-sm text-gray-600 mb-4">Simple list of patients with status badges (no grouping) - Click to select</p>
               <div className="max-w-sm">
                 <PatientList
                   patients={[
@@ -224,7 +225,8 @@ export default function ComponentsPage() {
                     { id: "5", initials: "SK", time: "10:30 AM", status: "waiting" },
                     { id: "6", initials: "ET", time: "11:00 AM", status: "scheduled" },
                   ]}
-                  activePatientId="3"
+                  activePatientId={selectedPatientId}
+                  onPatientClick={(patient) => setSelectedPatientId(patient.id)}
                 />
               </div>
             </div>
@@ -232,7 +234,7 @@ export default function ComponentsPage() {
             {/* LeftSidebar */}
             <div className="bg-white p-6 rounded-lg border">
               <h3 className="text-lg font-semibold mb-4">LeftSidebar</h3>
-              <p className="text-sm text-gray-600 mb-4">Complete left sidebar with collapse/expand functionality</p>
+              <p className="text-sm text-gray-600 mb-4">Complete left sidebar with collapse/expand - Selected patient shows outline even when collapsed</p>
               <div className="h-96 border-2 border-gray-300">
                 <LeftSidebar
                   patients={[
@@ -243,7 +245,8 @@ export default function ComponentsPage() {
                     { id: "5", initials: "SK", time: "10:30 AM", status: "waiting" },
                     { id: "6", initials: "ET", time: "11:00 AM", status: "scheduled" },
                   ]}
-                  activePatientId="3"
+                  activePatientId={selectedPatientId}
+                  onPatientClick={(patient) => setSelectedPatientId(patient.id)}
                 />
               </div>
             </div>
