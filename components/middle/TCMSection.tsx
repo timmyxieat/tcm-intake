@@ -46,7 +46,7 @@ export function TCMSection({ categories = DEFAULT_CATEGORIES }: TCMSectionProps)
       {/* Header */}
       <div
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center justify-between py-2.5 px-4 cursor-pointer hover:bg-gray-50"
+        className="flex items-center justify-between py-2.5 px-4 cursor-pointer hover:bg-gray-100 active:bg-gray-200 transition-colors"
       >
         <span className="text-sm text-gray-700">TCM</span>
         <ChevronDown
@@ -62,7 +62,7 @@ export function TCMSection({ categories = DEFAULT_CATEGORIES }: TCMSectionProps)
           {categories.map((category) => (
             <div
               key={category}
-              className="py-2 px-4 pl-8 text-sm text-gray-600 hover:bg-gray-100 cursor-pointer border-l-2 border-teal-400 ml-4"
+              className="py-2 px-4 pl-8 text-sm text-gray-600 hover:bg-gray-100 active:bg-gray-200 cursor-pointer border-l-2 border-teal-400 ml-4 transition-colors"
             >
               {category}
             </div>

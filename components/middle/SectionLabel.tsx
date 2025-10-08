@@ -21,7 +21,7 @@ export function SectionLabel({ label, onClick }: SectionLabelProps) {
   return (
     <div
       onClick={onClick}
-      className="py-2.5 px-4 text-sm text-gray-700 hover:bg-gray-50 cursor-pointer"
+      className="py-2.5 px-4 text-sm text-gray-700 hover:bg-gray-100 active:bg-gray-200 cursor-pointer transition-colors"
     >
       {label}
     </div>
