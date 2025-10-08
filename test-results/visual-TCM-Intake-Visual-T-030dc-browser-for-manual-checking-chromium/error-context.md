@@ -1,0 +1,280 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - button "‹" [ref=e5] [cursor=pointer]
+    - complementary [ref=e6]:
+      - generic [ref=e7]:
+        - heading "Today's Patients" [level=2] [ref=e8]
+        - paragraph [ref=e9]: October 8, 2024
+        - generic [ref=e10]:
+          - heading "Completed 2" [level=3] [ref=e11]:
+            - text: Completed
+            - generic [ref=e12]: "2"
+          - generic [ref=e13] [cursor=pointer]:
+            - generic [ref=e14]: DP
+            - generic [ref=e15]: 8:45 AM
+            - generic [ref=e16]: Completed
+          - generic [ref=e17] [cursor=pointer]:
+            - generic [ref=e18]: MS
+            - generic [ref=e19]: 9:00 AM
+            - generic [ref=e20]: Completed
+        - generic [ref=e21]:
+          - heading "Active 1" [level=3] [ref=e22]:
+            - text: Active
+            - generic [ref=e23]: "1"
+          - generic [ref=e24] [cursor=pointer]:
+            - generic [ref=e25]: SC
+            - generic [ref=e26]: 9:30 AM
+            - generic [ref=e27]: Active
+        - generic [ref=e28]:
+          - heading "Waiting 2" [level=3] [ref=e29]:
+            - text: Waiting
+            - generic [ref=e30]: "2"
+          - generic [ref=e31] [cursor=pointer]:
+            - generic [ref=e32]: MR
+            - generic [ref=e33]: 10:15 AM
+            - generic [ref=e34]: Waiting
+          - generic [ref=e35] [cursor=pointer]:
+            - generic [ref=e36]: AL
+            - generic [ref=e37]: 11:00 AM
+            - generic [ref=e38]: Waiting
+        - generic [ref=e39]:
+          - heading "Scheduled 2" [level=3] [ref=e40]:
+            - text: Scheduled
+            - generic [ref=e41]: "2"
+          - generic [ref=e42] [cursor=pointer]:
+            - generic [ref=e43]: ET
+            - generic [ref=e44]: 11:30 AM
+            - generic [ref=e45]: Scheduled
+          - generic [ref=e46] [cursor=pointer]:
+            - generic [ref=e47]: LB
+            - generic [ref=e48]: 12:00 PM
+            - generic [ref=e49]: Scheduled
+  - generic [ref=e50]:
+    - generic [ref=e51]:
+      - generic [ref=e52]:
+        - generic [ref=e53]: SC
+        - generic [ref=e54]: 9:30 AM
+      - generic [ref=e57]: Auto-saving
+      - generic [ref=e59]: ⏰ 15:23
+    - generic [ref=e60]:
+      - generic [ref=e62]:
+        - generic [ref=e63] [cursor=pointer]: CC
+        - generic [ref=e64] [cursor=pointer]: HPI
+        - generic [ref=e65] [cursor=pointer]: PMH
+        - generic [ref=e66] [cursor=pointer]: FH
+        - generic [ref=e67] [cursor=pointer]: SH
+        - generic [ref=e68] [cursor=pointer]: ES
+        - generic [ref=e69] [cursor=pointer]:
+          - generic [ref=e70]: TCM
+          - generic [ref=e71]: ⌄
+        - generic [ref=e72] [cursor=pointer]: Appetite
+        - generic [ref=e73] [cursor=pointer]: Taste
+        - generic [ref=e74] [cursor=pointer]: Stool
+        - generic [ref=e75] [cursor=pointer]: Thirst
+        - generic [ref=e76] [cursor=pointer]: Urine
+        - generic [ref=e77] [cursor=pointer]: Sleep
+        - generic [ref=e78] [cursor=pointer]: Energy
+        - generic [ref=e79] [cursor=pointer]: Temp
+        - generic [ref=e80] [cursor=pointer]: Sweat
+        - generic [ref=e81] [cursor=pointer]: Head
+        - generic [ref=e82] [cursor=pointer]: Ear
+        - generic [ref=e83] [cursor=pointer]: Eye
+        - generic [ref=e84] [cursor=pointer]: Nose
+        - generic [ref=e85] [cursor=pointer]: Throat
+        - generic [ref=e86] [cursor=pointer]: Pain
+        - generic [ref=e87] [cursor=pointer]: Libido
+        - generic [ref=e88] [cursor=pointer]: Tongue
+        - generic [ref=e89] [cursor=pointer]: Pulse
+        - generic [ref=e90] [cursor=pointer]: Diagnosis
+        - generic [ref=e91] [cursor=pointer]: Points
+        - generic [ref=e92] [cursor=pointer]: Plan
+      - main [ref=e93]:
+        - generic [ref=e94]:
+          - generic [ref=e95]:
+            - heading "Chief Complaint" [level=3] [ref=e96]
+            - paragraph [ref=e97]: Chronic fatigue and digestive issues for the past 6 months. Patient reports feeling constantly tired despite adequate sleep, along with bloating and occasional diarrhea.
+          - generic [ref=e98]:
+            - heading "History of Present Illness" [level=3] [ref=e99]
+            - paragraph [ref=e100]: Symptoms began gradually 6 months ago following a period of high stress at work, initially noticing increased fatigue that has not improved despite adequate rest. Digestive symptoms started 3 months later. No fever, weight loss, or other concerning symptoms.
+          - generic [ref=e101]:
+            - heading "TCM Assessment" [level=3] [ref=e102]
+            - generic [ref=e103]:
+              - paragraph [ref=e104]:
+                - strong [ref=e105]: "Tongue:"
+                - text: Pale tongue body with thin white coating, slight teeth marks on edges
+              - paragraph [ref=e106]:
+                - strong [ref=e107]: "Pulse:"
+                - text: Deep, slow, and weak pulse bilaterally, particularly weak in the right cun position
+          - generic [ref=e108]:
+            - heading "Treatment" [level=3] [ref=e109]
+            - list [ref=e110]:
+              - listitem [ref=e111]: Acupuncture treatment focusing on Spleen Qi deficiency
+              - listitem [ref=e112]: "Herbal formula: Si Jun Zi Tang modified"
+              - listitem [ref=e113]: Dietary recommendations for spleen support
+              - listitem [ref=e114]: Follow-up in 2 weeks
+  - generic [ref=e115]:
+    - generic [ref=e116]:
+      - generic [ref=e117]:
+        - generic [ref=e118]: 🤖
+        - generic [ref=e119]: AI Structured Notes
+      - generic [ref=e120]: Auto-updating
+      - button "🔄" [ref=e121] [cursor=pointer]
+    - complementary [ref=e122]:
+      - generic [ref=e123]:
+        - generic [ref=e124]:
+          - heading "📋 Chief Complaint (CC)" [level=3] [ref=e126]:
+            - generic [ref=e127]: 📋
+            - generic [ref=e128]: Chief Complaint (CC)
+          - generic [ref=e129]:
+            - generic [ref=e130]:
+              - paragraph [ref=e131]: Chronic Fatigue for 6 months
+              - generic [ref=e132]:
+                - generic [ref=e133]: "ICD-10 : R53.83 - Other fatigue"
+                - button "📋 Copy" [ref=e134] [cursor=pointer]
+            - generic [ref=e135]:
+              - paragraph [ref=e136]: Bloating for 1 year
+              - generic [ref=e137]:
+                - generic [ref=e138]: "ICD-10 : R14.0 - Abdominal distension (gaseous)"
+                - button "📋 Copy" [ref=e139] [cursor=pointer]
+        - generic [ref=e140]:
+          - generic [ref=e141]:
+            - heading "📖 History of Present Illness (HPI)" [level=3] [ref=e142]:
+              - generic [ref=e143]: 📖
+              - generic [ref=e144]: History of Present Illness (HPI)
+            - button "📋 Copy" [ref=e145] [cursor=pointer]
+          - paragraph [ref=e147]: Symptoms began gradually 6 months ago following a period of high stress at work, initially noticing increased fatigue that has not improved despite adequate rest. Digestive symptoms started 3 months later. No fever, weight loss, or other concerning symptoms.
+        - generic [ref=e148]:
+          - generic [ref=e149]:
+            - heading "👤 Subjective" [level=3] [ref=e150]:
+              - generic [ref=e151]: 👤
+              - generic [ref=e152]: Subjective
+            - button "📋 Copy" [ref=e153] [cursor=pointer]
+          - generic [ref=e154]:
+            - generic [ref=e155]:
+              - heading "Past Medical History (PMH)" [level=4] [ref=e156]
+              - paragraph [ref=e157]: No significant past medical history. Previous episodes of mild anxiety during college years, resolved without treatment.
+            - generic [ref=e158]:
+              - heading "Family History (FH)" [level=4] [ref=e159]
+              - paragraph [ref=e160]: "Mother: Type 2 diabetes, hypertension. Father: History of digestive issues, gastritis. No family history of autoimmune conditions."
+            - generic [ref=e161]:
+              - heading "Social History (SH)" [level=4] [ref=e162]
+              - paragraph [ref=e163]: Works as software engineer, sedentary lifestyle. Drinks 2-3 cups coffee daily. Occasional alcohol (1-2 drinks/week). Non-smoker. Lives with partner, supportive relationship.
+            - generic [ref=e164]:
+              - heading "Emotional Status (ES)" [level=4] [ref=e165]
+              - generic [ref=e166]:
+                - generic [ref=e167]: "Predominant emotion: Worry and frustration"
+                - generic [ref=e168]: "Stress Level: 7/10"
+            - generic [ref=e169]:
+              - heading "TCM Review of Systems" [level=4] [ref=e170]
+              - generic [ref=e171]:
+                - generic [ref=e172]:
+                  - strong [ref=e173]: "• Appetite:"
+                  - text: Poor, especially mornings
+                - generic [ref=e174]:
+                  - strong [ref=e175]: "• Sleep:"
+                  - text: Light, frequent waking
+                - generic [ref=e176]:
+                  - strong [ref=e177]: "• Digestion:"
+                  - text: Bloating, loose stools
+                - generic [ref=e178]:
+                  - strong [ref=e179]: "• Energy:"
+                  - text: Very low, worse afternoon
+                - generic [ref=e180]:
+                  - strong [ref=e181]: "• Thirst:"
+                  - text: Minimal, prefers warm drinks
+                - generic [ref=e182]:
+                  - strong [ref=e183]: "• Temperature:"
+                  - text: Feels cold easily
+                - generic [ref=e184]:
+                  - strong [ref=e185]: "• Urine:"
+                  - text: Pale, frequent
+                - generic [ref=e186]:
+                  - strong [ref=e187]: "• Sweat:"
+                  - text: Minimal, no night sweats
+        - generic [ref=e188]:
+          - heading "👅 Tongue Examination" [level=3] [ref=e190]:
+            - generic [ref=e191]: 👅
+            - generic [ref=e192]: Tongue Examination
+          - generic [ref=e194]:
+            - generic [ref=e195]:
+              - strong [ref=e196]: Body
+              - paragraph [ref=e197]: Pale, swollen with tooth marks on edges
+            - generic [ref=e198]:
+              - strong [ref=e199]: Coating
+              - paragraph [ref=e200]: Thin white coating
+        - generic [ref=e201]:
+          - generic [ref=e202]:
+            - heading "💓 Pulse Examination" [level=3] [ref=e203]:
+              - generic [ref=e204]: 💓
+              - generic [ref=e205]: Pulse Examination
+            - button "📋 Copy" [ref=e206] [cursor=pointer]
+          - paragraph [ref=e208]: Deep, slow, and weak pulse bilaterally, particularly weak in the right cun position
+        - generic [ref=e209]:
+          - generic [ref=e210]:
+            - heading "🔍 Diagnosis" [level=3] [ref=e211]:
+              - generic [ref=e212]: 🔍
+              - generic [ref=e213]: Diagnosis
+            - button "📋 Copy" [ref=e214] [cursor=pointer]
+          - generic [ref=e215]:
+            - generic [ref=e216]:
+              - paragraph [ref=e217]: Spleen Qi Deficiency with Dampness
+              - generic [ref=e218]: TCM
+            - generic [ref=e219]:
+              - paragraph [ref=e220]: R53.83 - Other fatigue
+              - generic [ref=e221]: ICD-10
+            - generic [ref=e222]:
+              - paragraph [ref=e223]: R14.0 - Abdominal distension (gaseous)
+              - generic [ref=e224]: ICD-10
+        - generic [ref=e225]:
+          - generic [ref=e226]:
+            - heading "💡 Treatment Principle" [level=3] [ref=e227]:
+              - generic [ref=e228]: 💡
+              - generic [ref=e229]: Treatment Principle
+            - button "📋 Copy" [ref=e230] [cursor=pointer]
+          - paragraph [ref=e232]: Tonify Spleen Qi and resolve dampness
+        - generic [ref=e233]:
+          - generic [ref=e234]:
+            - heading "📍 Acupuncture Points" [level=3] [ref=e235]:
+              - generic [ref=e236]: 📍
+              - generic [ref=e237]: Acupuncture Points
+            - button "📋 Copy" [ref=e238] [cursor=pointer]
+          - generic [ref=e239]:
+            - paragraph [ref=e240]: "Treatment Side: Left side only"
+            - generic [ref=e241]:
+              - heading "Head/Neck" [level=4] [ref=e242]
+              - generic [ref=e243]: GV-20
+              - generic [ref=e244]: EX-HN3 (Yintang)
+            - generic [ref=e245]:
+              - heading "Hand" [level=4] [ref=e246]
+              - generic [ref=e247]: LI-4 - Right side only
+              - generic [ref=e248]: SI-3, SI-5
+            - generic [ref=e249]:
+              - heading "Forearm" [level=4] [ref=e250]
+              - generic [ref=e251]: LI-10
+              - generic [ref=e252]: SI-8 (BI, SI-7 BI)
+              - generic [ref=e253]: PC-6
+            - generic [ref=e254]:
+              - heading "Upper Arm" [level=4] [ref=e255]
+              - generic [ref=e256]: LI-11 - from colitis
+            - generic [ref=e257]:
+              - heading "Abdomen/Back" [level=4] [ref=e258]
+              - generic [ref=e259]: CV-12
+              - generic [ref=e260]: ST-25
+              - generic [ref=e261]: BL-20, BL-21
+            - generic [ref=e262]:
+              - heading "Upper Leg" [level=4] [ref=e263]
+              - generic [ref=e264]: ST-36
+              - generic [ref=e265]: GB-34 (1)
+            - generic [ref=e266]:
+              - heading "Lower Leg" [level=4] [ref=e267]
+              - generic [ref=e268]: SP-6
+              - generic [ref=e269]: SP-9
+            - generic [ref=e270]:
+              - heading "Foot" [level=4] [ref=e271]
+              - generic [ref=e272]: LV-3
+              - generic [ref=e273]: SP-3
+              - generic [ref=e274]: ST-44
+```
