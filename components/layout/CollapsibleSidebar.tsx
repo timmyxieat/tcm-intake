@@ -15,6 +15,8 @@ import { cn } from "@/lib/utils";
  * @param onToggle - Callback when toggle button is clicked
  * @param children - Sidebar content when expanded
  * @param collapsedContent - Content to show when collapsed (vertical text, initials, etc.)
+ * @param primary - Primary header content (appears next to chevron when expanded)
+ * @param secondary - Secondary header content (appears on opposite side when expanded)
  * @param className - Optional additional CSS classes
  *
  * @example
@@ -23,17 +25,21 @@ import { cn } from "@/lib/utils";
  *   isOpen={leftOpen}
  *   onToggle={() => setLeftOpen(!leftOpen)}
  *   collapsedContent={<VerticalInitials />}
+ *   primary={<h3>AI Structured Notes</h3>}
+ *   secondary={<CopyButton />}
  * >
  *   <PatientList />
  * </CollapsibleSidebar>
  */
 
 interface CollapsibleSidebarProps {
-  position: 'left' | 'right';
+  position: "left" | "right";
   isOpen: boolean;
   onToggle: () => void;
   children: React.ReactNode;
   collapsedContent?: React.ReactNode;
+  primary?: React.ReactNode;
+  secondary?: React.ReactNode;
   className?: string;
 }
 
@@ -43,43 +49,89 @@ export function CollapsibleSidebar({
   onToggle,
   children,
   collapsedContent,
-  className
+  primary,
+  secondary,
+  className,
 }: CollapsibleSidebarProps) {
-  const ChevronIcon = position === 'left'
-    ? (isOpen ? ChevronLeft : ChevronRight)
-    : (isOpen ? ChevronRight : ChevronLeft);
+  const ChevronIcon =
+    position === "left"
+      ? isOpen
+        ? ChevronLeft
+        : ChevronRight
+      : isOpen
+      ? ChevronRight
+      : ChevronLeft;
 
   return (
     <div
       className={cn(
         "relative bg-white border-r transition-all duration-300 ease-in-out",
-        isOpen ? (position === 'left' ? 'w-64' : 'w-96') : 'w-12',
+        isOpen ? (position === "left" ? "w-64" : "w-96") : "w-12",
         className
       )}
     >
-      {/* Toggle Button */}
-      <Button
-        variant="ghost"
-        size="sm"
-        onClick={onToggle}
-        className={cn(
-          "absolute top-4 z-10",
-          position === 'left' ? 'left-4' : 'right-4'
-        )}
-      >
-        <ChevronIcon className="h-4 w-4" />
-      </Button>
-
-      {/* Content */}
-      <div className="h-full overflow-hidden">
-        {isOpen ? (
-          <div className="h-full pt-12 px-4">{children}</div>
-        ) : (
-          <div className="h-full flex items-center justify-center pt-16">
-            {collapsedContent}
+      {isOpen ? (
+        <>
+          {/* Header with Chevron, Primary, and Secondary */}
+          <div className="flex items-center justify-between px-4 py-3 border-b">
+            {position === "left" ? (
+              <>
+                {/* Left sidebar: Primary on left, Chevron + Secondary on right */}
+                {primary && <div>{primary}</div>}
+                <div className="flex items-center gap-2">
+                  {secondary && <div>{secondary}</div>}
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={onToggle}
+                    className="h-8 w-8 p-0"
+                  >
+                    <ChevronIcon className="h-4 w-4" />
+                  </Button>
+                </div>
+              </>
+            ) : (
+              <>
+                {/* Right sidebar: Chevron + Primary on left, Secondary on right */}
+                <div className="flex items-center gap-2">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={onToggle}
+                    className="h-8 w-8 p-0"
+                  >
+                    <ChevronIcon className="h-4 w-4" />
+                  </Button>
+                  {primary && <div>{primary}</div>}
+                </div>
+                {secondary && <div>{secondary}</div>}
+              </>
+            )}
           </div>
-        )}
-      </div>
+
+          {/* Content */}
+          <div className="h-[calc(100%-53px)]  px-4 py-4">{children}</div>
+        </>
+      ) : (
+        <>
+          {/* Toggle Button (Collapsed) */}
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={onToggle}
+            className="absolute top-4 left-1/2 -translate-x-1/2 z-10"
+          >
+            <ChevronIcon className="h-4 w-4" />
+          </Button>
+
+          {/* Collapsed Content */}
+          {position === "left" && collapsedContent && (
+            <div className="h-full flex flex-col items-center justify-center pt-16">
+              {collapsedContent}
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 }

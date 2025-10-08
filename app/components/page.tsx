@@ -111,21 +111,23 @@ export default function ComponentsPage() {
             <div className="bg-white p-6 rounded-lg border">
               <h3 className="text-lg font-semibold mb-4">CollapsibleSidebar</h3>
               <p className="text-sm text-gray-600 mb-4">Reusable sidebar with collapse/expand (used for both left & right)</p>
-              <div className="flex gap-4 h-96">
+              <div className="flex h-96 border-2 border-gray-300">
                 {/* Left Sidebar Example */}
-                <CollapsibleSidebar
-                  position="left"
-                  isOpen={leftOpen}
-                  onToggle={() => setLeftOpen(!leftOpen)}
-                  collapsedContent={
-                    <div className="flex flex-col gap-2">
-                      <PatientAvatar initials="DP" status="completed" size="sm" />
-                      <PatientAvatar initials="MS" status="active" size="sm" />
-                    </div>
-                  }
-                >
-                  <div className="space-y-4">
-                    <h4 className="font-semibold">Today's Patients</h4>
+                <div className="border-r-2 border-red-500">
+                  <CollapsibleSidebar
+                    position="left"
+                    isOpen={leftOpen}
+                    onToggle={() => setLeftOpen(!leftOpen)}
+                    primary={
+                      <h4 className="font-semibold text-sm">Today's Patients</h4>
+                    }
+                    collapsedContent={
+                      <div className="flex flex-col gap-2">
+                        <PatientAvatar initials="DP" status="completed" size="sm" />
+                        <PatientAvatar initials="MS" status="active" size="sm" />
+                      </div>
+                    }
+                  >
                     <div className="space-y-2">
                       <div className="flex items-center gap-2">
                         <PatientAvatar initials="DP" status="completed" size="sm" />
@@ -142,27 +144,37 @@ export default function ComponentsPage() {
                         </div>
                       </div>
                     </div>
+                  </CollapsibleSidebar>
+                </div>
+
+                {/* Middle Content Area */}
+                <div className="flex-1 bg-gray-50 p-4 flex items-center justify-center">
+                  <div className="text-center text-gray-500">
+                    <p className="font-medium">Main Content Area</p>
+                    <p className="text-sm mt-2">Toggle sidebars to see them expand/collapse</p>
                   </div>
-                </CollapsibleSidebar>
+                </div>
 
                 {/* Right Sidebar Example */}
-                <CollapsibleSidebar
-                  position="right"
-                  isOpen={rightOpen}
-                  onToggle={() => setRightOpen(!rightOpen)}
-                  collapsedContent={
-                    <div className="transform -rotate-90 whitespace-nowrap text-teal-600 font-medium">
-                      AI Structured Notes
+                <div className="border-l-2 border-red-500">
+                  <CollapsibleSidebar
+                    position="right"
+                    isOpen={rightOpen}
+                    onToggle={() => setRightOpen(!rightOpen)}
+                    primary={
+                      <h3 className="text-teal-600 font-medium text-sm">AI Structured Notes</h3>
+                    }
+                    secondary={
+                      <CopyButton textToCopy="Sample AI notes content" />
+                    }
+                  >
+                    <div className="space-y-4">
+                      <div className="bg-teal-50 p-4 rounded-lg">
+                        <p className="text-sm text-gray-600">Chief Complaint content goes here...</p>
+                      </div>
                     </div>
-                  }
-                >
-                  <div className="space-y-4">
-                    <SectionHeader title="AI Structured Notes" icon={FileText} />
-                    <div className="bg-teal-50 p-4 rounded-lg">
-                      <p className="text-sm text-gray-600">Chief Complaint content goes here...</p>
-                    </div>
-                  </div>
-                </CollapsibleSidebar>
+                  </CollapsibleSidebar>
+                </div>
               </div>
             </div>
 
