@@ -13,11 +13,11 @@ Building a Traditional Chinese Medicine (TCM) intake application optimized for i
 
 ## **Phase 1: Project Setup**
 
-- [ ] 1. Initialize Next.js + TypeScript project with App Router
-- [ ] 2. Configure Tailwind CSS (usually pre-configured in Next.js)
-- [ ] 3. Initialize Shadcn UI for Next.js
-- [ ] 4. Create folder structure (components/{atomic,layout,left,middle,right}, types, constants, data, lib)
-- [ ] 5. Define TypeScript types (Patient, MedicalData, TCMData, SidebarState)
+- [x] 1. Initialize Next.js + TypeScript project with App Router
+- [x] 2. Configure Tailwind CSS (usually pre-configured in Next.js)
+- [x] 3. Initialize Shadcn UI for Next.js
+- [x] 4. Create folder structure (components/{atomic,layout,left,middle,right}, types, constants, data, lib)
+- [x] 5. Define TypeScript types (Patient, MedicalData, TCMData, SidebarState)
 - [ ] 6. Create constants file (symptoms, ICD codes, acupuncture points, statuses)
 
 ---
