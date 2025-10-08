@@ -24,6 +24,21 @@ export default function ComponentsPage() {
   const [selectedPatientId, setSelectedPatientId] = useState("3");
   const [autoUpdate, setAutoUpdate] = useState(true);
   const [aiEnabled, setAiEnabled] = useState(true);
+  const [clinicalNotes, setClinicalNotes] = useState(`Chief Complaint
+Chronic fatigue and digestive issues for the past 6 months. Patient reports feeling constantly tired despite adequate sleep, along with bloating and irregular bowel movements.
+
+History of Present Illness
+Symptoms began gradually 6 months ago following a period of high stress at work. Initially mild fatigue that has progressively worsened. Digestive symptoms started 3 months later. No fever, weight loss, or other concerning symptoms.
+
+TCM Assessment
+Tongue: Pale tongue body with thin white coating, slightly swollen with tooth marks on edges
+Pulse: Deep, slow, and weak pulse bilaterally, particularly weak in the right cun position
+
+Treatment Plan
+1. Acupuncture treatment focusing on Spleen Qi deficiency
+2. Herbal formula: Si Jun Zi Tang modified
+3. Dietary recommendations for spleen support
+4. Follow-up in 2 weeks`);
 
   // Mock data for MiddleColumn
   const mockPatient = {
@@ -345,26 +360,12 @@ export default function ComponentsPage() {
               <div className="h-[800px] border-2 border-gray-300">
                 <MiddleColumn
                   patient={mockPatient}
-                  clinicalNotes="Chief Complaint
-Chronic fatigue and digestive issues for the past 6 months. Patient reports feeling constantly tired despite adequate sleep, along with bloating and irregular bowel movements.
-
-History of Present Illness
-Symptoms began gradually 6 months ago following a period of high stress at work. Initially mild fatigue that has progressively worsened. Digestive symptoms started 3 months later. No fever, weight loss, or other concerning symptoms.
-
-TCM Assessment
-Tongue: Pale tongue body with thin white coating, slightly swollen with tooth marks on edges
-Pulse: Deep, slow, and weak pulse bilaterally, particularly weak in the right cun position
-
-Treatment Plan
-1. Acupuncture treatment focusing on Spleen Qi deficiency
-2. Herbal formula: Si Jun Zi Tang modified
-3. Dietary recommendations for spleen support
-4. Follow-up in 2 weeks"
+                  clinicalNotes={clinicalNotes}
                   onPrevious={() => console.log('Previous patient')}
                   onNext={() => console.log('Next patient')}
                   aiEnabled={aiEnabled}
                   onAIToggle={setAiEnabled}
-                  onNotesChange={(notes) => console.log('Notes changed:', notes)}
+                  onNotesChange={setClinicalNotes}
                 />
               </div>
             </div>
@@ -379,22 +380,20 @@ Treatment Plan
 
             {/* RightSidebar */}
             <div className="bg-white p-6 rounded-lg border">
-              <h3 className="text-lg font-semibold mb-4">RightSidebar with All AI Cards</h3>
-              <p className="text-sm text-gray-600 mb-4">Complete right sidebar with all structured notes cards - Toggle to see collapse/expand</p>
+              <h3 className="text-lg font-semibold mb-4">RightSidebar with All AI Cards (Full Width Mode)</h3>
+              <p className="text-sm text-gray-600 mb-4">Complete right sidebar with all structured notes cards - Toggle to see it take full available space</p>
               <div className="h-[800px] border-2 border-gray-300 flex">
-                <div className="flex-1 bg-gray-50 flex items-center justify-center">
-                  <p className="text-gray-500">Main Content Area</p>
+                <div className="flex-1 bg-gray-50 flex items-center justify-center min-w-0">
+                  <p className="text-gray-500">Main Content Area (shrinks when sidebar expands)</p>
                 </div>
-                <div className="border-l-2 border-red-500">
-                  <RightSidebar
-                    isOpen={rightOpen}
-                    onToggle={() => setRightOpen(!rightOpen)}
-                    autoUpdate={autoUpdate}
-                    onAutoUpdateChange={setAutoUpdate}
-                    onRefresh={() => console.log('Refresh AI notes')}
-                    data={mockAIData}
-                  />
-                </div>
+                <RightSidebar
+                  isOpen={rightOpen}
+                  onToggle={() => setRightOpen(!rightOpen)}
+                  autoUpdate={autoUpdate}
+                  onAutoUpdateChange={setAutoUpdate}
+                  onRefresh={() => console.log('Refresh AI notes')}
+                  data={mockAIData}
+                />
               </div>
             </div>
 

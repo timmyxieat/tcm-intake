@@ -35,7 +35,7 @@ export const NotesTextarea = React.forwardRef<HTMLTextAreaElement, NotesTextarea
         value={value}
         onChange={(e) => onChange?.(e.target.value)}
         placeholder={placeholder}
-        className="h-full w-full resize-none border border-gray-200 rounded-md p-4 focus-visible:ring-1 focus-visible:ring-teal-400 text-sm"
+        className="h-full w-full resize-none border border-gray-200 rounded-md p-4 focus-visible:ring-2 focus-visible:ring-blue-500 text-sm"
       />
     );
   }
