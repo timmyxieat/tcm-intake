@@ -213,7 +213,7 @@ export default function ComponentsPage() {
             {/* PatientList */}
             <div className="bg-white p-6 rounded-lg border">
               <h3 className="text-lg font-semibold mb-4">PatientList</h3>
-              <p className="text-sm text-gray-600 mb-4">Groups patients by status with section headers</p>
+              <p className="text-sm text-gray-600 mb-4">Simple list of patients with status badges (no grouping)</p>
               <div className="max-w-sm">
                 <PatientList
                   patients={[
