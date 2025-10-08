@@ -32,13 +32,13 @@ Building a Traditional Chinese Medicine (TCM) intake application optimized for i
 
 ## **Phase 3: Atomic Components** (Reusable Primitives)
 
-- [ ] 10. Build **StatusBadge** component (handles all badge variants)
+- [x] 10. Build **StatusBadge** component (handles all badge variants)
   - Variants: Completed, Active, Waiting, Scheduled, ICD codes, Stress level
-- [ ] 11. Build **CopyButton** component (reusable copy functionality)
+- [x] 11. Build **CopyButton** component (reusable copy functionality)
   - Used across all right sidebar cards
-- [ ] 12. Build **SectionHeader** component (reusable section headers)
+- [x] 12. Build **SectionHeader** component (reusable section headers)
   - Props: title, icon, collapsible
-- [ ] 13. Build **PatientAvatar** component (initials with status colors)
+- [x] 13. Build **PatientAvatar** component (initials with status colors)
   - Used in patient list and collapsed sidebar
 
 ---
