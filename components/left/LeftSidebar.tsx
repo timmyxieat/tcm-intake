@@ -50,12 +50,20 @@ export function LeftSidebar({
   const isOpen = controlledIsOpen !== undefined ? controlledIsOpen : internalIsOpen;
   const onToggle = controlledOnToggle || (() => setInternalIsOpen(!internalIsOpen));
 
+  // Format today's date
+  const today = new Date();
+  const formattedDate = today.toLocaleDateString('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+
   return (
     <CollapsibleSidebar
       position="left"
       isOpen={isOpen}
       onToggle={onToggle}
-      primary={<h4 className="font-semibold text-sm">Today's Patients</h4>}
       collapsedContent={
         <div className="flex flex-col gap-2">
           {patients.slice(0, 4).map(patient => (
@@ -75,11 +83,17 @@ export function LeftSidebar({
         </div>
       }
     >
-      <PatientList
-        patients={patients}
-        activePatientId={activePatientId}
-        onPatientClick={onPatientClick}
-      />
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-1">
+          <h4 className="font-semibold text-sm">Today's Patients</h4>
+          <p className="text-xs text-muted-foreground">{formattedDate}</p>
+        </div>
+        <PatientList
+          patients={patients}
+          activePatientId={activePatientId}
+          onPatientClick={onPatientClick}
+        />
+      </div>
     </CollapsibleSidebar>
   );
 }

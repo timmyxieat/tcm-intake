@@ -41,6 +41,7 @@ interface CollapsibleSidebarProps {
   primary?: React.ReactNode;
   secondary?: React.ReactNode;
   className?: string;
+  fullWidth?: boolean; // Allow right sidebar to take full available space
 }
 
 export function CollapsibleSidebar({
@@ -52,6 +53,7 @@ export function CollapsibleSidebar({
   primary,
   secondary,
   className,
+  fullWidth = false,
 }: CollapsibleSidebarProps) {
   const ChevronIcon =
     position === "left"
@@ -66,14 +68,22 @@ export function CollapsibleSidebar({
     <div
       className={cn(
         "relative bg-white border-r transition-all duration-300 ease-in-out",
-        isOpen ? (position === "left" ? "w-64" : "w-96") : "w-12",
+        isOpen
+          ? (position === "left"
+              ? "w-64"
+              : (fullWidth ? "flex-1" : "w-96")
+            )
+          : "w-12",
         className
       )}
     >
       {isOpen ? (
         <>
           {/* Header with Chevron, Primary, and Secondary */}
-          <div className="flex items-center justify-between px-4 py-3 border-b">
+          <div className={cn(
+            "flex items-center px-4 py-3 border-b",
+            (primary || secondary) ? "justify-between" : "justify-end"
+          )}>
             {position === "left" ? (
               <>
                 {/* Left sidebar: Primary on left, Chevron + Secondary on right */}
