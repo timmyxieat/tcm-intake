@@ -58,7 +58,7 @@ export function PatientAvatar({
         "flex items-center justify-center rounded-full font-medium",
         statusColors[status],
         sizeStyles[size],
-        isActive && "ring-2 ring-offset-2",
+        isActive && "ring-2",
         isActive && statusOutlineColors[status],
         className
       )}

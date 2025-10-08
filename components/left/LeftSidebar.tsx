@@ -59,13 +59,18 @@ export function LeftSidebar({
       collapsedContent={
         <div className="flex flex-col gap-2">
           {patients.slice(0, 4).map(patient => (
-            <PatientAvatar
+            <div
               key={patient.id}
-              initials={patient.initials}
-              status={patient.status}
-              size="sm"
-              isActive={patient.id === activePatientId}
-            />
+              onClick={() => onPatientClick?.(patient)}
+              className="cursor-pointer"
+            >
+              <PatientAvatar
+                initials={patient.initials}
+                status={patient.status}
+                size="sm"
+                isActive={patient.id === activePatientId}
+              />
+            </div>
           ))}
         </div>
       }
