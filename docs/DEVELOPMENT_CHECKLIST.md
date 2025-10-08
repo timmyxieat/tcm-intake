@@ -18,7 +18,7 @@ Building a Traditional Chinese Medicine (TCM) intake application optimized for i
 - [x] 3. Initialize Shadcn UI for Next.js
 - [x] 4. Create folder structure (components/{atomic,layout,left,middle,right}, types, constants, data, lib)
 - [x] 5. Define TypeScript types (Patient, MedicalData, TCMData, SidebarState)
-- [ ] 6. Create constants file (symptoms, ICD codes, acupuncture points, statuses)
+- [x] 6. Create constants file (symptoms, ICD codes, acupuncture points, statuses)
 
 ---
 
