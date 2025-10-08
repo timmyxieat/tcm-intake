@@ -24,9 +24,9 @@ Building a Traditional Chinese Medicine (TCM) intake application optimized for i
 
 ## **Phase 2: Install Shadcn Components**
 
-- [ ] 7. Install Shadcn: card, badge, button
-- [ ] 8. Install Shadcn: accordion, checkbox, scroll-area
-- [ ] 9. Install Shadcn: separator, switch
+- [x] 7. Install Shadcn: card, badge, button
+- [x] 8. Install Shadcn: accordion, checkbox, scroll-area
+- [x] 9. Install Shadcn: separator, switch
 
 ---
 
