@@ -6,6 +6,8 @@ import { SectionHeader } from "@/components/atomic/SectionHeader";
 import { PatientAvatar } from "@/components/atomic/PatientAvatar";
 import { CollapsibleSidebar } from "@/components/layout/CollapsibleSidebar";
 import { PatientCard } from "@/components/left/PatientCard";
+import { PatientList } from "@/components/left/PatientList";
+import { LeftSidebar } from "@/components/left/LeftSidebar";
 import { FileText, Activity } from "lucide-react";
 import { useState } from "react";
 
@@ -204,6 +206,44 @@ export default function ComponentsPage() {
                 />
                 <PatientCard
                   patient={{ id: "4", initials: "ET", time: "9:30 AM", status: "scheduled" }}
+                />
+              </div>
+            </div>
+
+            {/* PatientList */}
+            <div className="bg-white p-6 rounded-lg border">
+              <h3 className="text-lg font-semibold mb-4">PatientList</h3>
+              <p className="text-sm text-gray-600 mb-4">Groups patients by status with section headers</p>
+              <div className="max-w-sm">
+                <PatientList
+                  patients={[
+                    { id: "1", initials: "DP", time: "8:45 AM", status: "completed" },
+                    { id: "2", initials: "JW", time: "9:00 AM", status: "completed" },
+                    { id: "3", initials: "MS", time: "9:15 AM", status: "active" },
+                    { id: "4", initials: "MR", time: "10:00 AM", status: "waiting" },
+                    { id: "5", initials: "SK", time: "10:30 AM", status: "waiting" },
+                    { id: "6", initials: "ET", time: "11:00 AM", status: "scheduled" },
+                  ]}
+                  activePatientId="3"
+                />
+              </div>
+            </div>
+
+            {/* LeftSidebar */}
+            <div className="bg-white p-6 rounded-lg border">
+              <h3 className="text-lg font-semibold mb-4">LeftSidebar</h3>
+              <p className="text-sm text-gray-600 mb-4">Complete left sidebar with collapse/expand functionality</p>
+              <div className="h-96 border-2 border-gray-300">
+                <LeftSidebar
+                  patients={[
+                    { id: "1", initials: "DP", time: "8:45 AM", status: "completed" },
+                    { id: "2", initials: "JW", time: "9:00 AM", status: "completed" },
+                    { id: "3", initials: "MS", time: "9:15 AM", status: "active" },
+                    { id: "4", initials: "MR", time: "10:00 AM", status: "waiting" },
+                    { id: "5", initials: "SK", time: "10:30 AM", status: "waiting" },
+                    { id: "6", initials: "ET", time: "11:00 AM", status: "scheduled" },
+                  ]}
+                  activePatientId="3"
                 />
               </div>
             </div>
