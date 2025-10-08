@@ -66,18 +66,19 @@ Building a Traditional Chinese Medicine (TCM) intake application optimized for i
 
 ## **Phase 6: Middle Column Components**
 
-- [ ] 18. Build **TopNavigation** component (patient info, AI toggle, auto-save)
+- [x] 18. Build **TopNavigation** component (patient info, AI toggle, auto-save)
   - Shows patient initials, time, auto-saving status, AI toggle
-- [ ] 19. Build **MedicalSection** component (reused for CC/HPI/PMH/FH/SH/ES)
+- [x] 19. Build **MedicalSection** component (reused for CC/HPI/PMH/FH/SH/ES)
   - Props: title, content, editable
   - 6 sections total
-- [ ] 20. Build **TCMChecklistItem** component (individual symptom checkbox)
+- [x] 20. Build **TCMChecklistItem** component (individual symptom checkbox)
   - Reused for all symptom items
-- [ ] 21. Build **TCMAssessment** component (full symptom checklist)
+- [x] 21. Build **TCMAssessment** component (full symptom checklist)
   - Uses: TCMChecklistItem, Accordion
   - Categories: Appetite, Taste, Stool, Thirst, Urine, Sleep, Energy, Temp, Sweat, Head, Ear, Eye, Nose, Throat, Pain, Libido
-- [ ] 22. Build **MiddleColumn** component (complete middle section)
-  - Integrates: TopNavigation, MedicalSection, TCMAssessment
+- [x] 22. Build **MiddleColumn** component (complete middle section)
+  - Integrates: TopNavigation, SectionLabel navigation, TCMSection with clickable categories, NotesTextarea with blue focus ring
+  - Interactive: Clicking navigation labels inserts text into textarea
 
 ---
 
