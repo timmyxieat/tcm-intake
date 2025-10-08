@@ -5,6 +5,7 @@ import { CopyButton } from "@/components/atomic/CopyButton";
 import { SectionHeader } from "@/components/atomic/SectionHeader";
 import { PatientAvatar } from "@/components/atomic/PatientAvatar";
 import { CollapsibleSidebar } from "@/components/layout/CollapsibleSidebar";
+import { PatientCard } from "@/components/left/PatientCard";
 import { FileText, Activity } from "lucide-react";
 import { useState } from "react";
 
@@ -181,9 +182,38 @@ export default function ComponentsPage() {
           </div>
         </section>
 
-        {/* Phase 5-7: Feature Components */}
+        {/* Phase 5: Left Sidebar Components */}
         <section className="mb-12">
-          <h2 className="text-2xl font-semibold mb-6 border-b pb-2">Phase 5-7: Feature Components</h2>
+          <h2 className="text-2xl font-semibold mb-6 border-b pb-2">Phase 5: Left Sidebar Components</h2>
+          <div className="space-y-8">
+
+            {/* PatientCard */}
+            <div className="bg-white p-6 rounded-lg border">
+              <h3 className="text-lg font-semibold mb-4">PatientCard</h3>
+              <p className="text-sm text-gray-600 mb-4">Individual patient item with avatar, time, and status</p>
+              <div className="space-y-3 max-w-sm">
+                <PatientCard
+                  patient={{ id: "1", initials: "DP", time: "8:45 AM", status: "completed" }}
+                />
+                <PatientCard
+                  patient={{ id: "2", initials: "MS", time: "9:00 AM", status: "active" }}
+                  isActive={true}
+                />
+                <PatientCard
+                  patient={{ id: "3", initials: "MR", time: "9:15 AM", status: "waiting" }}
+                />
+                <PatientCard
+                  patient={{ id: "4", initials: "ET", time: "9:30 AM", status: "scheduled" }}
+                />
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        {/* Phase 6-7: Feature Components */}
+        <section className="mb-12">
+          <h2 className="text-2xl font-semibold mb-6 border-b pb-2">Phase 6-7: Feature Components</h2>
           <div className="space-y-8">
             <p className="text-gray-500 italic">Coming soon...</p>
           </div>
