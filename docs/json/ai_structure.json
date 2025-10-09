@@ -1,0 +1,65 @@
+{
+  "chiefComplaints": [
+    {
+      "text": "Chronic Fatigue for 6 months",
+      "icdCode": "R53.83",
+      "icdLabel": "Other fatigue"
+    },
+    {
+      "text": "Bloating for 1 year",
+      "icdCode": "R14.0",
+      "icdLabel": "Abdominal distension (gaseous)"
+    }
+  ],
+  "hpi": "Symptoms began gradually 6 months ago following a period of high stress at work. Initially manageable, fatigue has progressively worsened. Digestive symptoms started 3 months later. No fever, weight loss, or other concerning symptoms.",
+  "subjective": {
+    "pmh": "No significant past medical history. Previous episodes of mild anxiety during college years, resolved without treatment.",
+    "pmhHighlights": ["No significant past medical history", "mild anxiety", "college years"],
+    "fh": "Mother: Type 2 diabetes, hypertension. Father: History of digestive issues, gastritis. No family history of autoimmune conditions.",
+    "fhHighlights": ["Type 2 diabetes", "hypertension", "digestive issues", "gastritis", "autoimmune conditions"],
+    "sh": "Works as software engineer, sedentary lifestyle. Drinks 2-3 cups coffee daily. Occasional alcohol (1-2 drinks/week). Non-smoker. Lives with partner, supportive relationship.",
+    "shHighlights": ["software engineer", "sedentary lifestyle", "coffee", "alcohol", "Non-smoker", "partner", "supportive relationship"],
+    "es": "Worry and frustration",
+    "stressLevel": "7/10"
+  },
+  "tcmReview": {
+    "Appetite": ["Poor, especially morning"],
+    "Stool": ["Loose, 2-3x daily"],
+    "Thirst": ["Minimal, prefers warm drinks"],
+    "Urine": ["Pale, frequent"],
+    "Sleep": ["Light, frequent waking"],
+    "Energy": ["Very low, worse afternoon"],
+    "Temperature": ["Feels cold easily"],
+    "Sweat": ["Minimal, no night sweats"],
+    "Pain": ["Minimal"],
+    "Libido": ["Decreased"]
+  },
+  "tongue": {
+    "body": "Pale tongue body with thin white coating, slightly swollen with tooth marks on edges",
+    "bodyHighlights": ["Pale", "swollen", "tooth marks", "edges"],
+    "coating": "Thin white coating",
+    "coatingHighlights": ["Thin white coating"]
+  },
+  "pulse": {
+    "text": "Deep, slow, and weak pulse bilaterally, particularly weak in the right cun position.",
+    "highlights": ["Deep", "slow", "weak pulse bilaterally", "weak in the right cun position"]
+  },
+  "diagnosis": {
+    "tcmDiagnosis": "Spleen Qi Deficiency with Dampness",
+    "icdCodes": [
+      { "code": "R53.83", "label": "Other fatigue" },
+      { "code": "R14.0", "label": "Abdominal distension (gaseous)" }
+    ]
+  },
+  "treatment": "Tonify Spleen Qi and resolve dampness",
+  "acupuncture": [
+    { "name": "Head/Neck", "points": ["DU-20", "Yintang"] },
+    { "name": "Hand", "points": ["LI-4"], "note": "Right side only", "noteColor": "orange" },
+    { "name": "Forearm", "points": ["LI-10"], "note": "Right side only", "noteColor": "orange" },
+    { "name": "Upper Arm", "points": ["LI-11"], "note": "Both sides", "noteColor": "purple" },
+    { "name": "Abdomen/Back", "points": ["RN-12", "ST-25", "BL-20, BL-21"], "note": "Both sides", "noteColor": "purple" },
+    { "name": "Upper Leg", "points": ["ST-36", "GB-34 (R)"], "note": "Both sides", "noteColor": "purple" },
+    { "name": "Lower Leg", "points": ["SP-6", "SP-9"], "note": "Both sides", "noteColor": "purple" },
+    { "name": "Foot", "points": ["LV-3", "KD-3", "ST-44"], "note": "Both sides", "noteColor": "purple" }
+  ]
+}
