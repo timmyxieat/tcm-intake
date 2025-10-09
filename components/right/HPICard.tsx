@@ -18,6 +18,12 @@ interface HPICardProps {
 }
 
 export function HPICard({ text }: HPICardProps) {
+  // Check if any content exists
+  const hasContent = text && text.trim() !== "";
+
+  // Don't render card if no content
+  if (!hasContent) return null;
+
   return (
     <InfoCard
       title="History of Present Illness (HPI)"

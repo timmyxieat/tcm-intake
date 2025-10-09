@@ -60,6 +60,12 @@ function highlightText(text: string, highlights: string[] = []) {
 }
 
 export function PulseExaminationCard({ text, highlights = [] }: PulseExaminationCardProps) {
+  // Check if any content exists
+  const hasContent = text && text.trim() !== "";
+
+  // Don't render card if no content
+  if (!hasContent) return null;
+
   return (
     <InfoCard
       title="Pulse Examination"

@@ -71,31 +71,46 @@ export function TongueExaminationCard({
   coating,
   coatingHighlights = []
 }: TongueExaminationCardProps) {
-  const allText = `Body:\n${body}\n\nCoating:\n${coating}`;
+  // Check if any content exists
+  const hasBody = body && body.trim() !== "";
+  const hasCoating = coating && coating.trim() !== "";
+  const hasAnyContent = hasBody || hasCoating;
+
+  // Don't render card if no content
+  if (!hasAnyContent) return null;
+
+  // Build copy text only for sections that have content
+  let allText = "";
+  if (hasBody) allText += `Body:\n${body}\n\n`;
+  if (hasCoating) allText += `Coating:\n${coating}`;
 
   return (
     <InfoCard
       title="Tongue Examination"
       icon={Eye}
       hasCopy={true}
-      textToCopy={allText}
+      textToCopy={allText.trim()}
     >
       <div className="space-y-3">
         {/* Body */}
-        <div>
-          <h4 className="text-xs font-semibold text-gray-700 mb-1">Body</h4>
-          <p className="text-sm text-gray-800 leading-relaxed">
-            {highlightText(body, bodyHighlights)}
-          </p>
-        </div>
+        {hasBody && (
+          <div>
+            <h4 className="text-xs font-semibold text-gray-700 mb-1">Body</h4>
+            <p className="text-sm text-gray-800 leading-relaxed">
+              {highlightText(body, bodyHighlights)}
+            </p>
+          </div>
+        )}
 
         {/* Coating */}
-        <div>
-          <h4 className="text-xs font-semibold text-gray-700 mb-1">Coating</h4>
-          <p className="text-sm text-gray-800 leading-relaxed">
-            {highlightText(coating, coatingHighlights)}
-          </p>
-        </div>
+        {hasCoating && (
+          <div>
+            <h4 className="text-xs font-semibold text-gray-700 mb-1">Coating</h4>
+            <p className="text-sm text-gray-800 leading-relaxed">
+              {highlightText(coating, coatingHighlights)}
+            </p>
+          </div>
+        )}
       </div>
     </InfoCard>
   );

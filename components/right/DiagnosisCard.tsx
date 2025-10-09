@@ -32,30 +32,45 @@ interface DiagnosisCardProps {
 }
 
 export function DiagnosisCard({ tcmDiagnosis, icdCodes }: DiagnosisCardProps) {
-  const allText = `TCM Diagnosis: ${tcmDiagnosis}\n\nICD-10 Codes:\n${icdCodes.map(icd => `${icd.code} - ${icd.label}`).join('\n')}`;
+  // Check if any content exists
+  const hasTCM = tcmDiagnosis && tcmDiagnosis.trim() !== "";
+  const hasICD = icdCodes && icdCodes.length > 0;
+  const hasAnyContent = hasTCM || hasICD;
+
+  // Don't render card if no content
+  if (!hasAnyContent) return null;
+
+  // Build copy text only for sections that have content
+  let allText = "";
+  if (hasTCM) allText += `TCM Diagnosis: ${tcmDiagnosis}\n\n`;
+  if (hasICD) allText += `ICD-10 Codes:\n${icdCodes.map(icd => `${icd.code} - ${icd.label}`).join('\n')}`;
 
   return (
     <InfoCard
       title="Diagnosis"
       icon={Thermometer}
       hasCopy={true}
-      textToCopy={allText}
+      textToCopy={allText.trim()}
     >
       <div className="space-y-3">
         {/* TCM Diagnosis */}
-        <div>
-          <StatusBadge variant="tcm" label={tcmDiagnosis} />
-        </div>
+        {hasTCM && (
+          <div>
+            <StatusBadge variant="tcm" label={tcmDiagnosis} />
+          </div>
+        )}
 
         {/* ICD Codes */}
-        <div className="space-y-2">
-          {icdCodes.map((icd, index) => (
-            <div key={index} className="flex items-center gap-2">
-              <StatusBadge variant="icd" label={icd.code} />
-              <span className="text-xs text-gray-600">- {icd.label}</span>
-            </div>
-          ))}
-        </div>
+        {hasICD && (
+          <div className="space-y-2">
+            {icdCodes.map((icd, index) => (
+              <div key={index} className="flex items-center gap-2">
+                <StatusBadge variant="icd" label={icd.code} />
+                <span className="text-xs text-gray-600">- {icd.label}</span>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </InfoCard>
   );

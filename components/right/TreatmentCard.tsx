@@ -18,6 +18,12 @@ interface TreatmentCardProps {
 }
 
 export function TreatmentCard({ principle }: TreatmentCardProps) {
+  // Check if any content exists
+  const hasContent = principle && principle.trim() !== "";
+
+  // Don't render card if no content
+  if (!hasContent) return null;
+
   return (
     <InfoCard
       title="Treatment Principle"

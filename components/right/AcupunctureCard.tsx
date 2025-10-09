@@ -38,6 +38,12 @@ interface AcupunctureCardProps {
 }
 
 export function AcupunctureCard({ regions }: AcupunctureCardProps) {
+  // Check if any content exists
+  const hasContent = regions && regions.length > 0;
+
+  // Don't render card if no content
+  if (!hasContent) return null;
+
   // Convert regions to text format for copying
   const pointsText = regions
     .flatMap(region => {
@@ -48,18 +54,14 @@ export function AcupunctureCard({ regions }: AcupunctureCardProps) {
     })
     .join('\n');
 
-  const allText = `Treatment Side: Left side only\n\n${pointsText}`;
-
   return (
     <InfoCard
       title="Acupuncture Points"
       icon={Map}
       hasCopy={true}
-      textToCopy={allText}
+      textToCopy={pointsText}
     >
       <div className="space-y-3">
-        <p className="text-xs text-gray-600 italic">Treatment Side: Left side only</p>
-
         {regions.map((region, index) => (
           <div key={index}>
             <h4 className="text-xs font-semibold text-gray-700 mb-1">{region.name}</h4>

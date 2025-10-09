@@ -30,6 +30,12 @@ interface ChiefComplaintCardProps {
 }
 
 export function ChiefComplaintCard({ complaints }: ChiefComplaintCardProps) {
+  // Check if any content exists
+  const hasContent = complaints && complaints.length > 0;
+
+  // Don't render card if no content
+  if (!hasContent) return null;
+
   return (
     <InfoCard
       title="Chief Complaint (CC)"

@@ -86,75 +86,96 @@ export function SubjectiveCard({
   stressLevel,
   tcmReview,
 }: SubjectiveCardProps) {
-  let allText = `Past Medical History (PMH):\n${pmh}\n\nFamily History (FH):\n${fh}\n\nSocial History (SH):\n${sh}\n\nEmotional Status (ES):\n${es}\nStress Level: ${stressLevel}`;
+  // Check if any content exists
+  const hasPMH = pmh && pmh.trim() !== "";
+  const hasFH = fh && fh.trim() !== "";
+  const hasSH = sh && sh.trim() !== "";
+  const hasES = es && es.trim() !== "";
+  const hasTCMReview = tcmReview && Object.keys(tcmReview).length > 0;
+  const hasAnyContent = hasPMH || hasFH || hasSH || hasES || hasTCMReview;
 
-  if (tcmReview) {
+  // Don't render card if no content
+  if (!hasAnyContent) return null;
+
+  // Build copy text only for sections that have content
+  let allText = "";
+  if (hasPMH) allText += `Past Medical History (PMH):\n${pmh}\n\n`;
+  if (hasFH) allText += `Family History (FH):\n${fh}\n\n`;
+  if (hasSH) allText += `Social History (SH):\n${sh}\n\n`;
+  if (hasES) allText += `Emotional Status (ES):\n${es}\nStress Level: ${stressLevel}\n\n`;
+
+  if (hasTCMReview) {
     const tcmText = Object.entries(tcmReview)
       .map(
         ([category, items]) =>
           `${category}:\n${items.map((item) => `${item}`).join("\n")}`
       )
       .join("\n\n");
-    allText += `\n\nTCM Review of Systems:\n\n${tcmText}`;
+    allText += `TCM Review of Systems:\n\n${tcmText}`;
   }
 
   // Split TCM review categories into two columns
   const tcmEntries = tcmReview ? Object.entries(tcmReview) : [];
-  const midpoint = Math.ceil(tcmEntries.length / 2);
-  const leftColumn = tcmEntries.slice(0, midpoint);
-  const rightColumn = tcmEntries.slice(midpoint);
 
   return (
     <InfoCard
       title="Subjective"
       icon={User}
       hasCopy={true}
-      textToCopy={allText}
+      textToCopy={allText.trim()}
     >
       <div className="space-y-3">
         {/* Past Medical History */}
-        <div>
-          <h4 className="text-xs font-semibold text-gray-700 mb-1">
-            Past Medical History (PMH)
-          </h4>
-          <p className="text-sm text-gray-800 leading-relaxed">
-            {highlightText(pmh, pmhHighlights)}
-          </p>
-        </div>
+        {hasPMH && (
+          <div>
+            <h4 className="text-xs font-semibold text-gray-700 mb-1">
+              Past Medical History (PMH)
+            </h4>
+            <p className="text-sm text-gray-800 leading-relaxed">
+              {highlightText(pmh, pmhHighlights)}
+            </p>
+          </div>
+        )}
 
         {/* Family History */}
-        <div>
-          <h4 className="text-xs font-semibold text-gray-700 mb-1">
-            Family History (FH)
-          </h4>
-          <p className="text-sm text-gray-800 leading-relaxed">
-            {highlightText(fh, fhHighlights)}
-          </p>
-        </div>
+        {hasFH && (
+          <div>
+            <h4 className="text-xs font-semibold text-gray-700 mb-1">
+              Family History (FH)
+            </h4>
+            <p className="text-sm text-gray-800 leading-relaxed">
+              {highlightText(fh, fhHighlights)}
+            </p>
+          </div>
+        )}
 
         {/* Social History */}
-        <div>
-          <h4 className="text-xs font-semibold text-gray-700 mb-1">
-            Social History (SH)
-          </h4>
-          <p className="text-sm text-gray-800 leading-relaxed">
-            {highlightText(sh, shHighlights)}
-          </p>
-        </div>
+        {hasSH && (
+          <div>
+            <h4 className="text-xs font-semibold text-gray-700 mb-1">
+              Social History (SH)
+            </h4>
+            <p className="text-sm text-gray-800 leading-relaxed">
+              {highlightText(sh, shHighlights)}
+            </p>
+          </div>
+        )}
 
         {/* Emotional Status */}
-        <div>
-          <h4 className="text-xs font-semibold text-gray-700 mb-1">
-            Emotional Status (ES)
-          </h4>
-          <div className="flex items-center gap-2">
-            <p className="text-sm text-gray-800">Predominant emotion: {es}</p>
-            <StatusBadge variant="stress" label={stressLevel} />
+        {hasES && (
+          <div>
+            <h4 className="text-xs font-semibold text-gray-700 mb-1">
+              Emotional Status (ES)
+            </h4>
+            <div className="flex items-center gap-2">
+              <p className="text-sm text-gray-800">Predominant emotion: {es}</p>
+              <StatusBadge variant="stress" label={stressLevel} />
+            </div>
           </div>
-        </div>
+        )}
 
         {/* TCM Review of Systems */}
-        {tcmReview && (
+        {hasTCMReview && (
           <div>
             <h4 className="text-xs font-semibold text-gray-700 mb-4">
               TCM Review of Systems
