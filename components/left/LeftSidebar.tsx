@@ -68,8 +68,8 @@ export function LeftSidebar({
       collapsedContent={
         <div className="flex flex-col gap-3 items-center pt-4">
           {patients.slice(0, 4).map(patient => {
-            // Format time as "9:30A" for collapsed view
-            const formattedTime = moment(patient.time).format("h:mmA").slice(0, -1);
+            // Format time as "9:30" for collapsed view
+            const formattedTime = moment(patient.time).format("h:mm");
             return (
               <div
                 key={patient.id}
