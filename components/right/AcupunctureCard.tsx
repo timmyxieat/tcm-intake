@@ -35,6 +35,21 @@ interface AcupunctureCardProps {
   regions: AcupunctureRegion[];
 }
 
+// Helper function to parse point and extract annotation in parentheses
+function parsePoint(pointText: string) {
+  const match = pointText.match(/^(.+?)\s*\((.+?)\)$/);
+  if (match) {
+    return {
+      point: match[1].trim(),
+      annotation: match[2].trim()
+    };
+  }
+  return {
+    point: pointText,
+    annotation: null
+  };
+}
+
 export function AcupunctureCard({ regions }: AcupunctureCardProps) {
   // Check if any content exists
   const hasContent = regions && regions.length > 0;
@@ -42,8 +57,16 @@ export function AcupunctureCard({ regions }: AcupunctureCardProps) {
   // Don't render card if no content
   if (!hasContent) return null;
 
-  // Convert regions to text format for copying
-  const pointsText = regions
+  // Legend for copy text
+  const legend = `Legend:
+T = Tonification
+R = Reducing
+E = Even method
+
+`;
+
+  // Convert regions to text format for copying with legend
+  const pointsText = legend + regions
     .flatMap(region => {
       return region.points.map(point => {
         const note = region.note ? ` (${region.note})` : '';
@@ -64,12 +87,16 @@ export function AcupunctureCard({ regions }: AcupunctureCardProps) {
           <div key={index}>
             <h4 className="text-xs font-semibold text-gray-700 mb-1">{region.name}</h4>
             <div className="space-y-0.5">
-              {region.points.map((point, idx) => (
-                <p key={idx} className="text-sm text-gray-900">
-                  {point}
-                  {region.note && <span className="ml-1 text-teal-600">({region.note})</span>}
-                </p>
-              ))}
+              {region.points.map((point, idx) => {
+                const { point: pointName, annotation } = parsePoint(point);
+                return (
+                  <p key={idx} className="text-sm text-gray-900">
+                    {pointName}
+                    {annotation && <span className="ml-1 text-teal-600">({annotation})</span>}
+                    {region.note && <span className="ml-1 text-teal-600">({region.note})</span>}
+                  </p>
+                );
+              })}
             </div>
           </div>
         ))}
