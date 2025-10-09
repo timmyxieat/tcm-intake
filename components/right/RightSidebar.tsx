@@ -121,7 +121,7 @@ export function RightSidebar({
         </h2>
       }
       secondary={
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
           <div className="flex items-center gap-2">
             <span className="text-xs text-teal-600">Auto-updating</span>
             <Switch
