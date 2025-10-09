@@ -104,14 +104,14 @@ Treatment Plan
     },
     treatment: "Tonify Spleen Qi and resolve dampness",
     acupuncture: [
-      { name: "Head/Neck", points: ["GV-20", "EX-HN3 (Yintang)"] },
+      { name: "Head/Neck", points: ["DU-20", "Yintang"] },
       { name: "Hand", points: ["LI-4"], note: "Right side only", noteColor: "orange" as const },
-      { name: "Forearm", points: ["LI-10", "SI-10 (ST-9)"], note: "Both sides", noteColor: "purple" as const },
+      { name: "Forearm", points: ["LI-10"], note: "Right side only", noteColor: "orange" as const },
       { name: "Upper Arm", points: ["LI-11"], note: "Both sides", noteColor: "purple" as const },
-      { name: "Abdomen/Back", points: ["CV-12", "ST-25", "BL-20, BL-21"] },
-      { name: "Upper Leg", points: ["ST-36", "GB-34 (1)"] },
-      { name: "Lower Leg", points: ["SP-6", "SP-9"] },
-      { name: "Foot", points: ["LV-3", "KI-3", "ST-44"] }
+      { name: "Abdomen/Back", points: ["RN-12", "ST-25", "BL-20, BL-21"], note: "Both sides", noteColor: "purple" as const },
+      { name: "Upper Leg", points: ["ST-36", "GB-34 (R)"], note: "Both sides", noteColor: "purple" as const },
+      { name: "Lower Leg", points: ["SP-6", "SP-9"], note: "Both sides", noteColor: "purple" as const },
+      { name: "Foot", points: ["LV-3", "KD-3", "ST-44"], note: "Both sides", noteColor: "purple" as const }
     ]
   };
 

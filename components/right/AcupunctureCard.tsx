@@ -42,22 +42,8 @@ export function AcupunctureCard({ regions }: AcupunctureCardProps) {
   const pointsText = regions
     .flatMap(region => {
       return region.points.map(point => {
-        // Apply point code transformations: GV->DU, CV->RN, KI->KD
-        let transformedPoint = point
-          .replace(/^GV-/g, 'DU-')
-          .replace(/^CV-/g, 'RN-')
-          .replace(/^KI-/g, 'KD-');
-
-        // Extract extra point names (remove codes in parentheses for EX- points)
-        if (transformedPoint.startsWith('EX-')) {
-          const match = transformedPoint.match(/\(([^)]+)\)/);
-          if (match) {
-            transformedPoint = match[1]; // Just use the name like "Yintang"
-          }
-        }
-
         const note = region.note ? ` (${region.note})` : '';
-        return transformedPoint + note;
+        return point + note;
       });
     })
     .join('\n');
@@ -81,15 +67,11 @@ export function AcupunctureCard({ regions }: AcupunctureCardProps) {
               {region.points.map((point, idx) => (
                 <p key={idx} className="text-sm text-purple-600">
                   {point}
+                  {region.note && <span className={`ml-1 italic ${
+                    region.noteColor === 'orange' ? 'text-orange-600' : 'text-purple-600'
+                  }`}>({region.note})</span>}
                 </p>
               ))}
-              {region.note && (
-                <p className={`text-sm italic ${
-                  region.noteColor === 'orange' ? 'text-orange-600' : 'text-purple-600'
-                }`}>
-                  {region.note}
-                </p>
-              )}
             </div>
           </div>
         ))}
