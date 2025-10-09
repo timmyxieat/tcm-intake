@@ -34,6 +34,7 @@ import { Patient } from "@/types";
 
 interface PatientFullData {
   aiNotes: {
+    note_summary?: string; // Triggers "Completed" status
     chiefComplaints: Array<{
       text: string;
       icdCode: string;
@@ -97,7 +98,7 @@ export function MainLayout({
     patients.find((p) => p.id === initialPatientId) || patients[0];
 
   // State management
-  const [currentPatient, setCurrentPatient] = useState<Patient>(initialPatient);
+  const [currentPatientId, setCurrentPatientId] = useState<string>(initialPatient.id);
   const [leftOpen, setLeftOpen] = useState(true);
   const [rightOpen, setRightOpen] = useState(true);
   const [aiEnabled, setAIEnabled] = useState(true);
@@ -105,6 +106,31 @@ export function MainLayout({
   const [clinicalNotes, setClinicalNotes] = useState<Record<string, string>>(
     {}
   );
+
+  // Calculate status for each patient dynamically
+  const getPatientsWithStatus = () => {
+    return patients.map((patient) => {
+      const patientData = patientsData[patient.id];
+      const hasNotes = clinicalNotes[patient.id]?.trim().length > 0 ||
+                       patientData?.clinicalNotes?.trim().length > 0;
+      const hasAISummary = patientData?.aiNotes?.note_summary?.trim().length > 0;
+      const isCurrentlyOpen = patient.id === currentPatientId;
+
+      let status: Patient['status'];
+      if (hasAISummary) {
+        status = 'completed';
+      } else if (isCurrentlyOpen || hasNotes) {
+        status = 'active';
+      } else {
+        status = 'scheduled';
+      }
+
+      return { ...patient, status };
+    });
+  };
+
+  const patientsWithStatus = getPatientsWithStatus();
+  const currentPatient = patientsWithStatus.find(p => p.id === currentPatientId) || patientsWithStatus[0];
 
   // Get current patient data
   const currentPatientData = patientsData[currentPatient.id] || {
@@ -129,20 +155,20 @@ export function MainLayout({
 
   // Patient navigation handlers
   const handlePatientClick = (patient: Patient) => {
-    setCurrentPatient(patient);
+    setCurrentPatientId(patient.id);
   };
 
   const handlePrevious = () => {
-    const currentIndex = patients.findIndex((p) => p.id === currentPatient.id);
+    const currentIndex = patientsWithStatus.findIndex((p) => p.id === currentPatient.id);
     if (currentIndex > 0) {
-      setCurrentPatient(patients[currentIndex - 1]);
+      setCurrentPatientId(patientsWithStatus[currentIndex - 1].id);
     }
   };
 
   const handleNext = () => {
-    const currentIndex = patients.findIndex((p) => p.id === currentPatient.id);
-    if (currentIndex < patients.length - 1) {
-      setCurrentPatient(patients[currentIndex + 1]);
+    const currentIndex = patientsWithStatus.findIndex((p) => p.id === currentPatient.id);
+    if (currentIndex < patientsWithStatus.length - 1) {
+      setCurrentPatientId(patientsWithStatus[currentIndex + 1].id);
     }
   };
 
@@ -172,7 +198,7 @@ export function MainLayout({
     <div className="flex h-screen bg-white overflow-hidden">
       {/* Left Sidebar: Patient List */}
       <LeftSidebar
-        patients={patients}
+        patients={patientsWithStatus}
         activePatientId={currentPatient.id}
         onPatientClick={handlePatientClick}
         isOpen={leftOpen}

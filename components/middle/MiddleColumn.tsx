@@ -53,7 +53,7 @@ export function MiddleColumn({
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleSectionClick = (label: string) => {
-    const newText = clinicalNotes + (clinicalNotes ? "\n" : "") + label + "\n";
+    const newText = clinicalNotes + (clinicalNotes ? "\n\n" : "") + label + "\n";
     onNotesChange?.(newText);
     textareaRef.current?.focus();
   };

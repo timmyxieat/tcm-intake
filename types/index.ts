@@ -1,5 +1,5 @@
 // Patient status types
-export type PatientStatus = 'completed' | 'active' | 'waiting' | 'scheduled';
+export type PatientStatus = 'completed' | 'active' | 'scheduled';
 
 // Patient interface
 export interface Patient {
@@ -85,6 +85,7 @@ export interface AcupunctureRegion {
 
 // AI Structured Notes - Complete Data
 export interface AIStructuredNotes {
+  note_summary?: string; // Triggers "Completed" status when generated
   chiefComplaints: ChiefComplaint[];
   hpi: string;
   subjective: {
