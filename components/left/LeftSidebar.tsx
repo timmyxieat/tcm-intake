@@ -46,6 +46,9 @@ export function LeftSidebar({
   onToggle: controlledOnToggle,
 }: LeftSidebarProps) {
   const [internalIsOpen, setInternalIsOpen] = useState(true);
+  const [isAdding, setIsAdding] = useState(false);
+  const [newInitials, setNewInitials] = useState("");
+  const [newTime, setNewTime] = useState("");
 
   // Use controlled props if provided, otherwise use internal state
   const isOpen =
@@ -63,8 +66,33 @@ export function LeftSidebar({
   });
 
   const handleAddPatient = () => {
-    console.log("Add new patient clicked");
-    // TODO: Implement add patient functionality
+    setIsAdding(true);
+    setNewInitials("");
+    setNewTime("");
+  };
+
+  const handleConfirmAdd = () => {
+    if (newInitials.length === 2 && newTime) {
+      console.log("Adding patient:", { initials: newInitials, time: newTime });
+      // TODO: Add patient to list
+      setIsAdding(false);
+      setNewInitials("");
+      setNewTime("");
+    }
+  };
+
+  const handleCancelAdd = () => {
+    setIsAdding(false);
+    setNewInitials("");
+    setNewTime("");
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      handleConfirmAdd();
+    } else if (e.key === "Escape") {
+      handleCancelAdd();
+    }
   };
 
   return (
@@ -114,13 +142,53 @@ export function LeftSidebar({
         </div>
 
         {/* Add button in expanded view */}
-        <button
-          onClick={handleAddPatient}
-          className="w-full py-2 px-3 rounded-lg border-2 border-dashed border-gray-300 hover:border-gray-400 hover:bg-gray-50 transition-colors flex items-center justify-center gap-2 text-sm text-gray-600 hover:text-gray-800"
-        >
-          <span className="text-lg leading-none">+</span>
-          <span>Add New Patient</span>
-        </button>
+        {!isAdding && (
+          <button
+            onClick={handleAddPatient}
+            className="w-full py-2 px-3 rounded-lg border-2 border-dashed border-gray-300 hover:border-gray-400 hover:bg-gray-50 transition-colors flex items-center justify-center gap-2 text-sm text-gray-600 hover:text-gray-800"
+          >
+            <span className="text-lg leading-none">+</span>
+            <span>Add New Patient</span>
+          </button>
+        )}
+
+        {/* Inline add patient form */}
+        {isAdding && (
+          <div className="flex items-center gap-3 p-3 rounded-lg border border-gray-300 bg-white">
+            {/* Initials input (avatar-styled) */}
+            <div className="w-10 h-10 rounded-full bg-gray-100 border-2 border-gray-300 flex items-center justify-center">
+              <input
+                type="text"
+                value={newInitials}
+                onChange={(e) => setNewInitials(e.target.value.toUpperCase().slice(0, 2))}
+                onKeyDown={handleKeyDown}
+                className="w-8 h-8 text-center text-sm font-medium bg-transparent border-none outline-none focus:ring-0 uppercase"
+                placeholder="AB"
+                maxLength={2}
+                autoFocus
+              />
+            </div>
+
+            {/* Time input */}
+            <input
+              type="time"
+              value={newTime}
+              onChange={(e) => setNewTime(e.target.value)}
+              onKeyDown={handleKeyDown}
+              className="flex-1 text-sm border-none outline-none focus:ring-0 bg-transparent"
+              placeholder="12:00 PM"
+            />
+
+            {/* Add button */}
+            <button
+              onClick={handleConfirmAdd}
+              disabled={newInitials.length !== 2 || !newTime}
+              className="px-3 py-1 text-xs font-medium rounded-md bg-blue-500 text-white hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+            >
+              Add
+            </button>
+          </div>
+        )}
 
         <PatientList
           patients={patients}
