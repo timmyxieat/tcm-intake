@@ -100,7 +100,7 @@ export function CollapsibleSidebar({
                   {primary && <div>{primary}</div>}
                   <div className="flex items-center gap-2">
                     {secondary && <div>{secondary}</div>}
-                    <div className="h-8 w-8 p-0 flex items-center justify-center">
+                    <div className="h-8 w-8 p-0 flex items-center justify-center rounded-md hover:bg-accent hover:text-accent-foreground transition-colors">
                       <ChevronIcon className="h-4 w-4" />
                     </div>
                   </div>
