@@ -137,7 +137,8 @@ export const mockPatientsData: Record<string, any> = {
         },
         {
           name: "Distal",
-          points: ["SI3 (Left side only)", "BL62"],
+          points: ["SI3", "BL62"],
+          note: "Left side treatment only",
         },
       ],
     },
