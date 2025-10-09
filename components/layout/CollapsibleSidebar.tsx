@@ -3,6 +3,7 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { HEADER_HEIGHT, HEADER_HEIGHT_PX } from "@/lib/constants";
 
 /**
  * CollapsibleSidebar Component
@@ -84,35 +85,38 @@ export function CollapsibleSidebar({
           {/* Header with Chevron, Primary, and Secondary */}
           <div
             className={cn(
-              "flex items-center px-4 py-3 border-b",
+              "flex items-center px-4 border-b",
+              HEADER_HEIGHT,
               primary || secondary ? "justify-between" : "justify-end"
             )}
           >
             {position === "left" ? (
               <>
-                {/* Left sidebar: Primary on left, Chevron + Secondary on right */}
-                {primary && <div>{primary}</div>}
-                <div className="flex items-center gap-2">
-                  {secondary && <div>{secondary}</div>}
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={onToggle}
-                    className="h-8 w-8 p-0"
-                  >
-                    <ChevronIcon className="h-4 w-4" />
-                  </Button>
+                {/* Left sidebar: Entire header is clickable */}
+                <div
+                  onClick={onToggle}
+                  className="flex-1 flex items-center justify-between cursor-pointer"
+                >
+                  {primary && <div>{primary}</div>}
+                  <div className="flex items-center gap-2">
+                    {secondary && <div>{secondary}</div>}
+                    <div className="h-8 w-8 p-0 flex items-center justify-center">
+                      <ChevronIcon className="h-4 w-4" />
+                    </div>
+                  </div>
                 </div>
               </>
             ) : (
               <>
-                {/* Right sidebar: Chevron + Primary on left, Secondary on right */}
-                <div className="flex items-center gap-2">
+                {/* Right sidebar: Header and Chevron are clickable */}
+                <div
+                  onClick={onToggle}
+                  className="flex items-center gap-2 cursor-pointer"
+                >
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={onToggle}
-                    className="h-8 w-8 p-0"
+                    className="h-8 w-8 p-0 pointer-events-none"
                   >
                     <ChevronIcon className="h-4 w-4" />
                   </Button>
@@ -124,7 +128,7 @@ export function CollapsibleSidebar({
           </div>
 
           {/* Content */}
-          <div className="h-[calc(100%-53px)]">{children}</div>
+          <div className={`h-[calc(100%-${HEADER_HEIGHT_PX}px)]`}>{children}</div>
         </>
       ) : (
         <>
