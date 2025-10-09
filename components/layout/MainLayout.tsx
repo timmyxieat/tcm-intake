@@ -6,6 +6,9 @@ import { MiddleColumn } from "@/components/middle/MiddleColumn";
 import { RightSidebar } from "@/components/right/RightSidebar";
 import { Patient } from "@/types";
 import * as storage from "@/lib/localStorage";
+import { useAIAnalysis } from "@/hooks/useAIAnalysis";
+import { transformAINotesToSidebarFormat } from "@/lib/aiTransformer";
+import { mockMedicalHistory, mockTCMAssessment } from "@/data/mockMedicalData";
 
 /**
  * MainLayout Component
@@ -104,6 +107,10 @@ export function MainLayout({
   const [clinicalNotes, setClinicalNotes] = useState<Record<string, string>>({});
   const [aiNotesData, setAINotesData] = useState<Record<string, any>>({});
   const [saveStatus, setSaveStatus] = useState<"saved" | "saving" | "unsaved">("saved");
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+
+  // AI Analysis hook
+  const { analyzePatient, isLoading: aiLoading, error: aiError, clearError } = useAIAnalysis();
 
   // Initialize from localStorage on mount
   useEffect(() => {
@@ -297,9 +304,53 @@ export function MainLayout({
   };
 
   // AI refresh handler
-  const handleRefresh = () => {
-    console.log("Refreshing AI notes for patient:", currentPatient.id);
-    // TODO: Implement AI refresh logic
+  const handleRefresh = async () => {
+    if (!currentPatient?.id) return;
+
+    setIsAnalyzing(true);
+    clearError();
+
+    try {
+      // For demo purposes, use a hardcoded patient data set
+      // In production, this would come from form data or localStorage
+      // Using patient 2's data (insomnia case) as the demo
+      const medicalHistory = mockMedicalHistory["2"];
+      const tcmAssessment = mockTCMAssessment["2"];
+
+      if (!medicalHistory || !tcmAssessment) {
+        console.warn(`No medical data found for demo`);
+        alert("Please complete the medical history and TCM assessment before generating AI notes.");
+        setIsAnalyzing(false);
+        return;
+      }
+
+      // Call AI analysis
+      const aiNotes = await analyzePatient(medicalHistory, tcmAssessment);
+
+      if (aiNotes) {
+        // Transform AI notes to sidebar format
+        const transformedNotes = transformAINotesToSidebarFormat(aiNotes);
+
+        // Update state and localStorage
+        const updatedAINotes = {
+          ...aiNotesData,
+          [currentPatient.id]: transformedNotes,
+        };
+        setAINotesData(updatedAINotes);
+        storage.savePatientAINotes(currentPatient.id, transformedNotes);
+
+        // Update patient status to completed
+        storage.updatePatient(currentPatient.id, { status: 'completed' });
+        setPatients(storage.getPatients());
+
+        console.log("AI analysis completed successfully");
+      }
+    } catch (error) {
+      console.error("AI analysis failed:", error);
+      alert("Failed to generate AI notes. Please check your API key and try again.");
+    } finally {
+      setIsAnalyzing(false);
+    }
   };
 
   return (
@@ -332,6 +383,7 @@ export function MainLayout({
           autoUpdate={autoUpdate}
           onAutoUpdateChange={setAutoUpdate}
           onRefresh={handleRefresh}
+          isLoading={isAnalyzing}
           data={currentPatientAINotes}
         />
       )}

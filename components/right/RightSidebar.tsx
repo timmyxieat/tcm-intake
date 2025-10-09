@@ -45,6 +45,7 @@ interface RightSidebarProps {
   autoUpdate?: boolean;
   onAutoUpdateChange?: (value: boolean) => void;
   onRefresh?: () => void;
+  isLoading?: boolean;
   data: {
     chiefComplaints: Array<{
       text: string;
@@ -99,6 +100,7 @@ export function RightSidebar({
   autoUpdate = true,
   onAutoUpdateChange,
   onRefresh,
+  isLoading = false,
   data,
 }: RightSidebarProps) {
   const [localAutoUpdate, setLocalAutoUpdate] = useState(autoUpdate);
@@ -134,9 +136,10 @@ export function RightSidebar({
             variant="ghost"
             size="sm"
             onClick={onRefresh}
+            disabled={isLoading}
             className="h-8 w-8 p-0"
           >
-            <RefreshCw className="h-4 w-4 text-teal-600" />
+            <RefreshCw className={`h-4 w-4 text-teal-600 ${isLoading ? 'animate-spin' : ''}`} />
           </Button>
         </div>
       }
@@ -146,21 +149,31 @@ export function RightSidebar({
         </div>
       }
     >
-      <ScrollArea className="h-full bg-gray-50">
-        <div className="space-y-4 pr-4 p-4">
-          <ChiefComplaintCard complaints={data.chiefComplaints} />
-          <HPICard text={data.hpi} />
-          <SubjectiveCard {...data.subjective} tcmReview={data.tcmReview} />
-          <TongueExaminationCard {...data.tongue} />
-          <PulseExaminationCard {...data.pulse} />
-          <DiagnosisCard {...data.diagnosis} />
-          <TreatmentCard principle={data.treatment} />
-          <AcupunctureCard
-            treatmentSide={data.acupunctureTreatmentSide}
-            regions={data.acupuncture}
-          />
-        </div>
-      </ScrollArea>
+      <div className="relative h-full">
+        {isLoading && (
+          <div className="absolute inset-0 bg-white/80 z-10 flex items-center justify-center">
+            <div className="text-center">
+              <RefreshCw className="h-8 w-8 text-teal-600 animate-spin mx-auto mb-2" />
+              <p className="text-sm text-gray-600">Analyzing patient data...</p>
+            </div>
+          </div>
+        )}
+        <ScrollArea className="h-full bg-gray-50">
+          <div className="space-y-4 pr-4 p-4">
+            <ChiefComplaintCard complaints={data.chiefComplaints} />
+            <HPICard text={data.hpi} />
+            <SubjectiveCard {...data.subjective} tcmReview={data.tcmReview} />
+            <TongueExaminationCard {...data.tongue} />
+            <PulseExaminationCard {...data.pulse} />
+            <DiagnosisCard {...data.diagnosis} />
+            <TreatmentCard principle={data.treatment} />
+            <AcupunctureCard
+              treatmentSide={data.acupunctureTreatmentSide}
+              regions={data.acupuncture}
+            />
+          </div>
+        </ScrollArea>
+      </div>
     </CollapsibleSidebar>
   );
 }
