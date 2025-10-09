@@ -1,40 +1,42 @@
 import { Patient } from "@/types";
+import moment from "moment";
 
 /**
  * Mock patient data for testing and development
  *
  * Contains 5 patients with different statuses and schedules
+ * Times are formatted using moment.js with format "h:mmA" (e.g., "9:30A")
  */
 
 export const mockPatients: Patient[] = [
   {
     id: "1",
     initials: "MW",
-    time: "9:30AM",
+    time: moment("09:30", "HH:mm").format("h:mmA"),
     status: "completed",
   },
   {
     id: "2",
     initials: "JD",
-    time: "10:00AM",
+    time: moment("10:00", "HH:mm").format("h:mmA"),
     status: "active",
   },
   {
     id: "3",
     initials: "SA",
-    time: "11:00AM",
+    time: moment("11:00", "HH:mm").format("h:mmA"),
     status: "waiting",
   },
   {
     id: "4",
     initials: "LT",
-    time: "1:30PM",
+    time: moment("13:30", "HH:mm").format("h:mmA"),
     status: "scheduled",
   },
   {
     id: "5",
     initials: "BC",
-    time: "2:30PM",
+    time: moment("14:30", "HH:mm").format("h:mmA"),
     status: "scheduled",
   },
 ];
