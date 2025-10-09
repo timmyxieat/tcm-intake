@@ -81,11 +81,69 @@ const emptyAINotes = {
 };
 
 export const mockPatientsData: Record<string, any> = {
-  // Patient 1: COMPLETED - has AI note summary
+  // Patient 1: COMPLETED - has AI note summary and full structured notes
   "1": {
     aiNotes: {
-      ...emptyAINotes,
       note_summary: "Patient presents with lower back pain radiating to left leg. History of L4-L5 herniation. Physical exam shows limited ROM and positive straight leg raise. Diagnosed with lumbar radiculopathy. Treatment plan includes acupuncture points BL23, BL40, GB30 with electrostimulation.",
+      chiefComplaints: [
+        {
+          text: "Lower back pain radiating to left leg",
+          icdCode: "M54.16",
+          icdLabel: "Radiculopathy, lumbar region"
+        }
+      ],
+      hpi: "45-year-old patient presents with lower back pain for 2 weeks. Pain radiates down the left leg to the knee. Pain is worse with sitting and prolonged standing, better with walking. Patient reports numbness and tingling in left foot. No recent trauma.",
+      subjective: {
+        pmh: "L4-L5 disc herniation diagnosed in 2019. Hypertension controlled with medication.",
+        pmhHighlights: ["L4-L5 disc herniation", "Hypertension"],
+        fh: "Father with history of degenerative disc disease. Mother healthy.",
+        fhHighlights: ["Degenerative disc disease"],
+        sh: "Works as software engineer, sits 8+ hours daily. Non-smoker, occasional alcohol use.",
+        shHighlights: ["Sedentary work", "Prolonged sitting"],
+        es: "Stress level 6/10 due to work deadlines and pain affecting sleep.",
+        stressLevel: "6/10",
+      },
+      tcmReview: {
+        "Pain": ["Lower back", "Left leg", "Left foot numbness"],
+        "Sleep": ["Difficulty due to pain"],
+        "Energy": ["Fatigue from poor sleep"],
+      },
+      tongue: {
+        body: "Pale with red tip",
+        bodyHighlights: ["Pale", "Red tip"],
+        coating: "Thin white",
+        coatingHighlights: ["Thin", "White"],
+      },
+      pulse: {
+        text: "Wiry and deep on left side, moderate on right",
+        highlights: ["Wiry", "Deep left"],
+      },
+      diagnosis: {
+        tcmDiagnosis: "Kidney Deficiency with Qi and Blood Stagnation in the Lower Back and Leg Channels",
+        icdCodes: [
+          { code: "M54.16", label: "Radiculopathy, lumbar region" },
+          { code: "M51.26", label: "Other intervertebral disc displacement, lumbar region" },
+        ],
+      },
+      treatment: "Tonify Kidney, move Qi and Blood in the channels, relieve pain",
+      acupuncture: [
+        {
+          name: "Back",
+          points: ["BL23", "BL25", "BL26"],
+          note: "With electrostimulation",
+          noteColor: "orange" as const,
+        },
+        {
+          name: "Leg",
+          points: ["BL40", "BL57", "GB30", "GB34"],
+        },
+        {
+          name: "Distal",
+          points: ["SI3", "BL62"],
+          note: "Opening points for Du Mai",
+          noteColor: "purple" as const,
+        },
+      ],
     },
     clinicalNotes: "45yo patient c/o lower back pain x 2 weeks, radiating to left leg. PMH: L4-L5 herniation 2019. Pain worsens with sitting, improves with walking.",
   },
