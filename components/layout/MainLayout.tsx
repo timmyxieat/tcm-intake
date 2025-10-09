@@ -115,7 +115,13 @@ export function MainLayout({
     // Use saved patients if they exist, otherwise use initial patients
     if (savedPatients.length > 0) {
       setPatients(savedPatients);
-      setCurrentPatientId(savedPatients[0].id);
+
+      // Restore last selected patient if it exists, otherwise use first patient
+      if (prefs.selectedPatientId && savedPatients.find(p => p.id === prefs.selectedPatientId)) {
+        setCurrentPatientId(prefs.selectedPatientId);
+      } else {
+        setCurrentPatientId(savedPatients[0].id);
+      }
     } else {
       setPatients(initialPatients);
       setCurrentPatientId(initialPatients[0]?.id || "");
@@ -141,6 +147,32 @@ export function MainLayout({
   useEffect(() => {
     storage.updatePreference("autoUpdate", autoUpdate);
   }, [autoUpdate]);
+
+  // Save selected patient when it changes
+  useEffect(() => {
+    if (currentPatientId) {
+      storage.updatePreference("selectedPatientId", currentPatientId);
+    }
+  }, [currentPatientId]);
+
+  // Keyboard shortcuts for toggling sidebars
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Cmd+[ to toggle left sidebar
+      if (e.metaKey && e.key === '[') {
+        e.preventDefault();
+        setLeftOpen(prev => !prev);
+      }
+      // Cmd+] to toggle right sidebar
+      if (e.metaKey && e.key === ']') {
+        e.preventDefault();
+        setRightOpen(prev => !prev);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   // Calculate status for each patient dynamically
   const getPatientsWithStatus = () => {
@@ -168,8 +200,8 @@ export function MainLayout({
   // Auto-save effect (debounced 2 seconds) - Must be before early return
   useEffect(() => {
     if (!currentPatient?.id) return;
-    if (saveStatus !== "unsaved") return;
 
+    // Set status to saving when notes change
     setSaveStatus("saving");
 
     const timeout = setTimeout(() => {
@@ -194,7 +226,7 @@ export function MainLayout({
     }, 2000);
 
     return () => clearTimeout(timeout);
-  }, [clinicalNotes, currentPatient?.id, aiNotesData, saveStatus]);
+  }, [clinicalNotes, currentPatient?.id, aiNotesData]);
 
   // Early return if no patients - Must be after all hooks
   if (!currentPatient) {
@@ -253,14 +285,11 @@ export function MainLayout({
   const handleNotesChange = (value: string) => {
     if (!currentPatient?.id) return;
 
-    // Update notes immediately
+    // Update notes immediately (status will be set to "saving" by useEffect)
     setClinicalNotes((prev) => ({
       ...prev,
       [currentPatient.id]: value,
     }));
-
-    // Set status to unsaved
-    setSaveStatus("unsaved");
   };
 
   const getCurrentNotes = () => {
