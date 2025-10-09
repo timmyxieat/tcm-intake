@@ -129,19 +129,15 @@ export const mockPatientsData: Record<string, any> = {
       acupuncture: [
         {
           name: "Back",
-          points: ["BL23", "BL25", "BL26"],
-          note: "With electrostimulation",
-          noteColor: "orange" as const,
+          points: ["BL23", "BL25 (T)", "BL26"],
         },
         {
           name: "Leg",
-          points: ["BL40", "BL57", "GB30", "GB34"],
+          points: ["BL40 (R)", "BL57", "GB30 (Right side only)", "GB34 (E)"],
         },
         {
           name: "Distal",
-          points: ["SI3", "BL62"],
-          note: "Opening points for Du Mai",
-          noteColor: "purple" as const,
+          points: ["SI3 (Left side only)", "BL62"],
         },
       ],
     },

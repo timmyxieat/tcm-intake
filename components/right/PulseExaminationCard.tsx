@@ -22,7 +22,7 @@ interface PulseExaminationCardProps {
   highlights?: string[];
 }
 
-// Helper function to highlight keywords in purple
+// Helper function to highlight keywords in teal brand color
 function highlightText(text: string, highlights: string[] = []) {
   if (!highlights.length) return <span>{text}</span>;
 
@@ -41,9 +41,9 @@ function highlightText(text: string, highlights: string[] = []) {
       parts.push(text.substring(lastIndex, matchIndex));
     }
 
-    // Add highlighted match in purple
+    // Add highlighted match in teal brand color
     parts.push(
-      <span key={i} className="text-purple-600 font-medium">
+      <span key={i} className="text-teal-600 font-medium">
         {match[0]}
       </span>
     );

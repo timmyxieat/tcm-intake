@@ -5,7 +5,7 @@ import { Map } from "lucide-react";
  * AcupunctureCard Component
  *
  * Displays acupuncture points grouped by body regions.
- * Features color-coded notes: orange for "Right side only", purple for point codes and "Both sides".
+ * Point names in black, annotations (Right side only, Left side only, T, R, E) in teal brand color.
  *
  * @param regions - Array of body regions with points and optional notes
  *
@@ -14,13 +14,12 @@ import { Map } from "lucide-react";
  *   regions={[
  *     {
  *       name: "Head/Neck",
- *       points: ["GV-20", "EX-HN3 (Yintang)"]
+ *       points: ["GV-20", "EX-HN3"]
  *     },
  *     {
  *       name: "Hand",
  *       points: ["LI-4"],
- *       note: "Right side only",
- *       noteColor: "orange"
+ *       note: "Right side only"
  *     }
  *   ]}
  * />
@@ -30,7 +29,6 @@ interface AcupunctureRegion {
   name: string;
   points: string[];
   note?: string;
-  noteColor?: "orange" | "purple";
 }
 
 interface AcupunctureCardProps {
@@ -67,11 +65,9 @@ export function AcupunctureCard({ regions }: AcupunctureCardProps) {
             <h4 className="text-xs font-semibold text-gray-700 mb-1">{region.name}</h4>
             <div className="space-y-0.5">
               {region.points.map((point, idx) => (
-                <p key={idx} className="text-sm text-purple-600">
+                <p key={idx} className="text-sm text-gray-900">
                   {point}
-                  {region.note && <span className={`ml-1 italic ${
-                    region.noteColor === 'orange' ? 'text-orange-600' : 'text-purple-600'
-                  }`}>({region.note})</span>}
+                  {region.note && <span className="ml-1 text-teal-600">({region.note})</span>}
                 </p>
               ))}
             </div>

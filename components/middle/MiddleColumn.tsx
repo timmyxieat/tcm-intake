@@ -17,10 +17,7 @@ import { useRef } from "react";
  *
  * @param patient - Current patient data
  * @param clinicalNotes - Clinical notes text
- * @param onPrevious - Previous patient callback
- * @param onNext - Next patient callback
- * @param aiEnabled - AI toggle state
- * @param onAIToggle - AI toggle callback
+ * @param onGenerateNotes - Generate Structured Notes callback
  * @param onNotesChange - Notes change callback
  *
  * @example
@@ -28,26 +25,21 @@ import { useRef } from "react";
  *   patient={currentPatient}
  *   clinicalNotes={notes}
  *   onNotesChange={setNotes}
+ *   onGenerateNotes={() => generateNotes()}
  * />
  */
 
 interface MiddleColumnProps {
   patient: Patient;
   clinicalNotes?: string;
-  onPrevious?: () => void;
-  onNext?: () => void;
-  aiEnabled?: boolean;
-  onAIToggle?: (enabled: boolean) => void;
+  onGenerateNotes?: () => void;
   onNotesChange?: (value: string) => void;
 }
 
 export function MiddleColumn({
   patient,
   clinicalNotes = "",
-  onPrevious,
-  onNext,
-  aiEnabled = true,
-  onAIToggle,
+  onGenerateNotes,
   onNotesChange
 }: MiddleColumnProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -63,10 +55,7 @@ export function MiddleColumn({
       {/* Top Navigation */}
       <TopNavigation
         patient={patient}
-        onPrevious={onPrevious}
-        onNext={onNext}
-        aiEnabled={aiEnabled}
-        onAIToggle={onAIToggle}
+        onGenerateNotes={onGenerateNotes}
       />
 
       {/* Two Column Layout */}

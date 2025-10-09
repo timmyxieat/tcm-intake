@@ -1,8 +1,7 @@
 "use client";
 
 import { PatientAvatar } from "@/components/atomic/PatientAvatar";
-import { Switch } from "@/components/ui/switch";
-import { Check } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { Patient } from "@/types";
 import moment from "moment";
 
@@ -10,45 +9,27 @@ import moment from "moment";
  * TopNavigation Component
  *
  * Top navigation bar for the middle column showing:
- * - Previous/Next patient navigation
  * - Current patient initials and time
- * - Auto-saving status with timestamp
- * - AI toggle switch
+ * - Generate Structured Notes button
  *
  * @param patient - Current patient data
- * @param onPrevious - Callback for previous patient button
- * @param onNext - Callback for next patient button
- * @param aiEnabled - Whether AI is enabled
- * @param onAIToggle - Callback when AI toggle is changed
- * @param lastSaved - Last saved timestamp
+ * @param onGenerateNotes - Callback for Generate Structured Notes button
  *
  * @example
  * <TopNavigation
  *   patient={currentPatient}
- *   onPrevious={() => goToPrevPatient()}
- *   onNext={() => goToNextPatient()}
- *   aiEnabled={true}
- *   onAIToggle={(enabled) => setAIEnabled(enabled)}
- *   lastSaved="15:23"
+ *   onGenerateNotes={() => generateStructuredNotes()}
  * />
  */
 
 interface TopNavigationProps {
   patient: Patient;
-  onPrevious?: () => void;
-  onNext?: () => void;
-  aiEnabled?: boolean;
-  onAIToggle?: (enabled: boolean) => void;
-  lastSaved?: string;
+  onGenerateNotes?: () => void;
 }
 
 export function TopNavigation({
   patient,
-  onPrevious,
-  onNext,
-  aiEnabled = true,
-  onAIToggle,
-  lastSaved = "15:23"
+  onGenerateNotes
 }: TopNavigationProps) {
   // Format time as "9:30 AM" (with space)
   const formattedTime = moment(patient.time).format("h:mm A");
@@ -67,24 +48,10 @@ export function TopNavigation({
         </span>
       </div>
 
-      {/* Right: Auto-saving Status and AI Toggle */}
-      <div className="flex items-center gap-6">
-        {/* Auto-saving Status */}
-        <div className="flex items-center gap-2 text-sm text-gray-600">
-          <Check className="h-4 w-4 text-green-600" />
-          <span>Auto-saving</span>
-          <span className="text-gray-400">⏰ {lastSaved}</span>
-        </div>
-
-        {/* AI Toggle */}
-        <div className="flex items-center gap-2">
-          <span className="text-sm text-gray-600">AI</span>
-          <Switch
-            checked={aiEnabled}
-            onCheckedChange={onAIToggle}
-          />
-        </div>
-      </div>
+      {/* Right: Generate Structured Notes Button */}
+      <Button onClick={onGenerateNotes} className="bg-teal-600 hover:bg-teal-700 text-white">
+        Generate Structured Notes
+      </Button>
     </div>
   );
 }
