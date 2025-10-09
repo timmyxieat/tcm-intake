@@ -9,6 +9,7 @@ import * as storage from "@/lib/localStorage";
 import { useAIAnalysis } from "@/hooks/useAIAnalysis";
 import { transformAINotesToSidebarFormat } from "@/lib/aiTransformer";
 import { mockMedicalHistory, mockTCMAssessment } from "@/data/mockMedicalData";
+import { parseClinicalNotes } from "@/lib/clinicalNotesParser";
 
 /**
  * MainLayout Component
@@ -303,7 +304,60 @@ export function MainLayout({
     return clinicalNotes[currentPatient?.id] || "";
   };
 
-  // AI refresh handler
+  // Generate AI notes from clinical notes text
+  const handleGenerateNotes = async () => {
+    if (!currentPatient?.id) return;
+
+    const currentNotes = getCurrentNotes();
+    if (!currentNotes || currentNotes.trim().length === 0) {
+      alert("Please enter clinical notes before generating structured notes.");
+      return;
+    }
+
+    setIsAnalyzing(true);
+    clearError();
+
+    try {
+      // Parse clinical notes into structured format
+      const { medicalHistory, tcmAssessment } = parseClinicalNotes(currentNotes);
+
+      // Validate that we have some content
+      if (!medicalHistory.chiefComplaint && !medicalHistory.hpi) {
+        alert("Please include at least a Chief Complaint (CC) or History of Present Illness (HPI) section in your notes.");
+        setIsAnalyzing(false);
+        return;
+      }
+
+      // Call AI analysis with parsed data
+      const aiNotes = await analyzePatient(medicalHistory, tcmAssessment);
+
+      if (aiNotes) {
+        // Transform AI notes to sidebar format
+        const transformedNotes = transformAINotesToSidebarFormat(aiNotes);
+
+        // Update state and localStorage
+        const updatedAINotes = {
+          ...aiNotesData,
+          [currentPatient.id]: transformedNotes,
+        };
+        setAINotesData(updatedAINotes);
+        storage.savePatientAINotes(currentPatient.id, transformedNotes);
+
+        // Update patient status to completed
+        storage.updatePatient(currentPatient.id, { status: 'completed' });
+        setPatients(storage.getPatients());
+
+        console.log("AI analysis completed successfully from clinical notes");
+      }
+    } catch (error) {
+      console.error("AI analysis failed:", error);
+      alert("Failed to generate AI notes. Please check your API key and try again.");
+    } finally {
+      setIsAnalyzing(false);
+    }
+  };
+
+  // AI refresh handler (using mock data for demo)
   const handleRefresh = async () => {
     if (!currentPatient?.id) return;
 
@@ -372,6 +426,8 @@ export function MainLayout({
           clinicalNotes={getCurrentNotes()}
           onNotesChange={handleNotesChange}
           saveStatus={saveStatus}
+          onGenerateNotes={handleGenerateNotes}
+          isGenerating={isAnalyzing}
         />
       </div>
 

@@ -34,13 +34,17 @@ interface MiddleColumnProps {
   clinicalNotes?: string;
   onNotesChange?: (value: string) => void;
   saveStatus?: "saved" | "saving" | "unsaved";
+  onGenerateNotes?: () => void;
+  isGenerating?: boolean;
 }
 
 export function MiddleColumn({
   patient,
   clinicalNotes = "",
   onNotesChange,
-  saveStatus = "saved"
+  saveStatus = "saved",
+  onGenerateNotes,
+  isGenerating = false
 }: MiddleColumnProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -65,6 +69,8 @@ export function MiddleColumn({
       <TopNavigation
         patient={patient}
         saveStatus={saveStatus}
+        onGenerateNotes={onGenerateNotes}
+        isGenerating={isGenerating}
       />
 
       {/* Two Column Layout */}
