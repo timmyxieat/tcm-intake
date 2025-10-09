@@ -84,32 +84,34 @@ Building a Traditional Chinese Medicine (TCM) intake application optimized for i
 
 ## **Phase 7: Right Sidebar Components** (AI Structured Notes)
 
-- [ ] 23. Build **InfoCard** wrapper (reused for all right sidebar cards)
+- [x] 23. Build **InfoCard** wrapper (reused for all right sidebar cards)
   - Props: title, icon, children, hasCopy
   - Used for 9 different card types
-- [ ] 24. Build **ChiefComplaintCard** component
+- [x] 24. Build **ChiefComplaintCard** component
   - Uses: InfoCard, StatusBadge (ICD codes), CopyButton
-- [ ] 25. Build **HPICard** component
+- [x] 25. Build **HPICard** component
   - Uses: InfoCard, CopyButton
-- [ ] 26. Build **SubjectiveCard** component
+- [x] 26. Build **SubjectiveCard** component
   - Uses: InfoCard, CopyButton, StatusBadge (stress level)
   - Sections: PMH, FH, SH, ES with highlighted text
-- [ ] 27. Build **TCMReviewCard** component
+  - Includes TCM Review of Systems in two-column bullet grid
+- [x] 27. Build **TongueExaminationCard** component
   - Uses: InfoCard, CopyButton
-  - Two-column bullet grid layout
-- [ ] 28. Build **ExaminationCard** component (for Tongue & Pulse)
-  - Reusable for both examination types
+  - Sections: Body and Coating with purple highlights
+- [x] 28. Build **PulseExaminationCard** component
   - Uses: InfoCard, CopyButton
-- [ ] 29. Build **DiagnosisCard** component
+  - Single text description with purple highlights
+- [x] 29. Build **DiagnosisCard** component
   - Uses: InfoCard, StatusBadge (TCM & ICD codes), CopyButton
-- [ ] 30. Build **TreatmentCard** component
+- [x] 30. Build **TreatmentCard** component
   - Uses: InfoCard, CopyButton
-- [ ] 31. Build **AcupunctureCard** component
+- [x] 31. Build **AcupunctureCard** component
   - Uses: InfoCard, StatusBadge (color-coded notes), CopyButton
-  - Grouped by body regions with point codes
-- [ ] 32. Build **RightSidebar** component (complete right column)
+  - Grouped by body regions with standardized point codes (DU/RN/KD)
+- [x] 32. Build **RightSidebar** component (complete right column)
   - Integrates all 9 cards, CollapsibleSidebar
   - Collapsed view: Vertical "AI Structured Notes" text
+  - Auto-updating toggle and refresh button
 
 ---
 
