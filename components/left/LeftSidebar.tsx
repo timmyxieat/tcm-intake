@@ -60,6 +60,11 @@ export function LeftSidebar({
     day: 'numeric'
   });
 
+  const handleAddPatient = () => {
+    console.log("Add new patient clicked");
+    // TODO: Implement add patient functionality
+  };
+
   return (
     <CollapsibleSidebar
       position="left"
@@ -67,6 +72,15 @@ export function LeftSidebar({
       onToggle={onToggle}
       collapsedContent={
         <div className="flex flex-col gap-3 items-center pt-4">
+          {/* Add button in collapsed view */}
+          <button
+            onClick={handleAddPatient}
+            className="w-10 h-10 rounded-full bg-white border-2 border-dashed border-gray-300 hover:border-gray-400 hover:bg-gray-50 transition-colors flex items-center justify-center text-gray-400 hover:text-gray-600"
+            aria-label="Add new patient"
+          >
+            <span className="text-xl leading-none">+</span>
+          </button>
+
           {patients.slice(0, 4).map(patient => {
             // Format time as "9:30" for collapsed view
             const formattedTime = moment(patient.time).format("h:mm");
@@ -96,6 +110,16 @@ export function LeftSidebar({
           <h4 className="font-semibold text-sm">Today's Patients</h4>
           <p className="text-xs text-muted-foreground">{formattedDate}</p>
         </div>
+
+        {/* Add button in expanded view */}
+        <button
+          onClick={handleAddPatient}
+          className="w-full py-2 px-3 rounded-lg border-2 border-dashed border-gray-300 hover:border-gray-400 hover:bg-gray-50 transition-colors flex items-center gap-2 text-sm text-gray-600 hover:text-gray-800"
+        >
+          <span className="text-lg leading-none">+</span>
+          <span>Add New Patient</span>
+        </button>
+
         <PatientList
           patients={patients}
           activePatientId={activePatientId}
