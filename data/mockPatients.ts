@@ -10,31 +10,31 @@ export const mockPatients: Patient[] = [
   {
     id: "1",
     initials: "MW",
-    time: "9:30 AM",
+    time: "9:30AM",
     status: "completed",
   },
   {
     id: "2",
     initials: "JD",
-    time: "10:00 AM",
+    time: "10:00AM",
     status: "active",
   },
   {
     id: "3",
     initials: "SA",
-    time: "11:00 AM",
+    time: "11:00AM",
     status: "waiting",
   },
   {
     id: "4",
     initials: "LT",
-    time: "1:30 PM",
+    time: "1:30PM",
     status: "scheduled",
   },
   {
     id: "5",
     initials: "BC",
-    time: "2:30 PM",
+    time: "2:30PM",
     status: "scheduled",
   },
 ];
