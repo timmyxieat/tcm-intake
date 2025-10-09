@@ -4,6 +4,7 @@ import { PatientAvatar } from "@/components/atomic/PatientAvatar";
 import { Switch } from "@/components/ui/switch";
 import { Check } from "lucide-react";
 import { Patient } from "@/types";
+import moment from "moment";
 
 /**
  * TopNavigation Component
@@ -49,6 +50,9 @@ export function TopNavigation({
   onAIToggle,
   lastSaved = "15:23"
 }: TopNavigationProps) {
+  // Format time as "9:30 AM" (with space)
+  const formattedTime = moment(patient.time).format("h:mm A");
+
   return (
     <div className="flex items-center justify-between px-4 py-3 bg-white border-b">
       {/* Left: Patient Info */}
@@ -59,7 +63,7 @@ export function TopNavigation({
           size="sm"
         />
         <span className="text-sm text-gray-500">
-          {patient.time}
+          {formattedTime}
         </span>
       </div>
 

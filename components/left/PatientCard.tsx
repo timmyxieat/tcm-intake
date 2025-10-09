@@ -3,6 +3,7 @@
 import { PatientAvatar } from "@/components/atomic/PatientAvatar";
 import { StatusBadge } from "@/components/atomic/StatusBadge";
 import { Patient } from "@/types";
+import moment from "moment";
 
 /**
  * PatientCard Component
@@ -27,6 +28,9 @@ interface PatientCardProps {
 }
 
 export function PatientCard({ patient, onClick, isActive = false }: PatientCardProps) {
+  // Format time as "9:30 AM" (with space) for expanded view
+  const formattedTime = moment(patient.time).format("h:mm A");
+
   return (
     <div
       onClick={onClick}
@@ -44,7 +48,7 @@ export function PatientCard({ patient, onClick, isActive = false }: PatientCardP
           size="sm"
         />
         <p className="text-sm text-gray-500">
-          {patient.time}
+          {formattedTime}
         </p>
       </div>
       <StatusBadge

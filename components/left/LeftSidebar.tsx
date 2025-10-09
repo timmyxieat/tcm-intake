@@ -5,6 +5,7 @@ import { PatientList } from "@/components/left/PatientList";
 import { PatientAvatar } from "@/components/atomic/PatientAvatar";
 import { Patient } from "@/types";
 import { useState } from "react";
+import moment from "moment";
 
 /**
  * LeftSidebar Component
@@ -66,23 +67,27 @@ export function LeftSidebar({
       onToggle={onToggle}
       collapsedContent={
         <div className="flex flex-col gap-3 items-center pt-4">
-          {patients.slice(0, 4).map(patient => (
-            <div
-              key={patient.id}
-              onClick={() => onPatientClick?.(patient)}
-              className="cursor-pointer flex flex-col items-center gap-1"
-            >
-              <PatientAvatar
-                initials={patient.initials}
-                status={patient.status}
-                size="sm"
-                isActive={patient.id === activePatientId}
-              />
-              <p className="text-xs text-gray-600 text-center whitespace-nowrap">
-                {patient.time}
-              </p>
-            </div>
-          ))}
+          {patients.slice(0, 4).map(patient => {
+            // Format time as "9:30A" for collapsed view
+            const formattedTime = moment(patient.time).format("h:mmA").slice(0, -1);
+            return (
+              <div
+                key={patient.id}
+                onClick={() => onPatientClick?.(patient)}
+                className="cursor-pointer flex flex-col items-center gap-1"
+              >
+                <PatientAvatar
+                  initials={patient.initials}
+                  status={patient.status}
+                  size="sm"
+                  isActive={patient.id === activePatientId}
+                />
+                <p className="text-xs text-gray-600 text-center whitespace-nowrap">
+                  {formattedTime}
+                </p>
+              </div>
+            );
+          })}
         </div>
       }
     >

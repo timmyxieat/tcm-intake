@@ -70,10 +70,11 @@ export function CollapsibleSidebar({
         "relative bg-white transition-all duration-300 ease-in-out",
         position === "left" ? "border-r" : "border-l",
         isOpen
-          ? (position === "left"
-              ? "w-64"
-              : (fullWidth ? "flex-1" : "w-96")
-            )
+          ? position === "left"
+            ? "w-64"
+            : fullWidth
+            ? "flex-1"
+            : "w-96"
           : "w-12",
         className
       )}
@@ -81,10 +82,12 @@ export function CollapsibleSidebar({
       {isOpen ? (
         <>
           {/* Header with Chevron, Primary, and Secondary */}
-          <div className={cn(
-            "flex items-center px-4 py-3 border-b",
-            (primary || secondary) ? "justify-between" : "justify-end"
-          )}>
+          <div
+            className={cn(
+              "flex items-center px-4 py-3 border-b",
+              primary || secondary ? "justify-between" : "justify-end"
+            )}
+          >
             {position === "left" ? (
               <>
                 {/* Left sidebar: Primary on left, Chevron + Secondary on right */}
@@ -137,7 +140,7 @@ export function CollapsibleSidebar({
 
           {/* Collapsed Content */}
           {position === "left" && collapsedContent && (
-            <div className="h-full flex flex-col items-center justify-center pt-16">
+            <div className="h-full flex flex-col items-center justify-start pt-16">
               {collapsedContent}
             </div>
           )}
