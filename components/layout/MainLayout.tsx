@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { LeftSidebar } from "@/components/left/LeftSidebar";
 import { MiddleColumn } from "@/components/middle/MiddleColumn";
 import { RightSidebar } from "@/components/right/RightSidebar";
 import { Patient } from "@/types";
+import * as storage from "@/lib/localStorage";
 
 /**
  * MainLayout Component
@@ -89,31 +90,63 @@ interface MainLayoutProps {
 }
 
 export function MainLayout({
-  patients,
+  patients: initialPatients,
   patientsData,
   initialPatientId,
 }: MainLayoutProps) {
-  // Find initial patient or use first patient
-  const initialPatient =
-    patients.find((p) => p.id === initialPatientId) || patients[0];
-
-  // State management
-  const [currentPatientId, setCurrentPatientId] = useState<string>(initialPatient.id);
+  // Load patients from localStorage or use initial patients
+  const [patients, setPatients] = useState<Patient[]>([]);
+  const [currentPatientId, setCurrentPatientId] = useState<string>("");
   const [leftOpen, setLeftOpen] = useState(true);
   const [rightOpen, setRightOpen] = useState(true);
   const [aiEnabled, setAIEnabled] = useState(true);
   const [autoUpdate, setAutoUpdate] = useState(true);
-  const [clinicalNotes, setClinicalNotes] = useState<Record<string, string>>(
-    {}
-  );
+  const [clinicalNotes, setClinicalNotes] = useState<Record<string, string>>({});
+  const [aiNotesData, setAINotesData] = useState<Record<string, any>>({});
+  const [saveStatus, setSaveStatus] = useState<"saved" | "saving" | "unsaved">("saved");
+
+  // Initialize from localStorage on mount
+  useEffect(() => {
+    const savedPatients = storage.getPatients();
+    const savedNotes = storage.getClinicalNotes();
+    const savedAINotes = storage.getAINotes();
+    const prefs = storage.getPreferences();
+
+    // Use saved patients if they exist, otherwise use initial patients
+    if (savedPatients.length > 0) {
+      setPatients(savedPatients);
+      setCurrentPatientId(savedPatients[0].id);
+    } else {
+      setPatients(initialPatients);
+      setCurrentPatientId(initialPatients[0]?.id || "");
+    }
+
+    // Set both current state and saved notes
+    setClinicalNotes(savedNotes);
+    setAINotesData(savedAINotes);
+    setLeftOpen(prefs.leftSidebarOpen);
+    setRightOpen(prefs.rightSidebarOpen);
+    setAutoUpdate(prefs.autoUpdate);
+  }, [initialPatients]);
+
+  // Save preferences when they change
+  useEffect(() => {
+    storage.updatePreference("leftSidebarOpen", leftOpen);
+  }, [leftOpen]);
+
+  useEffect(() => {
+    storage.updatePreference("rightSidebarOpen", rightOpen);
+  }, [rightOpen]);
+
+  useEffect(() => {
+    storage.updatePreference("autoUpdate", autoUpdate);
+  }, [autoUpdate]);
 
   // Calculate status for each patient dynamically
   const getPatientsWithStatus = () => {
     return patients.map((patient) => {
-      const patientData = patientsData[patient.id];
-      const hasNotes = clinicalNotes[patient.id]?.trim().length > 0 ||
-                       patientData?.clinicalNotes?.trim().length > 0;
-      const hasAISummary = patientData?.aiNotes?.note_summary?.trim().length > 0;
+      const hasNotes = clinicalNotes[patient.id]?.trim().length > 0;
+      const hasAISummary = aiNotesData[patient.id]?.note_summary?.trim().length > 0;
       const isCurrentlyOpen = patient.id === currentPatientId;
 
       let status: Patient['status'];
@@ -130,30 +163,74 @@ export function MainLayout({
   };
 
   const patientsWithStatus = getPatientsWithStatus();
-  const currentPatient = patientsWithStatus.find(p => p.id === currentPatientId) || patientsWithStatus[0];
+  const currentPatient = patientsWithStatus.find(p => p.id === currentPatientId) || patientsWithStatus[0] || null;
 
-  // Get current patient data
-  const currentPatientData = patientsData[currentPatient.id] || {
-    aiNotes: {
-      chiefComplaints: [],
-      hpi: "",
-      subjective: {
-        pmh: "",
-        fh: "",
-        sh: "",
-        es: "",
-        stressLevel: "0/10",
-      },
-      tcmReview: {},
-      tongue: { body: "", coating: "" },
-      pulse: { text: "" },
-      diagnosis: { tcmDiagnosis: "", icdCodes: [] },
-      treatment: "",
-      acupuncture: [],
+  // Auto-save effect (debounced 2 seconds) - Must be before early return
+  useEffect(() => {
+    if (!currentPatient?.id) return;
+    if (saveStatus !== "unsaved") return;
+
+    setSaveStatus("saving");
+
+    const timeout = setTimeout(() => {
+      const notes = clinicalNotes[currentPatient.id] || "";
+      storage.savePatientClinicalNotes(currentPatient.id, notes);
+
+      // Update patient status
+      const hasNotes = notes.trim().length > 0;
+      const hasAISummary = aiNotesData[currentPatient.id]?.note_summary?.trim().length > 0;
+
+      let newStatus: Patient['status'] = 'scheduled';
+      if (hasAISummary) {
+        newStatus = 'completed';
+      } else if (hasNotes) {
+        newStatus = 'active';
+      }
+
+      storage.updatePatient(currentPatient.id, { status: newStatus });
+      setPatients(storage.getPatients());
+
+      setSaveStatus("saved");
+    }, 2000);
+
+    return () => clearTimeout(timeout);
+  }, [clinicalNotes, currentPatient?.id, aiNotesData, saveStatus]);
+
+  // Early return if no patients - Must be after all hooks
+  if (!currentPatient) {
+    return (
+      <div className="flex h-screen items-center justify-center bg-white">
+        <p className="text-gray-500">No patients found. Please add a patient to get started.</p>
+      </div>
+    );
+  }
+
+  // Get current patient AI data from localStorage
+  const currentPatientAINotes = aiNotesData[currentPatient.id] || {
+    chiefComplaints: [],
+    hpi: "",
+    subjective: {
+      pmh: "",
+      fh: "",
+      sh: "",
+      es: "",
+      stressLevel: "0/10",
     },
+    tcmReview: {},
+    tongue: { body: "", coating: "" },
+    pulse: { text: "" },
+    diagnosis: { tcmDiagnosis: "", icdCodes: [] },
+    treatment: "",
+    acupuncture: [],
   };
 
-  // Patient navigation handlers
+  // Patient management handlers
+  const handlePatientAdded = () => {
+    // Reload patients from localStorage
+    const updatedPatients = storage.getPatients();
+    setPatients(updatedPatients);
+  };
+
   const handlePatientClick = (patient: Patient) => {
     setCurrentPatientId(patient.id);
   };
@@ -172,20 +249,22 @@ export function MainLayout({
     }
   };
 
-  // Notes management
+  // Notes management with auto-save
   const handleNotesChange = (value: string) => {
+    if (!currentPatient?.id) return;
+
+    // Update notes immediately
     setClinicalNotes((prev) => ({
       ...prev,
       [currentPatient.id]: value,
     }));
+
+    // Set status to unsaved
+    setSaveStatus("unsaved");
   };
 
   const getCurrentNotes = () => {
-    return (
-      clinicalNotes[currentPatient.id] ||
-      currentPatientData.clinicalNotes ||
-      ""
-    );
+    return clinicalNotes[currentPatient?.id] || "";
   };
 
   // AI refresh handler
@@ -201,6 +280,7 @@ export function MainLayout({
         patients={patientsWithStatus}
         activePatientId={currentPatient.id}
         onPatientClick={handlePatientClick}
+        onPatientAdded={handlePatientAdded}
         isOpen={leftOpen}
         onToggle={() => setLeftOpen(!leftOpen)}
       />
@@ -210,11 +290,8 @@ export function MainLayout({
         <MiddleColumn
           patient={currentPatient}
           clinicalNotes={getCurrentNotes()}
-          onPrevious={handlePrevious}
-          onNext={handleNext}
-          aiEnabled={aiEnabled}
-          onAIToggle={setAIEnabled}
           onNotesChange={handleNotesChange}
+          saveStatus={saveStatus}
         />
       </div>
 
@@ -226,7 +303,7 @@ export function MainLayout({
           autoUpdate={autoUpdate}
           onAutoUpdateChange={setAutoUpdate}
           onRefresh={handleRefresh}
-          data={currentPatientData.aiNotes}
+          data={currentPatientAINotes}
         />
       )}
     </div>
