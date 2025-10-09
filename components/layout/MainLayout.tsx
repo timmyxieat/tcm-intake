@@ -180,18 +180,20 @@ export function MainLayout({
       />
 
       {/* Middle Column: Clinical Notes */}
-      <MiddleColumn
-        patient={currentPatient}
-        clinicalNotes={getCurrentNotes()}
-        onPrevious={handlePrevious}
-        onNext={handleNext}
-        aiEnabled={aiEnabled}
-        onAIToggle={setAIEnabled}
-        onNotesChange={handleNotesChange}
-      />
+      <div className="flex-1">
+        <MiddleColumn
+          patient={currentPatient}
+          clinicalNotes={getCurrentNotes()}
+          onPrevious={handlePrevious}
+          onNext={handleNext}
+          aiEnabled={aiEnabled}
+          onAIToggle={setAIEnabled}
+          onNotesChange={handleNotesChange}
+        />
+      </div>
 
       {/* Right Sidebar: AI Structured Notes */}
-      {aiEnabled && (
+      {aiEnabled && rightOpen && (
         <RightSidebar
           isOpen={rightOpen}
           onToggle={() => setRightOpen(!rightOpen)}

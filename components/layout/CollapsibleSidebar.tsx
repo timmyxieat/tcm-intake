@@ -67,7 +67,8 @@ export function CollapsibleSidebar({
   return (
     <div
       className={cn(
-        "relative bg-white border-r transition-all duration-300 ease-in-out",
+        "relative bg-white transition-all duration-300 ease-in-out",
+        position === "left" ? "border-r" : "border-l",
         isOpen
           ? (position === "left"
               ? "w-64"
@@ -120,7 +121,7 @@ export function CollapsibleSidebar({
           </div>
 
           {/* Content */}
-          <div className="h-[calc(100%-53px)]  px-4 py-4">{children}</div>
+          <div className="h-[calc(100%-53px)]">{children}</div>
         </>
       ) : (
         <>

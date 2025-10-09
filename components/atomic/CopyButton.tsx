@@ -38,16 +38,16 @@ export function CopyButton({ textToCopy, className }: CopyButtonProps) {
   return (
     <Button
       variant="ghost"
-      size="sm"
+      size="icon"
       onClick={handleCopy}
-      className={className}
+      className={`h-6 w-6 hover:bg-teal-50 ${className}`}
+      title="Copy to clipboard"
     >
       {copied ? (
-        <Check className="h-4 w-4 text-teal-600" />
+        <Check className="h-3.5 w-3.5 text-teal-600" />
       ) : (
-        <Copy className="h-4 w-4 text-teal-600" />
+        <Copy className="h-3.5 w-3.5 text-teal-600" />
       )}
-      <span className="ml-1 text-teal-600 text-sm">Copy</span>
     </Button>
   );
 }

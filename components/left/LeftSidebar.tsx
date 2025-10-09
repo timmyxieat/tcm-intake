@@ -83,7 +83,7 @@ export function LeftSidebar({
         </div>
       }
     >
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 px-4 py-4">
         <div className="flex flex-col gap-1">
           <h4 className="font-semibold text-sm">Today's Patients</h4>
           <p className="text-xs text-muted-foreground">{formattedDate}</p>

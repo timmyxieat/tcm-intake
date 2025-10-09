@@ -1,0 +1,164 @@
+{
+  "type": "object",
+  "required": [
+    "chief_complaints",
+    "hpi",
+    "subjective",
+    "tcm_review",
+    "tongue",
+    "pulse",
+    "diagnosis",
+    "treatment_principle",
+    "acupuncture_points",
+    "metadata"
+  ],
+  "properties": {
+    "chief_complaints": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["text", "icd10"],
+        "properties": {
+          "text": { "type": "string" },
+          "icd10": {
+            "type": ["object", "null"],
+            "properties": {
+              "code": { "type": "string" },
+              "label": { "type": "string" },
+              "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+            },
+            "required": ["code", "label", "confidence"]
+          }
+        }
+      }
+    },
+    "hpi": { "type": ["string", "null"] },
+    "subjective": {
+      "type": "object",
+      "required": [
+        "pmh",
+        "fh",
+        "sh",
+        "emotional_state",
+        "stress_level",
+        "highlights"
+      ],
+      "properties": {
+        "pmh": { "type": "array", "items": { "type": "string" } },
+        "fh": { "type": "array", "items": { "type": "string" } },
+        "sh": { "type": "array", "items": { "type": "string" } },
+        "emotional_state": { "type": ["string", "null"] },
+        "stress_level": {
+          "type": ["string", "null"],
+          "pattern": "^[0-9]+/10$"
+        },
+        "highlights": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 0,
+          "maxItems": 8
+        }
+      }
+    },
+    "tcm_review": {
+      "type": "object",
+      "required": [
+        "appetite",
+        "stool",
+        "thirst",
+        "urine",
+        "sleep",
+        "energy",
+        "temperature",
+        "sweat",
+        "pain",
+        "libido"
+      ],
+      "properties": {
+        "appetite": { "type": "array", "items": { "type": "string" } },
+        "stool": { "type": "array", "items": { "type": "string" } },
+        "thirst": { "type": "array", "items": { "type": "string" } },
+        "urine": { "type": "array", "items": { "type": "string" } },
+        "sleep": { "type": "array", "items": { "type": "string" } },
+        "energy": { "type": "array", "items": { "type": "string" } },
+        "temperature": { "type": "array", "items": { "type": "string" } },
+        "sweat": { "type": "array", "items": { "type": "string" } },
+        "pain": { "type": "array", "items": { "type": "string" } },
+        "libido": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "tongue": {
+      "type": "object",
+      "required": ["body", "coating", "highlights"],
+      "properties": {
+        "body": { "type": ["string", "null"] },
+        "coating": { "type": ["string", "null"] },
+        "highlights": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "pulse": {
+      "type": "object",
+      "required": ["qualities", "highlights"],
+      "properties": {
+        "qualities": { "type": "array", "items": { "type": "string" } },
+        "highlights": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "diagnosis": {
+      "type": "object",
+      "required": ["tcm_patterns", "icd10_summary"],
+      "properties": {
+        "tcm_patterns": { "type": "array", "items": { "type": "string" } },
+        "icd10_summary": {
+          "type": "array",
+          "items": {
+            "$ref": "#/properties/chief_complaints/items/properties/icd10"
+          }
+        }
+      }
+    },
+    "treatment_principle": { "type": ["string", "null"] },
+    "acupuncture_points": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["region", "points"],
+        "properties": {
+          "region": { "type": "string" },
+          "points": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["name"],
+              "properties": {
+                "name": { "type": "string" },
+                "laterality": {
+                  "type": ["string", "null"],
+                  "enum": ["R", "L", null]
+                },
+                "note": { "type": ["string", "null"] },
+                "noteColor": {
+                  "type": ["string", "null"],
+                  "enum": ["orange", "purple", null]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["timestamp", "extraction_confidence", "coding_notes"],
+      "properties": {
+        "timestamp": { "type": "string" },
+        "extraction_confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "coding_notes": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}
