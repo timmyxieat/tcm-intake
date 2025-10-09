@@ -107,8 +107,11 @@ export function SubjectiveCard({
   if (hasTCMReview) {
     const tcmText = Object.entries(tcmReview)
       .map(
-        ([category, items]) =>
-          `${category}:\n${items.map((item) => `${item}`).join("\n")}`
+        ([category, items]) => {
+          // Ensure items is an array
+          const itemsArray = Array.isArray(items) ? items : [];
+          return `${category}:\n${itemsArray.map((item) => `${item}`).join("\n")}`;
+        }
       )
       .join("\n\n");
     allText += `TCM Review of Systems:\n\n${tcmText}`;
@@ -181,11 +184,15 @@ export function SubjectiveCard({
               TCM Review of Systems
             </h4>
             <div className="grid grid-cols-2 gap-x-4 gap-y-2">
-              {tcmEntries.map(([category, items]) => (
-                <div key={category} className="text-sm text-gray-800">
-                  <span className="font-semibold">{category}:</span> {items.join(", ")}
-                </div>
-              ))}
+              {tcmEntries.map(([category, items]) => {
+                // Ensure items is an array
+                const itemsArray = Array.isArray(items) ? items : [];
+                return (
+                  <div key={category} className="text-sm text-gray-800">
+                    <span className="font-semibold">{category}:</span> {itemsArray.join(", ")}
+                  </div>
+                );
+              })}
             </div>
           </div>
         )}

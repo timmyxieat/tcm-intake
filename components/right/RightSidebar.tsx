@@ -149,7 +149,7 @@ export function RightSidebar({
         </div>
       }
     >
-      <div className="relative h-full">
+      <div className="h-full overflow-hidden">
         {isLoading && (
           <div className="absolute inset-0 bg-white/80 z-10 flex items-center justify-center">
             <div className="text-center">
@@ -158,8 +158,8 @@ export function RightSidebar({
             </div>
           </div>
         )}
-        <ScrollArea className="h-full bg-gray-50">
-          <div className="space-y-4 pr-4 p-4">
+        <ScrollArea className="h-full">
+          <div className="space-y-4 p-4 bg-gray-50">
             <ChiefComplaintCard complaints={data.chiefComplaints} />
             <HPICard text={data.hpi} />
             <SubjectiveCard {...data.subjective} tcmReview={data.tcmReview} />
