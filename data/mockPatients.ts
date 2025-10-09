@@ -126,6 +126,7 @@ export const mockPatientsData: Record<string, any> = {
         ],
       },
       treatment: "Tonify Kidney, move Qi and Blood in the channels, relieve pain",
+      acupunctureTreatmentSide: "Left side treatment",
       acupuncture: [
         {
           name: "Back",
@@ -138,7 +139,6 @@ export const mockPatientsData: Record<string, any> = {
         {
           name: "Distal",
           points: ["SI3", "BL62"],
-          note: "Left side treatment only",
         },
       ],
     },

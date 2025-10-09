@@ -100,6 +100,7 @@ export interface AIStructuredNotes {
   pulseExam: string;
   diagnosis: Diagnosis[];
   treatmentPrinciple: string;
+  acupunctureTreatmentSide?: 'Left side treatment' | 'Right side treatment' | 'Both sides treatment';
   acupuncture: AcupunctureRegion[];
 }
 

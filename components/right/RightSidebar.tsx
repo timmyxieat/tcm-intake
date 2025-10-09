@@ -83,6 +83,7 @@ interface RightSidebarProps {
       }>;
     };
     treatment: string;
+    acupunctureTreatmentSide?: 'Left side treatment' | 'Right side treatment' | 'Both sides treatment';
     acupuncture: Array<{
       name: string;
       points: string[];
@@ -154,7 +155,10 @@ export function RightSidebar({
           <PulseExaminationCard {...data.pulse} />
           <DiagnosisCard {...data.diagnosis} />
           <TreatmentCard principle={data.treatment} />
-          <AcupunctureCard regions={data.acupuncture} />
+          <AcupunctureCard
+            treatmentSide={data.acupunctureTreatmentSide}
+            regions={data.acupuncture}
+          />
         </div>
       </ScrollArea>
     </CollapsibleSidebar>
