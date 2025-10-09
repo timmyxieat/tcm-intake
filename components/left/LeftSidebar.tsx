@@ -6,6 +6,7 @@ import { PatientAvatar } from "@/components/atomic/PatientAvatar";
 import { Patient } from "@/types";
 import { useState } from "react";
 import moment from "moment";
+import * as storage from "@/lib/localStorage";
 
 /**
  * LeftSidebar Component
@@ -34,6 +35,7 @@ interface LeftSidebarProps {
   patients: Patient[];
   activePatientId?: string;
   onPatientClick?: (patient: Patient) => void;
+  onPatientAdded?: () => void; // Callback when patient is added
   isOpen?: boolean;
   onToggle?: () => void;
 }
@@ -42,6 +44,7 @@ export function LeftSidebar({
   patients,
   activePatientId,
   onPatientClick,
+  onPatientAdded,
   isOpen: controlledIsOpen,
   onToggle: controlledOnToggle,
 }: LeftSidebarProps) {
@@ -72,13 +75,29 @@ export function LeftSidebar({
   };
 
   const handleConfirmAdd = () => {
-    if (newInitials.length === 2 && newTime) {
-      console.log("Adding patient:", { initials: newInitials, time: newTime });
-      // TODO: Add patient to list
-      setIsAdding(false);
-      setNewInitials("");
-      setNewTime("");
-    }
+    if (newInitials.length !== 2 || !newTime) return;
+
+    // Create new patient with timestamp ID
+    const newPatient: Patient = {
+      id: Date.now().toString(),
+      initials: newInitials.toUpperCase(),
+      time: moment(newTime, "HH:mm").toISOString(),
+      status: "scheduled",
+    };
+
+    // Save to localStorage
+    storage.addPatient(newPatient);
+
+    // Notify parent to reload patients
+    onPatientAdded?.();
+
+    // Select the new patient
+    onPatientClick?.(newPatient);
+
+    // Reset form
+    setIsAdding(false);
+    setNewInitials("");
+    setNewTime("");
   };
 
   const handleCancelAdd = () => {
@@ -138,7 +157,7 @@ export function LeftSidebar({
       <div className="flex flex-col gap-4 px-4 py-4">
         <div className="flex flex-col gap-1">
           <h4 className="font-semibold text-sm">Today's Patients</h4>
-          <p className="text-xs text-muted-foreground">{formattedDate}</p>
+          <p className="text-xs text-gray-500">{formattedDate}</p>
         </div>
 
         {/* Add button in expanded view */}
