@@ -48,16 +48,18 @@ export function LeftSidebar({
   const [internalIsOpen, setInternalIsOpen] = useState(true);
 
   // Use controlled props if provided, otherwise use internal state
-  const isOpen = controlledIsOpen !== undefined ? controlledIsOpen : internalIsOpen;
-  const onToggle = controlledOnToggle || (() => setInternalIsOpen(!internalIsOpen));
+  const isOpen =
+    controlledIsOpen !== undefined ? controlledIsOpen : internalIsOpen;
+  const onToggle =
+    controlledOnToggle || (() => setInternalIsOpen(!internalIsOpen));
 
   // Format today's date
   const today = new Date();
-  const formattedDate = today.toLocaleDateString('en-US', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
+  const formattedDate = today.toLocaleDateString("en-US", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   });
 
   const handleAddPatient = () => {
@@ -71,7 +73,7 @@ export function LeftSidebar({
       isOpen={isOpen}
       onToggle={onToggle}
       collapsedContent={
-        <div className="flex flex-col gap-3 items-center pt-4 px-2">
+        <div className="flex flex-col gap-3 items-center pt-4">
           {/* Add button in collapsed view */}
           <button
             onClick={handleAddPatient}
@@ -81,7 +83,7 @@ export function LeftSidebar({
             <span className="text-xl leading-none">+</span>
           </button>
 
-          {patients.slice(0, 4).map(patient => {
+          {patients.slice(0, 4).map((patient) => {
             // Format time as "9:30" for collapsed view
             const formattedTime = moment(patient.time).format("h:mm");
             return (

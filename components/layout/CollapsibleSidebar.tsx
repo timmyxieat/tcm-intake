@@ -75,7 +75,7 @@ export function CollapsibleSidebar({
             : fullWidth
             ? "flex-1"
             : "w-96"
-          : "w-12",
+          : "w-16",
         className
       )}
     >
