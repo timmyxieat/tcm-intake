@@ -84,8 +84,9 @@ export function CollapsibleSidebar({
         <>
           {/* Header with Chevron, Primary, and Secondary */}
           <div
+            onClick={onToggle}
             className={cn(
-              "flex items-center px-4 border-b",
+              "flex items-center px-4 border-b cursor-pointer",
               HEADER_HEIGHT,
               primary || secondary ? "justify-between" : "justify-end"
             )}
@@ -93,10 +94,7 @@ export function CollapsibleSidebar({
             {position === "left" ? (
               <>
                 {/* Left sidebar: Entire header is clickable */}
-                <div
-                  onClick={onToggle}
-                  className="flex-1 flex items-center justify-between cursor-pointer"
-                >
+                <div className="flex-1 flex items-center justify-between">
                   {primary && <div>{primary}</div>}
                   <div className="flex items-center gap-2">
                     {secondary && <div>{secondary}</div>}
@@ -108,18 +106,11 @@ export function CollapsibleSidebar({
               </>
             ) : (
               <>
-                {/* Right sidebar: Header and Chevron are clickable */}
-                <div
-                  onClick={onToggle}
-                  className="flex items-center gap-2 cursor-pointer"
-                >
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="h-8 w-8 p-0 pointer-events-none"
-                  >
+                {/* Right sidebar: Entire header is clickable */}
+                <div className="flex items-center gap-2">
+                  <div className="h-8 w-8 p-0 flex items-center justify-center rounded-md hover:bg-accent hover:text-accent-foreground transition-colors">
                     <ChevronIcon className="h-4 w-4" />
-                  </Button>
+                  </div>
                   {primary && <div>{primary}</div>}
                 </div>
                 {secondary && <div>{secondary}</div>}
@@ -134,16 +125,14 @@ export function CollapsibleSidebar({
         <>
           {/* Collapsed Header - matches expanded state positioning */}
           <div
+            onClick={onToggle}
             className={cn(
-              "flex items-center border-b",
+              "flex items-center border-b cursor-pointer",
               HEADER_HEIGHT,
               position === "left" ? "justify-end px-4" : "justify-start px-4"
             )}
           >
-            <div
-              onClick={onToggle}
-              className="h-8 w-8 p-0 flex items-center justify-center rounded-md hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer"
-            >
+            <div className="h-8 w-8 p-0 flex items-center justify-center rounded-md hover:bg-accent hover:text-accent-foreground transition-colors">
               <ChevronIcon className="h-4 w-4" />
             </div>
           </div>
