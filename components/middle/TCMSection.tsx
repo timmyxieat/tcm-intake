@@ -18,6 +18,7 @@ import { ChevronDown } from "lucide-react";
 interface TCMSectionProps {
   categories?: string[];
   onCategoryClick?: (category: string) => void;
+  isSectionCompleted?: (label: string) => boolean;
 }
 
 const DEFAULT_CATEGORIES = [
@@ -39,8 +40,11 @@ const DEFAULT_CATEGORIES = [
   'Libido'
 ];
 
-export function TCMSection({ categories = DEFAULT_CATEGORIES, onCategoryClick }: TCMSectionProps) {
+export function TCMSection({ categories = DEFAULT_CATEGORIES, onCategoryClick, isSectionCompleted }: TCMSectionProps) {
   const [isOpen, setIsOpen] = useState(true);
+
+  // Check if all TCM categories are completed
+  const allCategoriesCompleted = categories.every(category => isSectionCompleted?.(category) ?? false);
 
   return (
     <div>
@@ -49,7 +53,9 @@ export function TCMSection({ categories = DEFAULT_CATEGORIES, onCategoryClick }:
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center justify-between py-2.5 px-4 cursor-pointer hover:bg-gray-100 active:bg-gray-200 transition-colors"
       >
-        <span className="text-sm text-gray-700">TCM</span>
+        <span className={`text-sm transition-colors ${
+          allCategoriesCompleted ? 'text-gray-400 line-through' : 'text-gray-700'
+        }`}>TCM</span>
         <ChevronDown
           className={`h-4 w-4 text-gray-400 transition-transform ${
             isOpen ? 'transform rotate-180' : ''
@@ -60,15 +66,20 @@ export function TCMSection({ categories = DEFAULT_CATEGORIES, onCategoryClick }:
       {/* Categories List */}
       {isOpen && (
         <div className="bg-gray-50">
-          {categories.map((category) => (
-            <div
-              key={category}
-              onClick={() => onCategoryClick?.(category)}
-              className="py-2 px-4 pl-8 text-sm text-gray-600 hover:bg-gray-100 active:bg-gray-200 cursor-pointer border-l-2 border-teal-400 ml-4 transition-colors"
-            >
-              {category}
-            </div>
-          ))}
+          {categories.map((category) => {
+            const completed = isSectionCompleted?.(category) ?? false;
+            return (
+              <div
+                key={category}
+                onClick={() => onCategoryClick?.(category)}
+                className={`py-2 px-4 pl-8 text-sm hover:bg-gray-100 active:bg-gray-200 cursor-pointer border-l-2 border-teal-400 ml-4 transition-colors ${
+                  completed ? 'text-gray-400 line-through' : 'text-gray-600'
+                }`}
+              >
+                {category}
+              </div>
+            );
+          })}
         </div>
       )}
     </div>

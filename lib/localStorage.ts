@@ -27,6 +27,7 @@ export interface AppPreferences {
   leftSidebarOpen: boolean;
   rightSidebarOpen: boolean;
   autoUpdate: boolean;
+  selectedPatientId: string | null;
 }
 
 // Default preferences
@@ -34,6 +35,7 @@ const DEFAULT_PREFERENCES: AppPreferences = {
   leftSidebarOpen: true,
   rightSidebarOpen: true,
   autoUpdate: true,
+  selectedPatientId: null,
 };
 
 /**

@@ -15,13 +15,16 @@
 interface SectionLabelProps {
   label: string;
   onClick?: () => void;
+  completed?: boolean;
 }
 
-export function SectionLabel({ label, onClick }: SectionLabelProps) {
+export function SectionLabel({ label, onClick, completed = false }: SectionLabelProps) {
   return (
     <div
       onClick={onClick}
-      className="py-2.5 px-4 text-sm text-gray-700 hover:bg-gray-100 active:bg-gray-200 cursor-pointer transition-colors"
+      className={`py-2.5 px-4 text-sm hover:bg-gray-100 active:bg-gray-200 cursor-pointer transition-colors ${
+        completed ? 'text-gray-400 line-through' : 'text-gray-700'
+      }`}
     >
       {label}
     </div>

@@ -25,17 +25,29 @@ import { HEADER_HEIGHT } from "@/lib/constants";
 
 interface TopNavigationProps {
   patient: Patient;
-  onSaveNotes?: () => void;
-  hasUnsavedChanges?: boolean;
+  saveStatus?: "saved" | "saving" | "unsaved";
 }
 
 export function TopNavigation({
   patient,
-  onSaveNotes,
-  hasUnsavedChanges = false
+  saveStatus = "saved"
 }: TopNavigationProps) {
   // Format time as "9:30 AM" (with space)
   const formattedTime = moment(patient.time).format("h:mm A");
+
+  // Save status text and styling
+  const getSaveStatusDisplay = () => {
+    switch (saveStatus) {
+      case "saving":
+        return { text: "Saving...", className: "text-gray-500" };
+      case "unsaved":
+        return { text: "Not saved", className: "text-orange-500" };
+      case "saved":
+        return { text: "Saved", className: "text-teal-600" };
+    }
+  };
+
+  const statusDisplay = getSaveStatusDisplay();
 
   return (
     <div className={`flex items-center justify-between px-4 bg-white border-b ${HEADER_HEIGHT}`}>
@@ -51,15 +63,18 @@ export function TopNavigation({
         </span>
       </div>
 
-      {/* Right: Save Button */}
-      <Button
-        onClick={onSaveNotes}
-        size="sm"
-        className="bg-teal-600 hover:bg-teal-700 text-white h-8 disabled:opacity-50 disabled:cursor-not-allowed"
-        disabled={!hasUnsavedChanges}
-      >
-        Save Notes
-      </Button>
+      {/* Right: Save Status Indicator */}
+      <div className="flex items-center gap-2">
+        {saveStatus === "saving" && (
+          <svg className="animate-spin h-4 w-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+        )}
+        <span className={`text-sm font-medium ${statusDisplay.className}`}>
+          {statusDisplay.text}
+        </span>
+      </div>
     </div>
   );
 }

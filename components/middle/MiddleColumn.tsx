@@ -32,15 +32,15 @@ import { useRef } from "react";
 interface MiddleColumnProps {
   patient: Patient;
   clinicalNotes?: string;
-  onGenerateNotes?: () => void;
   onNotesChange?: (value: string) => void;
+  saveStatus?: "saved" | "saving" | "unsaved";
 }
 
 export function MiddleColumn({
   patient,
   clinicalNotes = "",
-  onGenerateNotes,
-  onNotesChange
+  onNotesChange,
+  saveStatus = "saved"
 }: MiddleColumnProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -50,12 +50,21 @@ export function MiddleColumn({
     textareaRef.current?.focus();
   };
 
+  // Check if a section label appears on its own line in the notes
+  const isSectionCompleted = (label: string): boolean => {
+    if (!clinicalNotes) return false;
+
+    // Split notes into lines and check if any line exactly matches the label
+    const lines = clinicalNotes.split('\n');
+    return lines.some(line => line.trim() === label);
+  };
+
   return (
     <div className="flex flex-col h-full bg-white">
       {/* Top Navigation */}
       <TopNavigation
         patient={patient}
-        onGenerateNotes={onGenerateNotes}
+        saveStatus={saveStatus}
       />
 
       {/* Two Column Layout */}
@@ -63,21 +72,21 @@ export function MiddleColumn({
         {/* Left Column: Section Navigation Labels */}
         <ScrollArea className="w-44 border-r bg-gray-50">
           <div className="py-2">
-            <SectionLabel label="CC" onClick={() => handleSectionClick("CC")} />
-            <SectionLabel label="HPI" onClick={() => handleSectionClick("HPI")} />
-            <SectionLabel label="PMH" onClick={() => handleSectionClick("PMH")} />
-            <SectionLabel label="FH" onClick={() => handleSectionClick("FH")} />
-            <SectionLabel label="SH" onClick={() => handleSectionClick("SH")} />
-            <SectionLabel label="ES" onClick={() => handleSectionClick("ES")} />
+            <SectionLabel label="CC" onClick={() => handleSectionClick("CC")} completed={isSectionCompleted("CC")} />
+            <SectionLabel label="HPI" onClick={() => handleSectionClick("HPI")} completed={isSectionCompleted("HPI")} />
+            <SectionLabel label="PMH" onClick={() => handleSectionClick("PMH")} completed={isSectionCompleted("PMH")} />
+            <SectionLabel label="FH" onClick={() => handleSectionClick("FH")} completed={isSectionCompleted("FH")} />
+            <SectionLabel label="SH" onClick={() => handleSectionClick("SH")} completed={isSectionCompleted("SH")} />
+            <SectionLabel label="ES" onClick={() => handleSectionClick("ES")} completed={isSectionCompleted("ES")} />
 
             {/* TCM Section with Categories */}
-            <TCMSection onCategoryClick={handleSectionClick} />
+            <TCMSection onCategoryClick={handleSectionClick} isSectionCompleted={isSectionCompleted} />
 
-            <SectionLabel label="Tongue" onClick={() => handleSectionClick("Tongue")} />
-            <SectionLabel label="Pulse" onClick={() => handleSectionClick("Pulse")} />
-            <SectionLabel label="Diagnosis" onClick={() => handleSectionClick("Diagnosis")} />
-            <SectionLabel label="Points" onClick={() => handleSectionClick("Points")} />
-            <SectionLabel label="Plan" onClick={() => handleSectionClick("Plan")} />
+            <SectionLabel label="Tongue" onClick={() => handleSectionClick("Tongue")} completed={isSectionCompleted("Tongue")} />
+            <SectionLabel label="Pulse" onClick={() => handleSectionClick("Pulse")} completed={isSectionCompleted("Pulse")} />
+            <SectionLabel label="Diagnosis" onClick={() => handleSectionClick("Diagnosis")} completed={isSectionCompleted("Diagnosis")} />
+            <SectionLabel label="Points" onClick={() => handleSectionClick("Points")} completed={isSectionCompleted("Points")} />
+            <SectionLabel label="Plan" onClick={() => handleSectionClick("Plan")} completed={isSectionCompleted("Plan")} />
           </div>
         </ScrollArea>
 
