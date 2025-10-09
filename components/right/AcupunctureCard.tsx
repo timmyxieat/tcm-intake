@@ -92,8 +92,8 @@ E = Even method
                 return (
                   <p key={idx} className="text-sm text-gray-900">
                     {pointName}
-                    {annotation && <span className="ml-1 text-teal-600">({annotation})</span>}
-                    {region.note && <span className="ml-1 text-teal-600">({region.note})</span>}
+                    {annotation && <span className="ml-1 text-teal-600 font-medium">({annotation})</span>}
+                    {region.note && <span className="ml-1 text-teal-600 font-medium">({region.note})</span>}
                   </p>
                 );
               })}
