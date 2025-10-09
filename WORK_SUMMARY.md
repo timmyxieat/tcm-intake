@@ -28,14 +28,17 @@
 - **InfoCard**: Reusable wrapper for all AI structured notes cards (teal background, icon, copy button)
 - **ChiefComplaintCard**: Multiple chief complaints with ICD codes and individual copy buttons
 - **HPICard**: Single paragraph HPI with copy button
-- **SubjectiveCard**: PMH/FH/SH/ES sections with teal highlights and orange stress badge
-- **TCMReviewCard**: Two-column bullet grid for TCM review categories
+- **SubjectiveCard**: PMH/FH/SH/ES sections with teal highlights, orange stress badge, and TCM Review of Systems
 - **TongueExaminationCard**: Body and Coating sections with purple highlights
 - **PulseExaminationCard**: Single text description with purple highlights
 - **DiagnosisCard**: TCM diagnosis badge with multiple ICD code badges
 - **TreatmentCard**: Single treatment principle text
 - **AcupunctureCard**: Grouped acupuncture points by body region with color-coded notes
 - **RightSidebar**: Complete sidebar with CollapsibleSidebar, auto-updating toggle, refresh button, all 9 cards
+
+#### Copy-Paste Formatting (Optimized)
+- TCM Review: Clean format without regional headers, proper newline spacing
+- Acupuncture Points: Standardized codes (DU/RN/KD), simplified extra point names, inline modifiers
 
 ## Remaining Work - Phase 8: Integration
 
