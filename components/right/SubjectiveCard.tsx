@@ -156,13 +156,13 @@ export function SubjectiveCard({
         {/* TCM Review of Systems */}
         {tcmReview && (
           <div>
-            <h4 className="text-xs font-semibold text-gray-700 mb-2">
+            <h4 className="text-xs font-semibold text-gray-700 mb-4">
               TCM Review of Systems
             </h4>
-            <div className="grid grid-cols-2 gap-x-4 gap-y-1">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-2">
               {tcmEntries.map(([category, items]) => (
                 <div key={category} className="text-sm text-gray-800">
-                  • {category}: {items.join(", ")}
+                  <span className="font-semibold">{category}:</span> {items.join(", ")}
                 </div>
               ))}
             </div>
