@@ -132,19 +132,25 @@ export function CollapsibleSidebar({
         </>
       ) : (
         <>
-          {/* Toggle Button (Collapsed) */}
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={onToggle}
-            className="absolute top-4 left-1/2 -translate-x-1/2 z-10"
+          {/* Collapsed Header - matches expanded state positioning */}
+          <div
+            className={cn(
+              "flex items-center border-b",
+              HEADER_HEIGHT,
+              position === "left" ? "justify-end px-4" : "justify-start px-4"
+            )}
           >
-            <ChevronIcon className="h-4 w-4" />
-          </Button>
+            <div
+              onClick={onToggle}
+              className="h-8 w-8 p-0 flex items-center justify-center rounded-md hover:bg-accent hover:text-accent-foreground transition-colors cursor-pointer"
+            >
+              <ChevronIcon className="h-4 w-4" />
+            </div>
+          </div>
 
           {/* Collapsed Content */}
           {position === "left" && collapsedContent && (
-            <div className="h-full flex flex-col items-center justify-start pt-16">
+            <div className={`h-[calc(100%-${HEADER_HEIGHT_PX}px)] flex flex-col items-center justify-start pt-4`}>
               {collapsedContent}
             </div>
           )}
