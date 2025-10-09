@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
-import { MedicalHistory, TCMAssessmentData, AIStructuredNotes } from '@/types';
+import { MedicalHistory, TCMAssessmentData, TCMSymptom, AIStructuredNotes } from '@/types';
 
 // Initialize OpenAI client
 const openai = new OpenAI({
@@ -10,7 +10,7 @@ const openai = new OpenAI({
 // Helper function to format TCM symptoms for analysis
 function formatTCMSymptoms(tcmAssessment: TCMAssessmentData): string {
   const sections = Object.entries(tcmAssessment)
-    .map(([category, symptoms]) => {
+    .map(([category, symptoms]: [string, TCMSymptom[]]) => {
       const checkedSymptoms = symptoms
         .filter((s) => s.checked)
         .map((s) => s.label);

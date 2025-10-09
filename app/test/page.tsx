@@ -88,7 +88,7 @@ export default function TestPage() {
         {
           text: "Test complaint",
           icdCode: "M54.5",
-          icdLabel: "Low back pain",
+          icdDescription: "Low back pain",
         },
       ],
       hpi: "Test HPI content",
@@ -99,25 +99,33 @@ export default function TestPage() {
         es: "Test ES",
         stressLevel: "5/10",
       },
-      tcmReview: {
-        Pain: ["Lower back", "Radiating"],
-      },
-      tongue: {
+      tcmReview: [
+        {
+          category: "Pain",
+          symptoms: ["Lower back", "Radiating"],
+        },
+      ],
+      tongueExam: {
         body: "Pale",
         coating: "Thin white",
       },
-      pulse: {
-        text: "Wiry",
-      },
-      diagnosis: {
-        tcmDiagnosis: "Kidney Deficiency",
-        icdCodes: [{ code: "M54.5", label: "Low back pain" }],
-      },
-      treatment: "Tonify Kidney",
+      pulseExam: "Wiry",
+      diagnosis: [
+        {
+          tcm: "Kidney Deficiency",
+          icdCode: "M54.5",
+          icdDescription: "Low back pain",
+        },
+      ],
+      treatmentPrinciple: "Tonify Kidney",
+      acupunctureTreatmentSide: "Both sides treatment" as const,
       acupuncture: [
         {
-          name: "Back",
-          points: ["BL23", "BL25"],
+          region: "Back",
+          points: [
+            { code: "BL23" },
+            { code: "BL25" },
+          ],
         },
       ],
     };

@@ -1,5 +1,5 @@
 // Patient status types
-export type PatientStatus = 'completed' | 'active' | 'scheduled';
+export type PatientStatus = 'completed' | 'active' | 'scheduled' | 'waiting';
 
 // Patient interface
 export interface Patient {

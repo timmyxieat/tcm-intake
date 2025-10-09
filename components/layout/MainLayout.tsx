@@ -341,7 +341,7 @@ export function MainLayout({
           [currentPatient.id]: transformedNotes,
         };
         setAINotesData(updatedAINotes);
-        storage.savePatientAINotes(currentPatient.id, transformedNotes);
+        storage.savePatientAINotes(currentPatient.id, aiNotes);
 
         // Update patient status to completed
         storage.updatePatient(currentPatient.id, { status: 'completed' });
@@ -391,7 +391,7 @@ export function MainLayout({
           [currentPatient.id]: transformedNotes,
         };
         setAINotesData(updatedAINotes);
-        storage.savePatientAINotes(currentPatient.id, transformedNotes);
+        storage.savePatientAINotes(currentPatient.id, aiNotes);
 
         // Update patient status to completed
         storage.updatePatient(currentPatient.id, { status: 'completed' });

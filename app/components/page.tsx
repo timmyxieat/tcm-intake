@@ -361,10 +361,6 @@ Treatment Plan
                 <MiddleColumn
                   patient={mockPatient}
                   clinicalNotes={clinicalNotes}
-                  onPrevious={() => console.log('Previous patient')}
-                  onNext={() => console.log('Next patient')}
-                  aiEnabled={aiEnabled}
-                  onAIToggle={setAiEnabled}
                   onNotesChange={setClinicalNotes}
                 />
               </div>
