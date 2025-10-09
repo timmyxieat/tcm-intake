@@ -65,12 +65,12 @@ export function LeftSidebar({
       isOpen={isOpen}
       onToggle={onToggle}
       collapsedContent={
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-3 items-center pt-4">
           {patients.slice(0, 4).map(patient => (
             <div
               key={patient.id}
               onClick={() => onPatientClick?.(patient)}
-              className="cursor-pointer"
+              className="cursor-pointer flex flex-col items-center gap-1"
             >
               <PatientAvatar
                 initials={patient.initials}
@@ -78,6 +78,9 @@ export function LeftSidebar({
                 size="sm"
                 isActive={patient.id === activePatientId}
               />
+              <p className="text-xs text-gray-600 text-center whitespace-nowrap">
+                {patient.time}
+              </p>
             </div>
           ))}
         </div>

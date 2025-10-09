@@ -193,7 +193,7 @@ export function MainLayout({
       </div>
 
       {/* Right Sidebar: AI Structured Notes */}
-      {aiEnabled && rightOpen && (
+      {aiEnabled && (
         <RightSidebar
           isOpen={rightOpen}
           onToggle={() => setRightOpen(!rightOpen)}
