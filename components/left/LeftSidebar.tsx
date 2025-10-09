@@ -71,7 +71,7 @@ export function LeftSidebar({
       isOpen={isOpen}
       onToggle={onToggle}
       collapsedContent={
-        <div className="flex flex-col gap-3 items-center pt-4">
+        <div className="flex flex-col gap-3 items-center pt-4 px-1">
           {/* Add button in collapsed view */}
           <button
             onClick={handleAddPatient}
@@ -114,7 +114,7 @@ export function LeftSidebar({
         {/* Add button in expanded view */}
         <button
           onClick={handleAddPatient}
-          className="w-full py-2 px-3 rounded-lg border-2 border-dashed border-gray-300 hover:border-gray-400 hover:bg-gray-50 transition-colors flex items-center gap-2 text-sm text-gray-600 hover:text-gray-800"
+          className="w-full py-2 px-3 rounded-lg border-2 border-dashed border-gray-300 hover:border-gray-400 hover:bg-gray-50 transition-colors flex items-center justify-center gap-2 text-sm text-gray-600 hover:text-gray-800"
         >
           <span className="text-lg leading-none">+</span>
           <span>Add New Patient</span>
