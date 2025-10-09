@@ -71,7 +71,7 @@ export function LeftSidebar({
       isOpen={isOpen}
       onToggle={onToggle}
       collapsedContent={
-        <div className="flex flex-col gap-3 items-center pt-4 px-1">
+        <div className="flex flex-col gap-3 items-center pt-4 px-2">
           {/* Add button in collapsed view */}
           <button
             onClick={handleAddPatient}
