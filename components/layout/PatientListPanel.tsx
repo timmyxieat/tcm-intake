@@ -1,8 +1,8 @@
 "use client";
 
-import { CollapsibleSidebar } from "@/components/layout/CollapsibleSidebar";
-import { PatientList } from "@/components/left/PatientList";
-import { PatientAvatar } from "@/components/atomic/PatientAvatar";
+import { CollapsibleSidebar } from "@/components/layout/CollapsiblePanel";
+import { PatientList } from "@/components/patient/PatientList";
+import { PatientAvatar } from "@/components/shared/PatientAvatar";
 import { Patient } from "@/types";
 import { useState } from "react";
 import moment from "moment";

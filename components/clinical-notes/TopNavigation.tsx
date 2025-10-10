@@ -1,6 +1,6 @@
 "use client";
 
-import { PatientAvatar } from "@/components/atomic/PatientAvatar";
+import { PatientAvatar } from "@/components/shared/PatientAvatar";
 import { Button } from "@/components/ui/button";
 import { Patient } from "@/types";
 import moment from "moment";

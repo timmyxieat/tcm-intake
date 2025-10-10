@@ -1,6 +1,6 @@
-import { PatientDemographicsCard } from "./PatientDemographicsCard";
+import { PatientDemographicsCard } from "../PatientDemographicsCard";
 import { Thermometer } from "lucide-react";
-import { StatusBadge } from "@/components/atomic/StatusBadge";
+import { StatusBadge } from "@/components/shared/StatusBadge";
 
 /**
  * DiagnosisCard Component

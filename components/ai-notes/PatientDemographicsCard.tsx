@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { LucideIcon } from "lucide-react";
-import { CopyButton } from "@/components/atomic/CopyButton";
+import { CopyButton } from "@/components/shared/CopyButton";
 import { cn } from "@/lib/utils/cn";
 
 /**

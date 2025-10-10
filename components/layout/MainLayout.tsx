@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { LeftSidebar } from "@/components/left/LeftSidebar";
-import { MiddleColumn } from "@/components/middle/MiddleColumn";
-import { RightSidebar } from "@/components/right/RightSidebar";
+import { LeftSidebar } from "@/components/layout/PatientListPanel";
+import { MiddleColumn } from "@/components/layout/NotesEditorPanel";
+import { RightSidebar } from "@/components/ai-notes/AINotesPanel";
 import { Patient } from "@/types";
 import * as storage from "@/lib/storage/local-storage";
 import { useAIAnalysis } from "@/hooks/useAIAnalysis";

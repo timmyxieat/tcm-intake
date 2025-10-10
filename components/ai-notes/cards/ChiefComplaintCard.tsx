@@ -1,7 +1,7 @@
-import { PatientDemographicsCard } from "./PatientDemographicsCard";
+import { PatientDemographicsCard } from "../PatientDemographicsCard";
 import { Stethoscope } from "lucide-react";
-import { StatusBadge } from "@/components/atomic/StatusBadge";
-import { CopyButton } from "@/components/atomic/CopyButton";
+import { StatusBadge } from "@/components/shared/StatusBadge";
+import { CopyButton } from "@/components/shared/CopyButton";
 
 /**
  * ChiefComplaintCard Component

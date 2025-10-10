@@ -1,6 +1,6 @@
 "use client";
 
-import { PatientCard } from "@/components/left/PatientCard";
+import { PatientCard } from "@/components/patient/PatientCard";
 import { Patient } from "@/types";
 
 /**

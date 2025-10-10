@@ -1,15 +1,15 @@
 "use client";
 
-import { StatusBadge } from "@/components/atomic/StatusBadge";
-import { CopyButton } from "@/components/atomic/CopyButton";
-import { SectionHeader } from "@/components/atomic/SectionHeader";
-import { PatientAvatar } from "@/components/atomic/PatientAvatar";
-import { CollapsibleSidebar } from "@/components/layout/CollapsibleSidebar";
-import { PatientCard } from "@/components/left/PatientCard";
-import { PatientList } from "@/components/left/PatientList";
-import { LeftSidebar } from "@/components/left/LeftSidebar";
-import { MiddleColumn } from "@/components/middle/MiddleColumn";
-import { RightSidebar } from "@/components/right/RightSidebar";
+import { StatusBadge } from "@/components/shared/StatusBadge";
+import { CopyButton } from "@/components/shared/CopyButton";
+import { SectionHeader } from "@/components/shared/SectionHeader";
+import { PatientAvatar } from "@/components/shared/PatientAvatar";
+import { CollapsibleSidebar } from "@/components/layout/CollapsiblePanel";
+import { PatientCard } from "@/components/patient/PatientCard";
+import { PatientList } from "@/components/patient/PatientList";
+import { LeftSidebar } from "@/components/layout/PatientListPanel";
+import { MiddleColumn } from "@/components/layout/NotesEditorPanel";
+import { RightSidebar } from "@/components/ai-notes/AINotesPanel";
 import { FileText, Activity } from "lucide-react";
 import { useState } from "react";
 

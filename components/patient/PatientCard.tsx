@@ -1,7 +1,7 @@
 "use client";
 
-import { PatientAvatar } from "@/components/atomic/PatientAvatar";
-import { StatusBadge } from "@/components/atomic/StatusBadge";
+import { PatientAvatar } from "@/components/shared/PatientAvatar";
+import { StatusBadge } from "@/components/shared/StatusBadge";
 import { Patient } from "@/types";
 import moment from "moment";
 

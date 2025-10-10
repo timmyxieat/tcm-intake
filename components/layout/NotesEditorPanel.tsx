@@ -1,9 +1,9 @@
 "use client";
 
-import { TopNavigation } from "@/components/middle/TopNavigation";
-import { ClinicalSectionLabel } from "@/components/middle/ClinicalSectionLabel";
-import { TCMSection } from "@/components/middle/TCMSection";
-import { ClinicalNotesEditor } from "@/components/middle/ClinicalNotesEditor";
+import { TopNavigation } from "@/components/clinical-notes/TopNavigation";
+import { ClinicalSectionLabel } from "@/components/clinical-notes/ClinicalSectionLabel";
+import { TCMSection } from "@/components/clinical-notes/TCMSection";
+import { ClinicalNotesEditor } from "@/components/clinical-notes/ClinicalNotesEditor";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Patient } from "@/types";
 import { useRef } from "react";

@@ -1,19 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import { CollapsibleSidebar } from "@/components/layout/CollapsibleSidebar";
+import { CollapsibleSidebar } from "@/components/layout/CollapsiblePanel";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { RefreshCw, Sparkles } from "lucide-react";
-import { ChiefComplaintCard } from "./ChiefComplaintCard";
-import { HistoryPresentIllnessCard } from "./HistoryPresentIllnessCard";
-import { SubjectiveCard } from "./SubjectiveCard";
-import { TongueExaminationCard } from "./TongueExaminationCard";
-import { PulseExaminationCard } from "./PulseExaminationCard";
-import { DiagnosisCard } from "./DiagnosisCard";
-import { TreatmentCard } from "./TreatmentCard";
-import { AcupunctureCard } from "./AcupunctureCard";
+import { ChiefComplaintCard } from "./cards/ChiefComplaintCard";
+import { HistoryPresentIllnessCard } from "./cards/HistoryPresentIllnessCard";
+import { SubjectiveCard } from "./cards/SubjectiveCard";
+import { TongueExaminationCard } from "./cards/TongueExaminationCard";
+import { PulseExaminationCard } from "./cards/PulseExaminationCard";
+import { DiagnosisCard } from "./cards/DiagnosisCard";
+import { TreatmentCard } from "./cards/TreatmentCard";
+import { AcupunctureCard } from "./cards/AcupunctureCard";
 
 /**
  * RightSidebar Component

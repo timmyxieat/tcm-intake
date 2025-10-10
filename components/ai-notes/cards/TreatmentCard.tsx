@@ -1,4 +1,4 @@
-import { PatientDemographicsCard } from "./PatientDemographicsCard";
+import { PatientDemographicsCard } from "../PatientDemographicsCard";
 import { Target } from "lucide-react";
 
 /**
