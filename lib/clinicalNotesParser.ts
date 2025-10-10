@@ -206,6 +206,15 @@ export function parseClinicalNotes(clinicalNotes: string): ParsedNotes {
       case 'LIBIDO':
         markTCMSymptoms(tcmAssessment.libido, text);
         break;
+      // Note: Tongue and Pulse sections are recognized but not parsed here
+      // They are handled by the AI in the analyze endpoint
+      case 'TONGUE':
+      case 'PULSE':
+      case 'DIAGNOSIS':
+      case 'POINTS':
+      case 'PLAN':
+        // These sections are recognized but parsing is handled by AI
+        break;
     }
   };
 
@@ -256,14 +265,22 @@ export function parseClinicalNotes(clinicalNotes: string): ParsedNotes {
 
 /**
  * Helper function to mark TCM symptoms as checked if mentioned in text
+ * Uses word boundary matching to avoid false positives
  */
 function markTCMSymptoms(symptoms: Array<{label: string, checked: boolean}>, text: string) {
   const lowerText = text.toLowerCase();
 
   for (const symptom of symptoms) {
     const lowerLabel = symptom.label.toLowerCase();
-    // Check if the symptom label appears in the text
-    if (lowerText.includes(lowerLabel)) {
+
+    // Create a regex with word boundaries to avoid false positives
+    // \b matches word boundaries, so "poor" won't match "poor circulation"
+    // We escape special regex characters in the label
+    const escapedLabel = lowerLabel.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp(`\\b${escapedLabel}\\b`, 'i');
+
+    // Check if the symptom label appears as a complete word/phrase
+    if (regex.test(lowerText)) {
       symptom.checked = true;
     }
   }

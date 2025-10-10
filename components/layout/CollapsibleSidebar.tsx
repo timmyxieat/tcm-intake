@@ -68,7 +68,7 @@ export function CollapsibleSidebar({
   return (
     <div
       className={cn(
-        "relative bg-white transition-all duration-300 ease-in-out",
+        "relative bg-white transition-all duration-300 ease-in-out flex flex-col",
         position === "left" ? "border-r" : "border-l",
         isOpen
           ? position === "left"
@@ -86,7 +86,7 @@ export function CollapsibleSidebar({
           <div
             onClick={onToggle}
             className={cn(
-              "flex items-center px-4 border-b cursor-pointer",
+              "flex items-center px-4 border-b cursor-pointer flex-shrink-0",
               HEADER_HEIGHT,
               primary || secondary ? "justify-between" : "justify-end"
             )}
@@ -119,7 +119,7 @@ export function CollapsibleSidebar({
           </div>
 
           {/* Content */}
-          <div className={`h-[calc(100%-${HEADER_HEIGHT_PX}px)]`}>{children}</div>
+          <div className="flex-1 min-h-0 overflow-hidden">{children}</div>
         </>
       ) : (
         <>
@@ -127,7 +127,7 @@ export function CollapsibleSidebar({
           <div
             onClick={onToggle}
             className={cn(
-              "flex items-center border-b cursor-pointer",
+              "flex items-center border-b cursor-pointer flex-shrink-0",
               HEADER_HEIGHT,
               position === "left" ? "justify-end px-4" : "justify-start px-4"
             )}
@@ -139,7 +139,7 @@ export function CollapsibleSidebar({
 
           {/* Collapsed Content */}
           {position === "left" && collapsedContent && (
-            <div className={`h-[calc(100%-${HEADER_HEIGHT_PX}px)] flex flex-col items-center justify-start pt-4`}>
+            <div className="flex-1 min-h-0 flex flex-col items-center justify-start pt-4">
               {collapsedContent}
             </div>
           )}

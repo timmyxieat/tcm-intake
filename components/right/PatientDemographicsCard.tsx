@@ -4,7 +4,7 @@ import { CopyButton } from "@/components/atomic/CopyButton";
 import { cn } from "@/lib/utils";
 
 /**
- * InfoCard Component
+ * PatientDemographicsCard Component
  *
  * Reusable card wrapper for all AI structured notes cards in the right sidebar.
  * Features a light teal background, rounded corners, icon in header, and optional copy button.
@@ -17,17 +17,17 @@ import { cn } from "@/lib/utils";
  * @param className - Optional additional CSS classes
  *
  * @example
- * <InfoCard
+ * <PatientDemographicsCard
  *   title="Chief Complaint (CC)"
  *   icon={Stethoscope}
  *   hasCopy={true}
  *   textToCopy="Chronic fatigue for 6 months..."
  * >
  *   <p>Card content here</p>
- * </InfoCard>
+ * </PatientDemographicsCard>
  */
 
-interface InfoCardProps {
+interface PatientDemographicsCardProps {
   title: string;
   icon: LucideIcon;
   children: ReactNode;
@@ -36,14 +36,14 @@ interface InfoCardProps {
   className?: string;
 }
 
-export function InfoCard({
+export function PatientDemographicsCard({
   title,
   icon: Icon,
   children,
   hasCopy = false,
   textToCopy = "",
   className
-}: InfoCardProps) {
+}: PatientDemographicsCardProps) {
   return (
     <div className={cn(
       "bg-white rounded-lg p-4 space-y-3 border border-gray-200",

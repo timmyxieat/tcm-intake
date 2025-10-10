@@ -1,4 +1,4 @@
-import { InfoCard } from "./InfoCard";
+import { PatientDemographicsCard } from "./PatientDemographicsCard";
 import { Thermometer } from "lucide-react";
 import { StatusBadge } from "@/components/atomic/StatusBadge";
 
@@ -46,7 +46,7 @@ export function DiagnosisCard({ tcmDiagnosis, icdCodes }: DiagnosisCardProps) {
   if (hasICD) allText += `ICD-10 Codes:\n${icdCodes.map(icd => `${icd.code} - ${icd.label}`).join('\n')}`;
 
   return (
-    <InfoCard
+    <PatientDemographicsCard
       title="Diagnosis"
       icon={Thermometer}
       hasCopy={true}
@@ -72,6 +72,6 @@ export function DiagnosisCard({ tcmDiagnosis, icdCodes }: DiagnosisCardProps) {
           </div>
         )}
       </div>
-    </InfoCard>
+    </PatientDemographicsCard>
   );
 }

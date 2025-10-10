@@ -7,7 +7,7 @@ import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { RefreshCw, Sparkles } from "lucide-react";
 import { ChiefComplaintCard } from "./ChiefComplaintCard";
-import { HPICard } from "./HPICard";
+import { HistoryPresentIllnessCard } from "./HistoryPresentIllnessCard";
 import { SubjectiveCard } from "./SubjectiveCard";
 import { TongueExaminationCard } from "./TongueExaminationCard";
 import { PulseExaminationCard } from "./PulseExaminationCard";
@@ -149,31 +149,29 @@ export function RightSidebar({
         </div>
       }
     >
-      <div className="h-full overflow-hidden">
-        {isLoading && (
-          <div className="absolute inset-0 bg-white/80 z-10 flex items-center justify-center">
-            <div className="text-center">
-              <RefreshCw className="h-8 w-8 text-teal-600 animate-spin mx-auto mb-2" />
-              <p className="text-sm text-gray-600">Analyzing patient data...</p>
-            </div>
+      {isLoading && (
+        <div className="absolute inset-0 bg-white/80 z-10 flex items-center justify-center">
+          <div className="text-center">
+            <RefreshCw className="h-8 w-8 text-teal-600 animate-spin mx-auto mb-2" />
+            <p className="text-sm text-gray-600">Analyzing patient data...</p>
           </div>
-        )}
-        <ScrollArea className="h-full">
-          <div className="space-y-4 p-4 bg-gray-50">
-            <ChiefComplaintCard complaints={data.chiefComplaints} />
-            <HPICard text={data.hpi} />
-            <SubjectiveCard {...data.subjective} tcmReview={data.tcmReview} />
-            <TongueExaminationCard {...data.tongue} />
-            <PulseExaminationCard {...data.pulse} />
-            <DiagnosisCard {...data.diagnosis} />
-            <TreatmentCard principle={data.treatment} />
-            <AcupunctureCard
-              treatmentSide={data.acupunctureTreatmentSide}
-              regions={data.acupuncture}
-            />
-          </div>
-        </ScrollArea>
-      </div>
+        </div>
+      )}
+      <ScrollArea className="h-full bg-gray-50">
+        <div className="space-y-4 p-4">
+          <ChiefComplaintCard complaints={data.chiefComplaints} />
+          <HistoryPresentIllnessCard text={data.hpi} />
+          <SubjectiveCard {...data.subjective} tcmReview={data.tcmReview} />
+          <TongueExaminationCard {...data.tongue} />
+          <PulseExaminationCard {...data.pulse} />
+          <DiagnosisCard {...data.diagnosis} />
+          <TreatmentCard principle={data.treatment} />
+          <AcupunctureCard
+            treatmentSide={data.acupunctureTreatmentSide}
+            regions={data.acupuncture}
+          />
+        </div>
+      </ScrollArea>
     </CollapsibleSidebar>
   );
 }

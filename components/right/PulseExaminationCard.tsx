@@ -1,4 +1,4 @@
-import { InfoCard } from "./InfoCard";
+import { PatientDemographicsCard } from "./PatientDemographicsCard";
 import { Activity } from "lucide-react";
 
 /**
@@ -67,7 +67,7 @@ export function PulseExaminationCard({ text, highlights = [] }: PulseExamination
   if (!hasContent) return null;
 
   return (
-    <InfoCard
+    <PatientDemographicsCard
       title="Pulse Examination"
       icon={Activity}
       hasCopy={true}
@@ -76,6 +76,6 @@ export function PulseExaminationCard({ text, highlights = [] }: PulseExamination
       <p className="text-sm text-gray-800 leading-relaxed">
         {highlightText(text, highlights)}
       </p>
-    </InfoCard>
+    </PatientDemographicsCard>
   );
 }

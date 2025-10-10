@@ -7,6 +7,9 @@ const config: Config = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  safelist: [
+    'h-[60px]', // Header height constant used across all columns
+  ],
   theme: {
   	extend: {
   		keyframes: {

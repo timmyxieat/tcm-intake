@@ -8,7 +8,6 @@ import { Patient } from "@/types";
 import * as storage from "@/lib/localStorage";
 import { useAIAnalysis } from "@/hooks/useAIAnalysis";
 import { transformAINotesToSidebarFormat } from "@/lib/aiTransformer";
-import { mockMedicalHistory, mockTCMAssessment } from "@/data/mockMedicalData";
 import { parseClinicalNotes } from "@/lib/clinicalNotesParser";
 
 /**
@@ -123,6 +122,8 @@ export function MainLayout({
     // Use saved patients if they exist, otherwise use initial patients
     if (savedPatients.length > 0) {
       setPatients(savedPatients);
+      setClinicalNotes(savedNotes);
+      setAINotesData(savedAINotes);
 
       // Restore last selected patient if it exists, otherwise use first patient
       if (prefs.selectedPatientId && savedPatients.find(p => p.id === prefs.selectedPatientId)) {
@@ -131,17 +132,38 @@ export function MainLayout({
         setCurrentPatientId(savedPatients[0].id);
       }
     } else {
+      // Load initial patients and their data into localStorage
       setPatients(initialPatients);
-      setCurrentPatientId(initialPatients[0]?.id || "");
+      setCurrentPatientId(initialPatientId || initialPatients[0]?.id || "");
+
+      // Initialize localStorage with initial data
+      storage.savePatients(initialPatients);
+
+      // Extract and save data from initial state
+      const initialClinicalNotes: Record<string, string> = {};
+      const initialAINotes: Record<string, any> = {};
+
+      Object.entries(patientsData).forEach(([patientId, data]) => {
+        if (data.clinicalNotes) {
+          storage.savePatientClinicalNotes(patientId, data.clinicalNotes);
+          initialClinicalNotes[patientId] = data.clinicalNotes;
+        }
+        // aiNotes are in transformed format (for display), use directly
+        if (data.aiNotes) {
+          initialAINotes[patientId] = data.aiNotes;
+        }
+      });
+
+      // Use initial data (don't reload since we didn't save AI notes)
+      setClinicalNotes(initialClinicalNotes);
+      setAINotesData(initialAINotes);
     }
 
-    // Set both current state and saved notes
-    setClinicalNotes(savedNotes);
-    setAINotesData(savedAINotes);
+    // Set preferences
     setLeftOpen(prefs.leftSidebarOpen);
     setRightOpen(prefs.rightSidebarOpen);
     setAutoUpdate(prefs.autoUpdate);
-  }, [initialPatients]);
+  }, [initialPatients, initialPatientId, patientsData]);
 
   // Save preferences when they change
   useEffect(() => {
@@ -357,54 +379,18 @@ export function MainLayout({
     }
   };
 
-  // AI refresh handler (using mock data for demo)
+  // AI refresh handler - regenerates notes from current clinical notes
   const handleRefresh = async () => {
     if (!currentPatient?.id) return;
 
-    setIsAnalyzing(true);
-    clearError();
-
-    try {
-      // For demo purposes, use a hardcoded patient data set
-      // In production, this would come from form data or localStorage
-      // Using patient 2's data (insomnia case) as the demo
-      const medicalHistory = mockMedicalHistory["2"];
-      const tcmAssessment = mockTCMAssessment["2"];
-
-      if (!medicalHistory || !tcmAssessment) {
-        console.warn(`No medical data found for demo`);
-        alert("Please complete the medical history and TCM assessment before generating AI notes.");
-        setIsAnalyzing(false);
-        return;
-      }
-
-      // Call AI analysis
-      const aiNotes = await analyzePatient(medicalHistory, tcmAssessment);
-
-      if (aiNotes) {
-        // Transform AI notes to sidebar format
-        const transformedNotes = transformAINotesToSidebarFormat(aiNotes);
-
-        // Update state and localStorage
-        const updatedAINotes = {
-          ...aiNotesData,
-          [currentPatient.id]: transformedNotes,
-        };
-        setAINotesData(updatedAINotes);
-        storage.savePatientAINotes(currentPatient.id, aiNotes);
-
-        // Update patient status to completed
-        storage.updatePatient(currentPatient.id, { status: 'completed' });
-        setPatients(storage.getPatients());
-
-        console.log("AI analysis completed successfully");
-      }
-    } catch (error) {
-      console.error("AI analysis failed:", error);
-      alert("Failed to generate AI notes. Please check your API key and try again.");
-    } finally {
-      setIsAnalyzing(false);
+    const currentNotes = getCurrentNotes();
+    if (!currentNotes || currentNotes.trim().length === 0) {
+      alert("Please enter clinical notes before refreshing AI analysis.");
+      return;
     }
+
+    // Use the same logic as handleGenerateNotes
+    await handleGenerateNotes();
   };
 
   return (

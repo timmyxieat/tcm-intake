@@ -86,9 +86,9 @@ export default function TestPage() {
       note_summary: "Test AI summary",
       chiefComplaints: [
         {
-          text: "Test complaint",
-          icdCode: "M54.5",
-          icdDescription: "Low back pain",
+          text: "Test complaint for 3 weeks",
+          icdCode: "M54.50",  // STRING with trailing zero
+          icdLabel: "Low back pain, unspecified",  // Changed from icdDescription
         },
       ],
       hpi: "Test HPI content",
@@ -107,24 +107,30 @@ export default function TestPage() {
       ],
       tongueExam: {
         body: "Pale",
+        bodyHighlights: ["Pale"],
         coating: "Thin white",
+        coatingHighlights: ["Thin", "White"],
+        shape: "Normal",
       },
-      pulseExam: "Wiry",
+      pulseExam: {
+        text: "Wiry",
+        highlights: ["Wiry"],
+      },
       diagnosis: [
         {
           tcm: "Kidney Deficiency",
-          icdCode: "M54.5",
-          icdDescription: "Low back pain",
+          icdCode: "M54.50",  // STRING with trailing zero
+          icdLabel: "Low back pain, unspecified",  // Changed from icdDescription
         },
       ],
       treatmentPrinciple: "Tonify Kidney",
       acupunctureTreatmentSide: "Both sides treatment" as const,
       acupuncture: [
         {
-          region: "Back",
+          name: "Back",  // Changed from region to name
           points: [
-            { code: "BL23" },
-            { code: "BL25" },
+            { name: "BL-23" },  // Changed from code to name
+            { name: "BL-25" },
           ],
         },
       ],

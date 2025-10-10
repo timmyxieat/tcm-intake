@@ -1,4 +1,4 @@
-import { InfoCard } from "./InfoCard";
+import { PatientDemographicsCard } from "./PatientDemographicsCard";
 import { Target } from "lucide-react";
 
 /**
@@ -25,13 +25,13 @@ export function TreatmentCard({ principle }: TreatmentCardProps) {
   if (!hasContent) return null;
 
   return (
-    <InfoCard
+    <PatientDemographicsCard
       title="Treatment Principle"
       icon={Target}
       hasCopy={true}
       textToCopy={principle}
     >
       <p className="text-sm text-gray-800 leading-relaxed">{principle}</p>
-    </InfoCard>
+    </PatientDemographicsCard>
   );
 }

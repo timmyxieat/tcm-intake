@@ -1,0 +1,225 @@
+import { NextRequest, NextResponse } from 'next/server';
+import OpenAI from 'openai';
+import { MedicalHistory, TCMAssessmentData, TCMSymptom, AIStructuredNotes } from '@/types';
+
+// Initialize OpenAI client
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY || '',
+});
+
+// Helper function to format TCM symptoms for analysis
+function formatTCMSymptoms(tcmAssessment: TCMAssessmentData): string {
+  const sections = Object.entries(tcmAssessment)
+    .map(([category, symptoms]: [string, TCMSymptom[]]) => {
+      const checkedSymptoms = symptoms
+        .filter((s) => s.checked)
+        .map((s) => s.label);
+      if (checkedSymptoms.length > 0) {
+        return `${category}: ${checkedSymptoms.join(', ')}`;
+      }
+      return null;
+    })
+    .filter(Boolean);
+
+  return sections.join('\n');
+}
+
+export async function POST(request: NextRequest) {
+  try {
+    const body = await request.json();
+    const { medicalHistory, tcmAssessment } = body as {
+      medicalHistory: MedicalHistory;
+      tcmAssessment: TCMAssessmentData;
+    };
+
+    // Validate input
+    if (!medicalHistory || !tcmAssessment) {
+      return NextResponse.json(
+        { error: 'Missing required data' },
+        { status: 400 }
+      );
+    }
+
+    // Check for API key
+    if (!process.env.OPENAI_API_KEY) {
+      return NextResponse.json(
+        { error: 'OpenAI API key not configured' },
+        { status: 500 }
+      );
+    }
+
+    // Format the prompt for GPT-4
+    const tcmSymptomsText = formatTCMSymptoms(tcmAssessment);
+
+    const prompt = `You are an experienced Traditional Chinese Medicine (TCM) practitioner. Based on the following patient information, provide a comprehensive TCM diagnosis and treatment plan.
+
+PATIENT INFORMATION:
+
+Chief Complaint:
+${medicalHistory.chiefComplaint}
+
+History of Present Illness (HPI):
+${medicalHistory.hpi}
+
+Past Medical History (PMH):
+${medicalHistory.pmh}
+
+Family History (FH):
+${medicalHistory.fh}
+
+Social History (SH):
+${medicalHistory.sh}
+
+Exercise/Sleep (ES):
+${medicalHistory.es}
+
+Stress Level:
+${medicalHistory.stressLevel || 'Not specified'}
+
+TCM SYMPTOM REVIEW:
+${tcmSymptomsText}
+
+Please provide your analysis in the following JSON structure:
+{
+  "note_summary": "Brief summary of the case and treatment",
+  "chiefComplaints": [
+    {
+      "text": "[Problem] for [Duration] - MUST include duration (e.g., 'Lower back pain for 10 months')",
+      "icdCode": "STRING with trailing zeros (e.g., 'M54.50' NOT M54.5)",
+      "icdLabel": "MUST be 'unspecified' symptom code (e.g., 'Low back pain, unspecified')"
+    }
+  ],
+  "hpi": "Detailed HPI narrative (if single CC: direct narrative, if multiple CCs: use 'Chief Complaint 1' headers)",
+  "subjective": {
+    "pmh": "Past medical history summary",
+    "fh": "Family history summary",
+    "sh": "Social history summary",
+    "es": "Exercise and sleep summary",
+    "stressLevel": "Stress level assessment"
+  },
+  "tcmReview": [
+    {
+      "category": "System name (e.g., Sleep, Energy, Pain)",
+      "symptoms": ["symptom1", "symptom2"]
+    }
+  ],
+  "tongueExam": {
+    "body": "Tongue body description",
+    "bodyHighlights": ["Pale", "Red tip", "Teeth marks"],
+    "coating": "Tongue coating description",
+    "coatingHighlights": ["Thin", "White", "Greasy"],
+    "shape": "Shape characteristics (e.g., Flabby, Swollen)"
+  },
+  "pulseExam": {
+    "text": "Pulse examination findings",
+    "highlights": ["Wiry", "Deep", "Weak chi"]
+  },
+  "diagnosis": [
+    {
+      "tcm": "TCM diagnosis using pattern differentiation (e.g., Liver Qi Stagnation with Blood Stasis)",
+      "icdCode": "STRING symptom code ending in '0' (e.g., 'M54.50')",
+      "icdLabel": "Symptom description, unspecified"
+    }
+  ],
+  "treatmentPrinciple": "Treatment principle (e.g., Tonify Qi, Move Blood, Resolve Stagnation)",
+  "acupunctureTreatmentSide": "Left side treatment" | "Right side treatment" | "Both sides treatment",
+  "acupuncture": [
+    {
+      "name": "Region name (e.g., Leg, Back, Master Tong)",
+      "points": [
+        {
+          "name": "Point name (e.g., 'LV-2', 'Xiong Wu', 'Yin Tang')",
+          "side": "Left" | "Right" | "Both" | undefined (inherits from treatmentSide),
+          "method": "T" | "R" | "E" | undefined (T=Tonify, R=Reduce, E=Even)"
+        }
+      ]
+    }
+  ]
+}
+
+CRITICAL ICD-10 CODE RULES (You are an ACUPUNCTURIST, not a Western MD):
+1. **ALWAYS use SYMPTOM codes, NEVER diagnosis codes**
+   ✅ Correct: "M54.50" = "Low back pain, unspecified" (symptom)
+   ❌ Wrong: "M54.5" = "Other intervertebral disc degeneration" (diagnosis + truncated)
+   ❌ Wrong: "M51.26" = "Lumbar disc displacement" (structural diagnosis)
+
+2. **SEARCH METHOD**: Search "[symptom] unspecified ICD-10"
+   Example: "low back pain unspecified ICD-10" → M54.50
+
+3. **VALIDATION**: Code MUST end in "0" (unspecified)
+   ✅ M54.50, R51.9, G47.00, M25.569
+   ❌ M54.5 (truncated), M51.26 (specific diagnosis)
+
+4. **STORAGE**: Store as STRING with trailing zeros
+   ✅ "M54.50" (string)
+   ❌ M54.5 (number - loses trailing zero)
+
+5. **LABEL**: Must say "unspecified" or general symptom
+   ✅ "Low back pain, unspecified"
+   ❌ "Lumbar disc herniation" (structural diagnosis)
+
+CHIEF COMPLAINT FORMAT:
+- Text MUST include duration: "[Problem] for [Duration]"
+- Example: "Lower back pain for 10 months" (NOT just "Lower back pain")
+- Keep concise - detailed descriptions go in HPI
+
+ACUPUNCTURE POINTS:
+- Use point objects with name, side, method
+- Side inherits from treatmentSide unless overridden
+- Methods: T=Tonify, R=Reduce, E=Even, undefined=no method
+- Master Tong points: "Xiong Wu", "Wai San Guan", etc. (Chinese names)
+- Extra points: "Yin Tang", "Si Shen Cong", etc. (Chinese names)
+
+Important:
+1. Base your TCM diagnosis on classical pattern differentiation
+2. Provide specific acupuncture point selections with rationale
+3. Use SYMPTOM ICD-10 codes ONLY (never diagnoses)
+4. Always search for "unspecified" codes ending in "0"
+5. Store ALL ICD-10 codes as STRINGS with trailing zeros
+6. Include duration in chief complaint text
+7. Extract highlights for tongue and pulse exams
+8. Return ONLY valid JSON, no additional text`;
+
+    // Call OpenAI API
+    const completion = await openai.chat.completions.create({
+      model: 'gpt-4o',
+      messages: [
+        {
+          role: 'system',
+          content: 'You are an expert Traditional Chinese Medicine practitioner. Provide comprehensive TCM diagnoses and treatment plans in valid JSON format only.',
+        },
+        {
+          role: 'user',
+          content: prompt,
+        },
+      ],
+      temperature: 0.7,
+      max_tokens: 4000,
+      response_format: { type: 'json_object' },
+    });
+
+    const content = completion.choices[0]?.message?.content;
+
+    if (!content) {
+      return NextResponse.json(
+        { error: 'No response from AI' },
+        { status: 500 }
+      );
+    }
+
+    // Parse and validate the response
+    const aiNotes: AIStructuredNotes = JSON.parse(content);
+
+    return NextResponse.json({ aiNotes }, { status: 200 });
+  } catch (error) {
+    console.error('AI Analysis Error:', error);
+
+    return NextResponse.json(
+      {
+        error: 'Failed to analyze patient data',
+        details: error instanceof Error ? error.message : 'Unknown error'
+      },
+      { status: 500 }
+    );
+  }
+}

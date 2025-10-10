@@ -1,4 +1,4 @@
-import { InfoCard } from "./InfoCard";
+import { PatientDemographicsCard } from "./PatientDemographicsCard";
 import { Stethoscope } from "lucide-react";
 import { StatusBadge } from "@/components/atomic/StatusBadge";
 import { CopyButton } from "@/components/atomic/CopyButton";
@@ -22,7 +22,7 @@ import { CopyButton } from "@/components/atomic/CopyButton";
 interface Complaint {
   text: string;
   icdCode: string;
-  icdLabel: string;
+  icdLabel: string;  // Matches updated type definition
 }
 
 interface ChiefComplaintCardProps {
@@ -37,7 +37,7 @@ export function ChiefComplaintCard({ complaints }: ChiefComplaintCardProps) {
   if (!hasContent) return null;
 
   return (
-    <InfoCard
+    <PatientDemographicsCard
       title="Chief Complaint (CC)"
       icon={Stethoscope}
       hasCopy={false}
@@ -63,6 +63,6 @@ export function ChiefComplaintCard({ complaints }: ChiefComplaintCardProps) {
           </div>
         ))}
       </div>
-    </InfoCard>
+    </PatientDemographicsCard>
   );
 }

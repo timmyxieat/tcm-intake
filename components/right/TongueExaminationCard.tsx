@@ -1,4 +1,4 @@
-import { InfoCard } from "./InfoCard";
+import { PatientDemographicsCard } from "./PatientDemographicsCard";
 import { Eye } from "lucide-react";
 
 /**
@@ -85,7 +85,7 @@ export function TongueExaminationCard({
   if (hasCoating) allText += `Coating:\n${coating}`;
 
   return (
-    <InfoCard
+    <PatientDemographicsCard
       title="Tongue Examination"
       icon={Eye}
       hasCopy={true}
@@ -112,6 +112,6 @@ export function TongueExaminationCard({
           </div>
         )}
       </div>
-    </InfoCard>
+    </PatientDemographicsCard>
   );
 }

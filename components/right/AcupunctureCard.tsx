@@ -1,35 +1,44 @@
-import { InfoCard } from "./InfoCard";
+import { PatientDemographicsCard } from "./PatientDemographicsCard";
 import { Map } from "lucide-react";
 
 /**
  * AcupunctureCard Component
  *
- * Displays acupuncture points grouped by body regions.
- * Shows treatmentSide at top, point names in black, annotations (T, R, E) in teal brand color.
- * Only shows side annotations when point differs from treatmentSide.
+ * Displays acupuncture points grouped by body regions with 20-minute standard treatment time.
+ * Parses point notation:
+ * - Bi = Both sides
+ * - Reduce = Reducing method
+ * - Neutral = Even method
+ * - T = Tonification, R = Reducing, E = Even
+ * - Side annotations (Right side only, Left side only)
+ *
+ * Master Tong Points: Xiong Wu, Wai San Guan, etc.
  *
  * @param treatmentSide - Default treatment side (Left/Right/Both sides treatment)
- * @param regions - Array of body regions with points and optional notes
+ * @param regions - Array of body regions with points
  *
  * @example
  * <AcupunctureCard
  *   treatmentSide="Left side treatment"
  *   regions={[
  *     {
- *       name: "Head/Neck",
- *       points: ["GV-20", "EX-HN3"]
- *     },
- *     {
- *       name: "Hand",
- *       points: ["LI-4 (Right side only)"]  // Only shown when differs from default
+ *       name: "Back",
+ *       points: ["BL23", "BL25 (T)", "GB30 (Bi:Reduce)"]
  *     }
  *   ]}
  * />
  */
 
+// Point object structure
+interface AcupuncturePoint {
+  name: string;        // "LV-2", "Xiong Wu", "Yin Tang"
+  side?: string;       // "Left", "Right", "Both", undefined
+  method?: string;     // "T", "R", "E", undefined
+}
+
 interface AcupunctureRegion {
   name: string;
-  points: string[];
+  points: (string | AcupuncturePoint)[];  // Can be string or object
   note?: string;
 }
 
@@ -38,19 +47,61 @@ interface AcupunctureCardProps {
   regions: AcupunctureRegion[];
 }
 
-// Helper function to parse point and extract annotation in parentheses
-function parsePoint(pointText: string) {
-  const match = pointText.match(/^(.+?)\s*\((.+?)\)$/);
-  if (match) {
-    return {
-      point: match[1].trim(),
-      annotation: match[2].trim()
-    };
+// Helper to get normalized treatment side (Left, Right, Both)
+function getNormalizedTreatmentSide(treatmentSide?: string): string | undefined {
+  if (!treatmentSide) return undefined;
+  if (treatmentSide.includes('Left')) return 'Left';
+  if (treatmentSide.includes('Right')) return 'Right';
+  if (treatmentSide.includes('Both')) return 'Both';
+  return undefined;
+}
+
+// Helper to format a single point for display
+function formatPoint(
+  point: string | AcupuncturePoint,
+  treatmentSide?: string
+): { name: string; displayAnnotation: string | null } {
+  const normalizedTreatmentSide = getNormalizedTreatmentSide(treatmentSide);
+
+  // Handle string format (legacy): "BL23", "BL25 (T)", "GB30 (Bi:Reduce)"
+  if (typeof point === 'string') {
+    const match = point.match(/^(.+?)\s*\((.+?)\)$/);
+    if (match) {
+      const name = match[1].trim();
+      let annotation = match[2].trim();
+
+      // Parse Bi:Method format
+      if (annotation.includes('Bi:')) {
+        const method = annotation.split(':')[1];
+        annotation = method === 'Neutral' ? 'E' : method === 'Reduce' ? 'R' : method;
+        return { name, displayAnnotation: annotation };
+      }
+
+      // Convert Reduce/Neutral
+      if (annotation === 'Reduce') annotation = 'R';
+      if (annotation === 'Neutral') annotation = 'E';
+
+      return { name, displayAnnotation: annotation };
+    }
+    return { name: point, displayAnnotation: null };
   }
-  return {
-    point: pointText,
-    annotation: null
-  };
+
+  // Handle object format: { name, side, method }
+  const parts: string[] = [];
+
+  // Show side only if it differs from treatment side
+  if (point.side && point.side !== normalizedTreatmentSide) {
+    parts.push(point.side);
+  }
+
+  // Show method if present
+  if (point.method) {
+    parts.push(point.method);
+  }
+
+  const displayAnnotation = parts.length > 0 ? parts.join(' ') : null;
+
+  return { name: point.name, displayAnnotation };
 }
 
 export function AcupunctureCard({ treatmentSide, regions }: AcupunctureCardProps) {
@@ -60,11 +111,16 @@ export function AcupunctureCard({ treatmentSide, regions }: AcupunctureCardProps
   // Don't render card if no content
   if (!hasContent) return null;
 
+  // Standard treatment time
+  const treatmentTime = "Set 1: 20 mins";
+
   // Legend for copy text
-  const legend = `Legend:
+  const legend = `Treatment Time: ${treatmentTime}
+Legend:
 T = Tonification
 R = Reducing
 E = Even method
+Bi = Both sides
 
 `;
 
@@ -75,20 +131,27 @@ E = Even method
   const pointsText = legend + treatmentSideText + regions
     .flatMap(region => {
       return region.points.map(point => {
-        const note = region.note ? ` (${region.note})` : '';
-        return point + note;
+        const formatted = formatPoint(point, treatmentSide);
+        return formatted.displayAnnotation
+          ? `${formatted.name} (${formatted.displayAnnotation})`
+          : formatted.name;
       });
     })
     .join('\n');
 
   return (
-    <InfoCard
+    <PatientDemographicsCard
       title="Acupuncture Points"
       icon={Map}
       hasCopy={true}
       textToCopy={pointsText}
     >
       <div className="space-y-3">
+        {/* Treatment Time */}
+        <div className="pb-1 border-b border-gray-200">
+          <p className="text-sm font-medium text-teal-600">{treatmentTime}</p>
+        </div>
+
         {/* Treatment Side Header */}
         {treatmentSide && (
           <div className="pb-1 border-b border-gray-200">
@@ -102,12 +165,15 @@ E = Even method
             <h4 className="text-xs font-semibold text-gray-700 mb-1">{region.name}</h4>
             <div className="space-y-0.5">
               {region.points.map((point, idx) => {
-                const { point: pointName, annotation } = parsePoint(point);
+                const formatted = formatPoint(point, treatmentSide);
                 return (
                   <p key={idx} className="text-sm text-gray-900">
-                    {pointName}
-                    {annotation && <span className="ml-1 text-teal-600 font-medium">{annotation}</span>}
-                    {region.note && <span className="ml-1 text-teal-600 font-medium">{region.note}</span>}
+                    {formatted.name}
+                    {formatted.displayAnnotation && (
+                      <span className="ml-1 text-teal-600 font-medium">
+                        ({formatted.displayAnnotation})
+                      </span>
+                    )}
                   </p>
                 );
               })}
@@ -115,6 +181,6 @@ E = Even method
           </div>
         ))}
       </div>
-    </InfoCard>
+    </PatientDemographicsCard>
   );
 }

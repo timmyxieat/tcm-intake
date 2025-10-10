@@ -1,4 +1,4 @@
-import { InfoCard } from "./InfoCard";
+import { PatientDemographicsCard } from "./PatientDemographicsCard";
 import { User } from "lucide-react";
 import { StatusBadge } from "@/components/atomic/StatusBadge";
 
@@ -121,7 +121,7 @@ export function SubjectiveCard({
   const tcmEntries = tcmReview ? Object.entries(tcmReview) : [];
 
   return (
-    <InfoCard
+    <PatientDemographicsCard
       title="Subjective"
       icon={User}
       hasCopy={true}
@@ -180,10 +180,15 @@ export function SubjectiveCard({
         {/* TCM Review of Systems */}
         {hasTCMReview && (
           <div>
-            <h4 className="text-xs font-semibold text-gray-700 mb-4">
+            <h4 className="text-xs font-semibold text-gray-700 mb-2">
               TCM Review of Systems
             </h4>
-            <div className="grid grid-cols-2 gap-x-4 gap-y-2">
+            <div className="flex flex-wrap gap-1.5">
+              {tcmEntries.map(([category]) => (
+                <StatusBadge key={category} variant="tcm" label={category} />
+              ))}
+            </div>
+            <div className="mt-3 space-y-2">
               {tcmEntries.map(([category, items]) => {
                 // Ensure items is an array
                 const itemsArray = Array.isArray(items) ? items : [];
@@ -197,6 +202,6 @@ export function SubjectiveCard({
           </div>
         )}
       </div>
-    </InfoCard>
+    </PatientDemographicsCard>
   );
 }

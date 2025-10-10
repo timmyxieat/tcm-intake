@@ -1,9 +1,9 @@
 "use client";
 
 import { TopNavigation } from "@/components/middle/TopNavigation";
-import { SectionLabel } from "@/components/middle/SectionLabel";
+import { ClinicalSectionLabel } from "@/components/middle/ClinicalSectionLabel";
 import { TCMSection } from "@/components/middle/TCMSection";
-import { NotesTextarea } from "@/components/middle/NotesTextarea";
+import { ClinicalNotesEditor } from "@/components/middle/ClinicalNotesEditor";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Patient } from "@/types";
 import { useRef } from "react";
@@ -78,27 +78,27 @@ export function MiddleColumn({
         {/* Left Column: Section Navigation Labels */}
         <ScrollArea className="w-44 border-r bg-gray-50">
           <div className="py-2">
-            <SectionLabel label="CC" onClick={() => handleSectionClick("CC")} completed={isSectionCompleted("CC")} />
-            <SectionLabel label="HPI" onClick={() => handleSectionClick("HPI")} completed={isSectionCompleted("HPI")} />
-            <SectionLabel label="PMH" onClick={() => handleSectionClick("PMH")} completed={isSectionCompleted("PMH")} />
-            <SectionLabel label="FH" onClick={() => handleSectionClick("FH")} completed={isSectionCompleted("FH")} />
-            <SectionLabel label="SH" onClick={() => handleSectionClick("SH")} completed={isSectionCompleted("SH")} />
-            <SectionLabel label="ES" onClick={() => handleSectionClick("ES")} completed={isSectionCompleted("ES")} />
+            <ClinicalSectionLabel label="CC" onClick={() => handleSectionClick("CC")} completed={isSectionCompleted("CC")} />
+            <ClinicalSectionLabel label="HPI" onClick={() => handleSectionClick("HPI")} completed={isSectionCompleted("HPI")} />
+            <ClinicalSectionLabel label="PMH" onClick={() => handleSectionClick("PMH")} completed={isSectionCompleted("PMH")} />
+            <ClinicalSectionLabel label="FH" onClick={() => handleSectionClick("FH")} completed={isSectionCompleted("FH")} />
+            <ClinicalSectionLabel label="SH" onClick={() => handleSectionClick("SH")} completed={isSectionCompleted("SH")} />
+            <ClinicalSectionLabel label="ES" onClick={() => handleSectionClick("ES")} completed={isSectionCompleted("ES")} />
 
             {/* TCM Section with Categories */}
             <TCMSection onCategoryClick={handleSectionClick} isSectionCompleted={isSectionCompleted} />
 
-            <SectionLabel label="Tongue" onClick={() => handleSectionClick("Tongue")} completed={isSectionCompleted("Tongue")} />
-            <SectionLabel label="Pulse" onClick={() => handleSectionClick("Pulse")} completed={isSectionCompleted("Pulse")} />
-            <SectionLabel label="Diagnosis" onClick={() => handleSectionClick("Diagnosis")} completed={isSectionCompleted("Diagnosis")} />
-            <SectionLabel label="Points" onClick={() => handleSectionClick("Points")} completed={isSectionCompleted("Points")} />
-            <SectionLabel label="Plan" onClick={() => handleSectionClick("Plan")} completed={isSectionCompleted("Plan")} />
+            <ClinicalSectionLabel label="Tongue" onClick={() => handleSectionClick("Tongue")} completed={isSectionCompleted("Tongue")} />
+            <ClinicalSectionLabel label="Pulse" onClick={() => handleSectionClick("Pulse")} completed={isSectionCompleted("Pulse")} />
+            <ClinicalSectionLabel label="Diagnosis" onClick={() => handleSectionClick("Diagnosis")} completed={isSectionCompleted("Diagnosis")} />
+            <ClinicalSectionLabel label="Points" onClick={() => handleSectionClick("Points")} completed={isSectionCompleted("Points")} />
+            <ClinicalSectionLabel label="Plan" onClick={() => handleSectionClick("Plan")} completed={isSectionCompleted("Plan")} />
           </div>
         </ScrollArea>
 
         {/* Right Column: Clinical Notes Textarea */}
-        <div className="flex-1 p-6">
-          <NotesTextarea
+        <div className="flex-1 p-6 overflow-hidden flex flex-col">
+          <ClinicalNotesEditor
             ref={textareaRef}
             value={clinicalNotes}
             onChange={onNotesChange}

@@ -49,7 +49,7 @@ export interface TCMAssessmentData {
 export interface ChiefComplaint {
   text: string;
   icdCode: string;
-  icdDescription: string;
+  icdLabel: string;  // Changed from icdDescription to match prompt
 }
 
 // AI Structured Notes - TCM Review
@@ -58,29 +58,39 @@ export interface TCMReviewItem {
   symptoms: string[];
 }
 
-// AI Structured Notes - Examination
-export interface Examination {
+// AI Structured Notes - Tongue Examination
+export interface TongueExamination {
   body: string;
+  bodyHighlights?: string[];
   coating?: string;
+  coatingHighlights?: string[];
+  shape?: string;
+}
+
+// AI Structured Notes - Pulse Examination
+export interface PulseExamination {
+  text: string;
+  highlights?: string[];
 }
 
 // AI Structured Notes - Diagnosis
 export interface Diagnosis {
   tcm: string;
   icdCode: string;
-  icdDescription: string;
+  icdLabel: string;  // Changed from icdDescription to match prompt
 }
 
 // AI Structured Notes - Acupuncture Points
 export interface AcupuncturePoint {
-  code: string;
-  note?: string;
-  variant?: 'right' | 'both';
+  name: string;           // Changed from 'code' to 'name' to match implementation
+  side?: string;          // Changed from 'variant' to 'side' with more options
+  method?: string;        // Added: T=Tonify, R=Reduce, E=Even
 }
 
 export interface AcupunctureRegion {
-  region: string;
-  points: AcupuncturePoint[];
+  name: string;           // Changed from 'region' to 'name' to match prompt
+  points: (string | AcupuncturePoint)[];  // Can be string or object for flexibility
+  note?: string;
 }
 
 // AI Structured Notes - Complete Data
@@ -96,8 +106,8 @@ export interface AIStructuredNotes {
     stressLevel?: string;
   };
   tcmReview: TCMReviewItem[];
-  tongueExam: Examination;
-  pulseExam: string;
+  tongueExam: TongueExamination;
+  pulseExam: PulseExamination;
   diagnosis: Diagnosis[];
   treatmentPrinciple: string;
   acupunctureTreatmentSide?: 'Left side treatment' | 'Right side treatment' | 'Both sides treatment';
