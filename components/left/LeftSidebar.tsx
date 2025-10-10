@@ -6,7 +6,7 @@ import { PatientAvatar } from "@/components/atomic/PatientAvatar";
 import { Patient } from "@/types";
 import { useState } from "react";
 import moment from "moment";
-import * as storage from "@/lib/localStorage";
+import * as storage from "@/lib/storage/local-storage";
 
 /**
  * LeftSidebar Component

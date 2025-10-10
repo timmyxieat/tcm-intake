@@ -51,57 +51,66 @@ export const AI_NOTES_JSON_SCHEMA = {
         type: "object",
         properties: {
           pmh: {
-            type: ["string", "null"],
+            type: "string",
             description: "Past Medical History"
           },
+          pmhHighlights: {
+            type: ["array", "null"],
+            description: "Key highlights from PMH",
+            items: {
+              type: "string"
+            }
+          },
           fh: {
-            type: ["string", "null"],
+            type: "string",
             description: "Family History"
           },
+          fhHighlights: {
+            type: ["array", "null"],
+            description: "Key highlights from FH",
+            items: {
+              type: "string"
+            }
+          },
           sh: {
-            type: ["string", "null"],
+            type: "string",
             description: "Social History"
           },
+          shHighlights: {
+            type: ["array", "null"],
+            description: "Key highlights from SH",
+            items: {
+              type: "string"
+            }
+          },
           es: {
-            type: ["string", "null"],
+            type: "string",
             description: "Exercise/Diet/Stress"
           },
           stressLevel: {
-            type: ["string", "null"],
+            type: "string",
             description: "Stress level if mentioned"
           }
         },
-        required: ["pmh", "fh", "sh", "es"],
+        required: ["pmh", "fh", "sh", "es", "stressLevel"],
         additionalProperties: false
       },
       tcmReview: {
-        type: "array",
-        description: "TCM Review of Systems organized by category",
-        items: {
-          type: "object",
-          properties: {
-            category: {
-              type: "string",
-              description: "Category name (e.g., 'Appetite', 'Sleep', 'Digestion')"
-            },
-            symptoms: {
-              type: "array",
-              description: "List of symptoms in this category",
-              items: {
-                type: "string"
-              }
-            }
-          },
-          required: ["category", "symptoms"],
-          additionalProperties: false
+        type: "object",
+        description: "TCM Review of Systems as key-value pairs",
+        additionalProperties: {
+          type: "array",
+          items: {
+            type: "string"
+          }
         }
       },
-      tongueExam: {
+      tongue: {
         type: "object",
         description: "Tongue examination findings",
         properties: {
           body: {
-            type: ["string", "null"],
+            type: "string",
             description: "Tongue body description"
           },
           bodyHighlights: {
@@ -112,7 +121,7 @@ export const AI_NOTES_JSON_SCHEMA = {
             }
           },
           coating: {
-            type: ["string", "null"],
+            type: "string",
             description: "Tongue coating description"
           },
           coatingHighlights: {
@@ -121,21 +130,17 @@ export const AI_NOTES_JSON_SCHEMA = {
             items: {
               type: "string"
             }
-          },
-          shape: {
-            type: ["string", "null"],
-            description: "Tongue shape description"
           }
         },
-        required: ["body"],
+        required: ["body", "coating"],
         additionalProperties: false
       },
-      pulseExam: {
+      pulse: {
         type: "object",
         description: "Pulse examination findings",
         properties: {
           text: {
-            type: ["string", "null"],
+            type: "string",
             description: "Full pulse description"
           },
           highlights: {
@@ -150,29 +155,37 @@ export const AI_NOTES_JSON_SCHEMA = {
         additionalProperties: false
       },
       diagnosis: {
-        type: "array",
-        description: "TCM diagnoses with optional ICD codes",
-        items: {
-          type: "object",
-          properties: {
-            tcm: {
-              type: "string",
-              description: "TCM pattern diagnosis (e.g., 'Liver Qi Stagnation')"
-            },
-            icdCode: {
-              type: ["string", "null"],
-              description: "ICD-10 code for diagnosis if applicable"
-            },
-            icdLabel: {
-              type: ["string", "null"],
-              description: "ICD-10 label for diagnosis if applicable"
-            }
+        type: "object",
+        description: "TCM diagnosis with ICD codes",
+        properties: {
+          tcmDiagnosis: {
+            type: "string",
+            description: "TCM pattern diagnosis (e.g., 'Liver Qi Stagnation')"
           },
-          required: ["tcm", "icdCode", "icdLabel"],
-          additionalProperties: false
-        }
+          icdCodes: {
+            type: "array",
+            description: "List of ICD-10 codes for diagnosis",
+            items: {
+              type: "object",
+              properties: {
+                code: {
+                  type: "string",
+                  description: "ICD-10 code as STRING"
+                },
+                label: {
+                  type: "string",
+                  description: "ICD-10 label"
+                }
+              },
+              required: ["code", "label"],
+              additionalProperties: false
+            }
+          }
+        },
+        required: ["tcmDiagnosis", "icdCodes"],
+        additionalProperties: false
       },
-      treatmentPrinciple: {
+      treatment: {
         type: "string",
         description: "Treatment strategy and principle"
       },
@@ -218,7 +231,7 @@ export const AI_NOTES_JSON_SCHEMA = {
                         description: "Needling method: T=Tonify, R=Reduce, E=Even"
                       }
                     },
-                    required: ["name"],
+                    required: ["name", "side", "method"],
                     additionalProperties: false
                   }
                 ]
@@ -227,6 +240,11 @@ export const AI_NOTES_JSON_SCHEMA = {
             note: {
               type: ["string", "null"],
               description: "Additional notes for this region"
+            },
+            noteColor: {
+              type: ["string", "null"],
+              enum: ["orange", "purple", null],
+              description: "Color coding for the note"
             }
           },
           required: ["name", "points"],
@@ -239,10 +257,10 @@ export const AI_NOTES_JSON_SCHEMA = {
       "hpi",
       "subjective",
       "tcmReview",
-      "tongueExam",
-      "pulseExam",
+      "tongue",
+      "pulse",
       "diagnosis",
-      "treatmentPrinciple",
+      "treatment",
       "acupuncture"
     ],
     additionalProperties: false

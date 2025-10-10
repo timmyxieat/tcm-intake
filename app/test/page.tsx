@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import * as storage from "@/lib/localStorage";
+import * as storage from "@/lib/storage/local-storage";
 import { Patient } from "@/types";
 
 /**
@@ -87,8 +87,8 @@ export default function TestPage() {
       chiefComplaints: [
         {
           text: "Test complaint for 3 weeks",
-          icdCode: "M54.50",  // STRING with trailing zero
-          icdLabel: "Low back pain, unspecified",  // Changed from icdDescription
+          icdCode: "M54.50",
+          icdLabel: "Low back pain, unspecified",
         },
       ],
       hpi: "Test HPI content",
@@ -99,39 +99,34 @@ export default function TestPage() {
         es: "Test ES",
         stressLevel: "5/10",
       },
-      tcmReview: [
-        {
-          category: "Pain",
-          symptoms: ["Lower back", "Radiating"],
-        },
-      ],
-      tongueExam: {
+      tcmReview: {
+        Pain: ["Lower back", "Radiating"],
+      },
+      tongue: {
         body: "Pale",
         bodyHighlights: ["Pale"],
         coating: "Thin white",
         coatingHighlights: ["Thin", "White"],
-        shape: "Normal",
       },
-      pulseExam: {
+      pulse: {
         text: "Wiry",
         highlights: ["Wiry"],
       },
-      diagnosis: [
-        {
-          tcm: "Kidney Deficiency",
-          icdCode: "M54.50",  // STRING with trailing zero
-          icdLabel: "Low back pain, unspecified",  // Changed from icdDescription
-        },
-      ],
-      treatmentPrinciple: "Tonify Kidney",
+      diagnosis: {
+        tcmDiagnosis: "Kidney Deficiency",
+        icdCodes: [
+          {
+            code: "M54.50",
+            label: "Low back pain, unspecified",
+          },
+        ],
+      },
+      treatment: "Tonify Kidney",
       acupunctureTreatmentSide: "Both sides treatment" as const,
       acupuncture: [
         {
-          name: "Back",  // Changed from region to name
-          points: [
-            { name: "BL-23" },  // Changed from code to name
-            { name: "BL-25" },
-          ],
+          name: "Back",
+          points: ["BL-23", "BL-25"],
         },
       ],
     };

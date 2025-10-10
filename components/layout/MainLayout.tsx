@@ -5,10 +5,10 @@ import { LeftSidebar } from "@/components/left/LeftSidebar";
 import { MiddleColumn } from "@/components/middle/MiddleColumn";
 import { RightSidebar } from "@/components/right/RightSidebar";
 import { Patient } from "@/types";
-import * as storage from "@/lib/localStorage";
+import * as storage from "@/lib/storage/local-storage";
 import { useAIAnalysis } from "@/hooks/useAIAnalysis";
-import { transformAINotesToSidebarFormat } from "@/lib/aiTransformer";
-import { parseClinicalNotes } from "@/lib/clinicalNotesParser";
+import { transformAINotesToSidebarFormat } from "@/lib/ai/transformer";
+import { parseClinicalNotes } from "@/lib/ai/notes-parser";
 
 /**
  * MainLayout Component

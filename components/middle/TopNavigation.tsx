@@ -4,7 +4,7 @@ import { PatientAvatar } from "@/components/atomic/PatientAvatar";
 import { Button } from "@/components/ui/button";
 import { Patient } from "@/types";
 import moment from "moment";
-import { HEADER_HEIGHT } from "@/lib/constants";
+import { HEADER_HEIGHT } from "@/lib/utils/constants";
 import { Sparkles } from "lucide-react";
 
 /**

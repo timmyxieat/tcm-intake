@@ -2,8 +2,8 @@
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import { HEADER_HEIGHT, HEADER_HEIGHT_PX } from "@/lib/constants";
+import { cn } from "@/lib/utils/cn";
+import { HEADER_HEIGHT, HEADER_HEIGHT_PX } from "@/lib/utils/constants";
 
 /**
  * CollapsibleSidebar Component

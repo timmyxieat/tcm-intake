@@ -18,7 +18,7 @@ interface SectionLabelProps {
   completed?: boolean;
 }
 
-export function SectionLabel({ label, onClick, completed = false }: SectionLabelProps) {
+export function ClinicalSectionLabel({ label, onClick, completed = false }: SectionLabelProps) {
   return (
     <div
       onClick={onClick}

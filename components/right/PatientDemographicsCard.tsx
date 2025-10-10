@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { LucideIcon } from "lucide-react";
 import { CopyButton } from "@/components/atomic/CopyButton";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/cn";
 
 /**
  * PatientDemographicsCard Component

@@ -40,8 +40,8 @@ const SECTION_LABELS = [
   "Tongue", "Pulse", "Diagnosis", "Points", "Plan"
 ];
 
-export const NotesTextarea = React.forwardRef<HTMLTextAreaElement, NotesTextareaProps>(
-  function NotesTextarea({ value = "", onChange, placeholder = "Enter clinical notes..." }, ref) {
+export const ClinicalNotesEditor = React.forwardRef<HTMLTextAreaElement, NotesTextareaProps>(
+  function ClinicalNotesEditor({ value = "", onChange, placeholder = "Enter clinical notes..." }, ref) {
     const [isFocused, setIsFocused] = React.useState(false);
     const displayRef = React.useRef<HTMLDivElement>(null);
     const textareaRef = React.useRef<HTMLTextAreaElement>(null);

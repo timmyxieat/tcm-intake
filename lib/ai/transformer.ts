@@ -1,4 +1,4 @@
-import { AIStructuredNotes, TCMReviewItem, AcupunctureRegion } from "@/types";
+import { AIStructuredNotes, AcupunctureRegion } from "@/types";
 
 /**
  * Transform AI response format to RightSidebar data format
@@ -7,11 +7,8 @@ import { AIStructuredNotes, TCMReviewItem, AcupunctureRegion } from "@/types";
  * expected by RightSidebar component
  */
 export function transformAINotesToSidebarFormat(aiNotes: AIStructuredNotes) {
-  // Transform TCM review array to object format
-  const tcmReview: Record<string, string[]> = {};
-  aiNotes.tcmReview.forEach((item: TCMReviewItem) => {
-    tcmReview[item.category] = item.symptoms;
-  });
+  // TCM review is already in object format
+  const tcmReview = aiNotes.tcmReview;
 
   // Transform acupuncture regions to sidebar format
   const acupuncture = aiNotes.acupuncture.map((region: AcupunctureRegion) => {
@@ -27,39 +24,39 @@ export function transformAINotesToSidebarFormat(aiNotes: AIStructuredNotes) {
   });
 
   return {
+    note_summary: aiNotes.note_summary,
     chiefComplaints: aiNotes.chiefComplaints.map((cc) => ({
       text: cc.text,
       icdCode: cc.icdCode,
-      icdLabel: cc.icdLabel,  // Changed from icdDescription to icdLabel
+      icdLabel: cc.icdLabel,
     })),
     hpi: aiNotes.hpi,
     subjective: {
       pmh: aiNotes.subjective.pmh,
+      pmhHighlights: aiNotes.subjective.pmhHighlights,
       fh: aiNotes.subjective.fh,
+      fhHighlights: aiNotes.subjective.fhHighlights,
       sh: aiNotes.subjective.sh,
+      shHighlights: aiNotes.subjective.shHighlights,
       es: aiNotes.subjective.es,
       stressLevel: aiNotes.subjective.stressLevel || "0/10",
     },
     tcmReview,
     tongue: {
-      body: aiNotes.tongueExam.body,
-      bodyHighlights: aiNotes.tongueExam.bodyHighlights || [],
-      coating: aiNotes.tongueExam.coating || "",
-      coatingHighlights: aiNotes.tongueExam.coatingHighlights || [],
-      shape: aiNotes.tongueExam.shape || "",
+      body: aiNotes.tongue.body,
+      bodyHighlights: aiNotes.tongue.bodyHighlights || [],
+      coating: aiNotes.tongue.coating || "",
+      coatingHighlights: aiNotes.tongue.coatingHighlights || [],
     },
     pulse: {
-      text: aiNotes.pulseExam.text,
-      highlights: aiNotes.pulseExam.highlights || [],
+      text: aiNotes.pulse.text,
+      highlights: aiNotes.pulse.highlights || [],
     },
     diagnosis: {
-      tcmDiagnosis: aiNotes.diagnosis.map((d) => d.tcm).join(", "),
-      icdCodes: aiNotes.diagnosis.map((d) => ({
-        code: d.icdCode,
-        label: d.icdLabel,  // Changed from icdDescription to icdLabel
-      })),
+      tcmDiagnosis: aiNotes.diagnosis.tcmDiagnosis,
+      icdCodes: aiNotes.diagnosis.icdCodes,
     },
-    treatment: aiNotes.treatmentPrinciple,
+    treatment: aiNotes.treatment,
     acupunctureTreatmentSide: aiNotes.acupunctureTreatmentSide,
     acupuncture,
   };

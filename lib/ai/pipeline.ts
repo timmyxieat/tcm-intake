@@ -12,6 +12,7 @@
 
 import OpenAI from "openai";
 import { AIStructuredNotes } from "@/types";
+import { AI_NOTES_JSON_SCHEMA } from "@/lib/schemas/aiNotesSchema";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY || "",
@@ -52,7 +53,7 @@ function resolveICD10(symptom: string): ICD10Code | null {
 // ============================================================================
 
 export async function analyzeClinicalNotes(clinicalNotes: string): Promise<AIStructuredNotes> {
-  console.log('[Pipeline] Starting 2-stage analysis...');
+  console.log('[Pipeline] Starting analysis with OpenAI Structured Outputs...');
 
   // STAGE A: Extract (simplified for now - using existing parser)
   // Just pass through to Stage B with ICD resolution
@@ -84,40 +85,45 @@ Return JSON matching this structure:
   ],
   "hpi": "History narrative",
   "subjective": {
-    "pmh": "string or null",
-    "fh": "string or null",
-    "sh": "string or null",
-    "es": "string or null",
-    "stressLevel": "string or null"
+    "pmh": "string",
+    "pmhHighlights": ["key point"] or null,
+    "fh": "string",
+    "fhHighlights": ["key point"] or null,
+    "sh": "string",
+    "shHighlights": ["key point"] or null,
+    "es": "string",
+    "stressLevel": "string"
   },
-  "tcmReview": [{"category": "string", "symptoms": ["string"]}],
-  "tongueExam": {
-    "body": "string or null",
-    "bodyHighlights": ["Pale", "Purple"],
-    "coating": "string or null",
-    "coatingHighlights": ["Yellow"],
-    "shape": "string or null",
-    "shapeHighlights": []
+  "tcmReview": {
+    "Appetite": ["symptom1", "symptom2"],
+    "Sleep": ["symptom1"]
   },
-  "pulseExam": {
-    "text": "string or null",
-    "highlights": ["Wiry", "Deep"]
+  "tongue": {
+    "body": "string",
+    "bodyHighlights": ["Pale", "Purple"] or null,
+    "coating": "string",
+    "coatingHighlights": ["Yellow"] or null
   },
-  "diagnosis": [
-    {
-      "tcm": "TCM pattern (e.g., Liver Qi Stagnation)",
-      "icdCode": "string or null",
-      "icdLabel": "string or null"
-    }
-  ],
-  "treatmentPrinciple": "Treatment strategy",
+  "pulse": {
+    "text": "string",
+    "highlights": ["Wiry", "Deep"] or null
+  },
+  "diagnosis": {
+    "tcmDiagnosis": "TCM pattern (e.g., Liver Qi Stagnation)",
+    "icdCodes": [
+      {"code": "M54.50", "label": "Description"}
+    ]
+  },
+  "treatment": "Treatment strategy",
   "acupunctureTreatmentSide": "Left side treatment" | "Right side treatment" | "Both sides treatment" | null,
   "acupuncture": [
     {
       "name": "Region",
       "points": [
         {"name": "LV-2", "side": "Both" | "Left" | "Right" | null, "method": "T" | "R" | "E" | null}
-      ]
+      ],
+      "note": "optional note",
+      "noteColor": "orange" | "purple" | null
     }
   ]
 }
@@ -143,7 +149,10 @@ REMEMBER:
       ],
       temperature: 0.2,
       max_tokens: 4000,
-      response_format: { type: "json_object" },
+      response_format: {
+        type: "json_schema",
+        json_schema: AI_NOTES_JSON_SCHEMA
+      },
     });
 
     const content = completion.choices[0]?.message?.content;

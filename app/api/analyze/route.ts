@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { analyzeClinicalNotes } from '@/lib/aiPipeline';
+import { analyzeClinicalNotes } from '@/lib/ai/pipeline';
 
 export async function POST(request: NextRequest) {
   try {
