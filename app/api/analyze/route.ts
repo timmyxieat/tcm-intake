@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
     if (clinicalNotes) {
       console.log('[API] Using new pipeline with clinical notes');
       const aiNotes = await analyzeClinicalNotes(clinicalNotes);
-      return NextResponse.json({ aiNotes }, { status: 200 });
+      return NextResponse.json(aiNotes, { status: 200 });
     }
 
     // Legacy flow: structured input

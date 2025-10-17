@@ -26,17 +26,19 @@ interface PatientAvatarProps {
 }
 
 const statusColors = {
-  completed: 'bg-teal-100 text-teal-700',
-  active: 'bg-blue-100 text-blue-700',
-  waiting: 'bg-orange-100 text-orange-700',
-  scheduled: 'bg-purple-100 text-purple-700',
+  scheduled: 'bg-purple-500 text-white',
+  active: 'bg-blue-500 text-white',
+  'ready-to-copy': 'bg-green-500 text-white',
+  completed: 'bg-gray-400 text-white',
+  waiting: 'bg-orange-500 text-white',
 };
 
 const statusOutlineColors = {
-  completed: 'ring-teal-500',
-  active: 'ring-blue-500',
-  waiting: 'ring-orange-500',
-  scheduled: 'ring-purple-500',
+  scheduled: 'ring-purple-600',
+  active: 'ring-blue-600',
+  'ready-to-copy': 'ring-green-600',
+  completed: 'ring-gray-500',
+  waiting: 'ring-orange-600',
 };
 
 const sizeStyles = {

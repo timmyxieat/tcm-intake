@@ -23,14 +23,14 @@ import { Eye } from "lucide-react";
 
 interface TongueExaminationCardProps {
   body: string;
-  bodyHighlights?: string[];
+  bodyHighlights?: string[] | null;
   coating: string;
-  coatingHighlights?: string[];
+  coatingHighlights?: string[] | null;
 }
 
 // Helper function to highlight keywords in teal brand color
-function highlightText(text: string, highlights: string[] = []) {
-  if (!highlights.length) return <span>{text}</span>;
+function highlightText(text: string, highlights: string[] | null = []) {
+  if (!highlights || !highlights.length) return <span>{text}</span>;
 
   let lastIndex = 0;
   const parts: React.ReactNode[] = [];

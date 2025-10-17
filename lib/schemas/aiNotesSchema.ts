@@ -12,7 +12,7 @@
 
 export const AI_NOTES_JSON_SCHEMA = {
   name: "tcm_clinical_notes",
-  strict: true,
+  strict: false,
   schema: {
     type: "object",
     properties: {
@@ -22,7 +22,7 @@ export const AI_NOTES_JSON_SCHEMA = {
       },
       chiefComplaints: {
         type: "array",
-        description: "List of chief complaints with ICD-10 codes",
+        description: "List of chief complaints with ICD-10 codes (1-2 complaints required)",
         items: {
           type: "object",
           properties: {
@@ -31,12 +31,12 @@ export const AI_NOTES_JSON_SCHEMA = {
               description: "Chief complaint text MUST include duration (e.g., 'Lower back pain for 10 months')"
             },
             icdCode: {
-              type: ["string", "null"],
-              description: "ICD-10 code as STRING ending in '0' (e.g., 'M54.50') or null if unknown"
+              type: "string",
+              description: "ICD-10 code as STRING (e.g., 'M54.5'). Must be symptom-based, never null."
             },
             icdLabel: {
-              type: ["string", "null"],
-              description: "ICD-10 description (e.g., 'Low back pain, unspecified') or null if unknown"
+              type: "string",
+              description: "ICD-10 description (e.g., 'Low back pain, unspecified'). Must always be provided."
             }
           },
           required: ["text", "icdCode", "icdLabel"],
@@ -52,58 +52,50 @@ export const AI_NOTES_JSON_SCHEMA = {
         properties: {
           pmh: {
             type: "string",
-            description: "Past Medical History"
-          },
-          pmhHighlights: {
-            type: ["array", "null"],
-            description: "Key highlights from PMH",
-            items: {
-              type: "string"
-            }
+            description: "Past Medical History. Includes other ongoing issues, chronic conditions, past surgeries/hospitalizations, allergies, current medications, supplements, and herbal medicines."
           },
           fh: {
             type: "string",
-            description: "Family History"
-          },
-          fhHighlights: {
-            type: ["array", "null"],
-            description: "Key highlights from FH",
-            items: {
-              type: "string"
-            }
+            description: "Family History. Includes conditions that blood related relatives have including grandparents, parents, and siblings."
           },
           sh: {
             type: "string",
-            description: "Social History"
-          },
-          shHighlights: {
-            type: ["array", "null"],
-            description: "Key highlights from SH",
-            items: {
-              type: "string"
-            }
+            description: "Social History. Includes Relationship Status, Children, Occupation, Smoking (pack/years), Alcohol (freq/amount), Caffeine, Exercise, Diet"
           },
           es: {
             type: "string",
-            description: "Exercise/Diet/Stress"
-          },
-          stressLevel: {
-            type: "string",
-            description: "Stress level if mentioned"
+            description: "Emotional Status. Includes predominant emotional states (e.g., Anxiety / Depression / Anger / Worry / Fear / Sadness / Mania / Happiness / Content) and stress level."
           }
         },
-        required: ["pmh", "fh", "sh", "es", "stressLevel"],
+        required: ["pmh", "fh", "sh", "es"],
         additionalProperties: false
       },
       tcmReview: {
         type: "object",
-        description: "TCM Review of Systems as key-value pairs",
-        additionalProperties: {
-          type: "array",
-          items: {
-            type: "string"
-          }
-        }
+        description: "TCM Review of Systems. Categories are lowercase keys with string values describing the symptoms found in notes.",
+        properties: {
+          appetite: { type: ["string", "null"] },
+          taste: { type: ["string", "null"] },
+          stool: { type: ["string", "null"] },
+          thirst: { type: ["string", "null"] },
+          urine: { type: ["string", "null"] },
+          sleep: { type: ["string", "null"] },
+          energy: { type: ["string", "null"] },
+          temperature: { type: ["string", "null"] },
+          sweat: { type: ["string", "null"] },
+          head: { type: ["string", "null"] },
+          ear: { type: ["string", "null"] },
+          eye: { type: ["string", "null"] },
+          nose: { type: ["string", "null"] },
+          throat: { type: ["string", "null"] },
+          pain: { type: ["string", "null"] },
+          libido: { type: ["string", "null"] },
+          pregnancies: { type: ["string", "null"] },
+          menstruation: { type: ["string", "null"] },
+          discharge: { type: ["string", "null"] }
+        },
+        required: [],
+        additionalProperties: false
       },
       tongue: {
         type: "object",
@@ -111,25 +103,11 @@ export const AI_NOTES_JSON_SCHEMA = {
         properties: {
           body: {
             type: "string",
-            description: "Tongue body description"
-          },
-          bodyHighlights: {
-            type: ["array", "null"],
-            description: "Key body characteristics (e.g., ['Pale', 'Purple'])",
-            items: {
-              type: "string"
-            }
+            description: "Tongue body description including color, shape, texture, and movement"
           },
           coating: {
             type: "string",
-            description: "Tongue coating description"
-          },
-          coatingHighlights: {
-            type: ["array", "null"],
-            description: "Key coating characteristics (e.g., ['Yellow', 'Thick'])",
-            items: {
-              type: "string"
-            }
+            description: "Tongue coating description including color, thickness, distribution, and quality"
           }
         },
         required: ["body", "coating"],
@@ -141,14 +119,7 @@ export const AI_NOTES_JSON_SCHEMA = {
         properties: {
           text: {
             type: "string",
-            description: "Full pulse description"
-          },
-          highlights: {
-            type: ["array", "null"],
-            description: "Key pulse qualities (e.g., ['Wiry', 'Deep', 'Weak chi'])",
-            items: {
-              type: "string"
-            }
+            description: "Full pulse description including speed, depth, strength, rhythm, and qualities"
           }
         },
         required: ["text"],
@@ -190,69 +161,38 @@ export const AI_NOTES_JSON_SCHEMA = {
         description: "Treatment strategy and principle"
       },
       acupunctureTreatmentSide: {
-        type: ["string", "null"],
-        enum: ["Left side treatment", "Right side treatment", "Both sides treatment", null],
-        description: "Overall treatment side preference"
+        type: "string",
+        enum: ["Left", "Right", "Both"],
+        description: "Overall treatment side preference. Defaults to 'Both' if not specified."
       },
-      acupuncture: {
+      acupuncturePoints: {
         type: "array",
-        description: "Acupuncture points organized by anatomical region",
+        description: "Flat list of acupuncture points used in treatment. Do not organize by region - just list all points.",
         items: {
           type: "object",
           properties: {
             name: {
               type: "string",
-              description: "Anatomical region name (e.g., 'Head', 'Lower Extremities')"
+              description: "Acupuncture point code or name (e.g., 'BL-20', 'LV-3', 'Yin Tang', 'ST-36')"
             },
-            points: {
-              type: "array",
-              description: "List of acupuncture points (can be strings or objects)",
-              items: {
-                anyOf: [
-                  {
-                    type: "string",
-                    description: "Simple point name (e.g., 'LV-2')"
-                  },
-                  {
-                    type: "object",
-                    properties: {
-                      name: {
-                        type: "string",
-                        description: "Acupuncture point name (e.g., 'LV-2', 'ST-36')"
-                      },
-                      side: {
-                        type: ["string", "null"],
-                        enum: ["Left", "Right", "Both", null],
-                        description: "Which side to needle"
-                      },
-                      method: {
-                        type: ["string", "null"],
-                        enum: ["T", "R", "E", null],
-                        description: "Needling method: T=Tonify, R=Reduce, E=Even"
-                      }
-                    },
-                    required: ["name", "side", "method"],
-                    additionalProperties: false
-                  }
-                ]
-              }
-            },
-            note: {
+            side: {
               type: ["string", "null"],
-              description: "Additional notes for this region"
+              enum: ["Left", "Right", "Both", null],
+              description: "Which side to needle (only specify if differs from acupunctureTreatmentSide)"
             },
-            noteColor: {
+            method: {
               type: ["string", "null"],
-              enum: ["orange", "purple", null],
-              description: "Color coding for the note"
+              enum: ["T", "R", "E", null],
+              description: "Needling method: T=Tonify, R=Reduce/Sedate, E=Even/Balance"
             }
           },
-          required: ["name", "points"],
+          required: ["name", "side", "method"],
           additionalProperties: false
         }
       }
     },
     required: [
+      "note_summary",
       "chiefComplaints",
       "hpi",
       "subjective",
@@ -261,7 +201,8 @@ export const AI_NOTES_JSON_SCHEMA = {
       "pulse",
       "diagnosis",
       "treatment",
-      "acupuncture"
+      "acupunctureTreatmentSide",
+      "acupuncturePoints"
     ],
     additionalProperties: false
   }

@@ -1,0 +1,100 @@
+Input
+
+Patient: 29 y/o female
+Date: 10/17/2025
+
+Patient says her digestion has been “off” lately — bloating and fatigue for about 3 weeks. Has been skipping breakfast and snacking late. Reports mild nausea sometimes, worse when stressed. Feels heavy after eating, especially cold foods.
+
+Noticed sleep more restless the past two weeks, wakes up around 3 am thinking about work. Energy lower during day. Drinks 2–3 cups of coffee to push through.
+
+No major health issues. History of mild anemia in college. Occasional PMS irritability and breast tenderness before menses. Regular 28–30 day cycle, medium flow, some small clots.
+
+No meds. No supplements.
+
+Eats mostly takeout, sometimes skips lunch when busy. Drinks cold smoothies often.
+
+Tongue: pale edges, teeth marks, thin white coat.
+Pulse: soft, slightly wiry on left.
+
+During needling: patient mentioned bloating felt better mid-session. Abdomen soft to touch. Slight chill on feet. Used points: ST-36, SP-6, Ren-12, LV-3 (both), and Yin Tang. Even technique mostly, tonified SP-6.
+
+After treatment: advised regular warm meals, reduce coffee and cold foods. Plan weekly x4 to regulate digestion and energy.
+
+Output
+{
+  "note_summary": "29-year-old female presents with digestive issues and fatigue, worsened by stress and dietary habits.",
+  "chiefComplaints": [
+    {
+      "text": "Bloating and fatigue for 3 weeks",
+      "icdCode": "R63.8",
+      "icdLabel": "Other symptoms and signs concerning food and fluid intake"
+    }
+  ],
+  "hpi": "Patient reports digestive issues with bloating and fatigue for about 3 weeks, worsened by stress and dietary habits such as skipping breakfast and snacking late. Experiences mild nausea, especially when stressed, and feels heavy after eating cold foods. Sleep has been restless for the past two weeks, waking up around 3 am due to work-related thoughts. Energy levels are lower during the day, requiring 2-3 cups of coffee to manage.",
+  "subjective": {
+    "pmh": "History of mild anemia in college. Occasional PMS irritability and breast tenderness before menses. Regular 28–30 day cycle, medium flow, some small clots. No medications or supplements.",
+    "sh": "Eats mostly takeout, sometimes skips lunch when busy. Drinks cold smoothies often. Consumes 2-3 cups of coffee daily.",
+    "es": "Experiences stress related to work, leading to restless sleep and waking up at night."
+  },
+  "tcmReview": {
+    "appetite": "Off, with bloating and heaviness after meals, especially cold foods.",
+    "sleep": "Restless sleep, wakes up around 3 am thinking about work.",
+    "energy": "Lower energy during the day, relies on coffee.",
+    "menstruation": "Regular 28–30 day cycle, medium flow, some small clots, PMS irritability and breast tenderness."
+  },
+  "tongue": {
+    "body": "Pale edges with teeth marks.",
+    "coating": "Thin white coat."
+  },
+  "pulse": {
+    "text": "Soft, slightly wiry on the left."
+  },
+  "diagnosis": {
+    "tcmDiagnosis": "Spleen Qi Deficiency with Dampness",
+    "icdCodes": [
+      {
+        "code": "R63.8",
+        "label": "Other symptoms and signs concerning food and fluid intake"
+      }
+    ]
+  },
+  "treatment": "Strengthen Spleen Qi and resolve Dampness",
+  "acupunctureTreatmentSide": "Both",
+  "acupuncture": [
+    {
+      "region": "Abdomen",
+      "points": [
+        {
+          "name": "ST-36",
+          "method": "E"
+        },
+        {
+          "name": "SP-6",
+          "method": "T"
+        },
+        {
+          "name": "Ren-12",
+          "method": "E"
+        }
+      ]
+    },
+    {
+      "region": "Lower Extremities",
+      "points": [
+        {
+          "name": "LV-3",
+          "method": "E"
+        }
+      ]
+    },
+    {
+      "region": "Head",
+      "points": [
+        {
+          "name": "Yin Tang",
+          "method": "E"
+        }
+      ]
+    }
+  ]
+}

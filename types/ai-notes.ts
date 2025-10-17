@@ -4,31 +4,24 @@
 
 export interface ChiefComplaint {
   text: string;
-  icdCode: string | null;
-  icdLabel: string | null;
+  icdCode: string;
+  icdLabel: string;
 }
 
 export interface SubjectiveData {
   pmh: string;
-  pmhHighlights?: string[];
   fh: string;
-  fhHighlights?: string[];
   sh: string;
-  shHighlights?: string[];
   es: string;
-  stressLevel: string;
 }
 
 export interface TongueExam {
   body: string;
-  bodyHighlights?: string[];
   coating: string;
-  coatingHighlights?: string[];
 }
 
 export interface PulseExam {
   text: string;
-  highlights?: string[];
 }
 
 export interface Diagnosis {
@@ -46,10 +39,8 @@ export interface AcupuncturePoint {
 }
 
 export interface AcupunctureRegion {
-  name: string;
-  points: string[] | AcupuncturePoint[];
-  note?: string;
-  noteColor?: "orange" | "purple";
+  region: string;
+  points: AcupuncturePoint[];
 }
 
 export interface AIStructuredNotes {
@@ -57,11 +48,11 @@ export interface AIStructuredNotes {
   chiefComplaints: ChiefComplaint[];
   hpi: string;
   subjective: SubjectiveData;
-  tcmReview: { [key: string]: string[] };
+  tcmReview: { [key: string]: string | null };
   tongue: TongueExam;
   pulse: PulseExam;
   diagnosis: Diagnosis;
   treatment: string;
-  acupunctureTreatmentSide?: 'Left side treatment' | 'Right side treatment' | 'Both sides treatment';
+  acupunctureTreatmentSide: 'Left' | 'Right' | 'Both';
   acupuncture: AcupunctureRegion[];
 }

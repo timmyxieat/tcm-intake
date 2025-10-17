@@ -204,17 +204,19 @@ export function MainLayout({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // Calculate status for each patient dynamically
+  // Calculate status for each patient dynamically (only for scheduled/active if not manually set)
   const getPatientsWithStatus = () => {
     return patients.map((patient) => {
+      // If patient already has ready-to-copy or completed status, keep it
+      if (patient.status === 'ready-to-copy' || patient.status === 'completed') {
+        return patient;
+      }
+
       const hasNotes = clinicalNotes[patient.id]?.trim().length > 0;
-      const hasAISummary = aiNotesData[patient.id]?.note_summary?.trim().length > 0;
       const isCurrentlyOpen = patient.id === currentPatientId;
 
       let status: Patient['status'];
-      if (hasAISummary) {
-        status = 'completed';
-      } else if (isCurrentlyOpen || hasNotes) {
+      if (isCurrentlyOpen || hasNotes) {
         status = 'active';
       } else {
         status = 'scheduled';
@@ -291,6 +293,20 @@ export function MainLayout({
     // Reload patients from localStorage
     const updatedPatients = storage.getPatients();
     setPatients(updatedPatients);
+  };
+
+  const handlePatientDeleted = () => {
+    // Reload patients from localStorage
+    const updatedPatients = storage.getPatients();
+    setPatients(updatedPatients);
+
+    // If the deleted patient was the current one, select the first available patient
+    const currentExists = updatedPatients.find(p => p.id === currentPatientId);
+    if (!currentExists && updatedPatients.length > 0) {
+      setCurrentPatientId(updatedPatients[0].id);
+    } else if (updatedPatients.length === 0) {
+      setCurrentPatientId("");
+    }
   };
 
   const handlePatientClick = (patient: Patient) => {
@@ -393,6 +409,25 @@ export function MainLayout({
     await handleGenerateNotes();
   };
 
+  // Status transition handlers
+  const handleStartIntake = () => {
+    if (!currentPatient?.id) return;
+    storage.updatePatient(currentPatient.id, { status: 'active' });
+    setPatients(storage.getPatients());
+  };
+
+  const handleMarkReadyToCopy = () => {
+    if (!currentPatient?.id) return;
+    storage.updatePatient(currentPatient.id, { status: 'ready-to-copy' });
+    setPatients(storage.getPatients());
+  };
+
+  const handleMarkComplete = () => {
+    if (!currentPatient?.id) return;
+    storage.updatePatient(currentPatient.id, { status: 'completed' });
+    setPatients(storage.getPatients());
+  };
+
   return (
     <div className="flex h-screen bg-white overflow-hidden">
       {/* Left Sidebar: Patient List */}
@@ -401,6 +436,7 @@ export function MainLayout({
         activePatientId={currentPatient.id}
         onPatientClick={handlePatientClick}
         onPatientAdded={handlePatientAdded}
+        onPatientDeleted={handlePatientDeleted}
         isOpen={leftOpen}
         onToggle={() => setLeftOpen(!leftOpen)}
       />
@@ -412,7 +448,11 @@ export function MainLayout({
           clinicalNotes={getCurrentNotes()}
           onNotesChange={handleNotesChange}
           saveStatus={saveStatus}
+          hasAINotes={!!aiNotesData[currentPatient.id]?.note_summary}
           onGenerateNotes={handleGenerateNotes}
+          onStartIntake={handleStartIntake}
+          onMarkReadyToCopy={handleMarkReadyToCopy}
+          onMarkComplete={handleMarkComplete}
           isGenerating={isAnalyzing}
         />
       </div>

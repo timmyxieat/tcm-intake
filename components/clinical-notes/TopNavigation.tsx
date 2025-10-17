@@ -27,14 +27,22 @@ import { Sparkles } from "lucide-react";
 interface TopNavigationProps {
   patient: Patient;
   saveStatus?: "saved" | "saving" | "unsaved";
+  hasAINotes?: boolean;
   onGenerateNotes?: () => void;
+  onStartIntake?: () => void;
+  onMarkReadyToCopy?: () => void;
+  onMarkComplete?: () => void;
   isGenerating?: boolean;
 }
 
 export function TopNavigation({
   patient,
   saveStatus = "saved",
+  hasAINotes = false,
   onGenerateNotes,
+  onStartIntake,
+  onMarkReadyToCopy,
+  onMarkComplete,
   isGenerating = false
 }: TopNavigationProps) {
   // Format time as "9:30 AM" (with space)
@@ -83,16 +91,46 @@ export function TopNavigation({
           </span>
         </div>
 
-        {/* Generate Structured Notes Button */}
-        <Button
-          onClick={onGenerateNotes}
-          disabled={isGenerating}
-          size="sm"
-          className="bg-teal-600 hover:bg-teal-700 text-white"
-        >
-          <Sparkles className={`h-4 w-4 mr-2 ${isGenerating ? 'animate-spin' : ''}`} />
-          {isGenerating ? 'Generating...' : 'Generate Structured Notes'}
-        </Button>
+        {/* Action Buttons Based on Patient Status */}
+        {patient.status === 'scheduled' ? (
+          /* Start Intake Button (for scheduled patients) */
+          <Button
+            onClick={onStartIntake}
+            size="sm"
+            className="bg-purple-600 hover:bg-purple-700 text-white"
+          >
+            Start Intake
+          </Button>
+        ) : patient.status === 'ready-to-copy' ? (
+          /* Mark as Complete Button */
+          <Button
+            onClick={onMarkComplete}
+            size="sm"
+            className="bg-gray-600 hover:bg-gray-700 text-white"
+          >
+            Mark as Complete
+          </Button>
+        ) : hasAINotes ? (
+          /* Mark Ready to Copy Button (after AI notes generated) */
+          <Button
+            onClick={onMarkReadyToCopy}
+            size="sm"
+            className="bg-green-600 hover:bg-green-700 text-white"
+          >
+            Mark Ready to Copy
+          </Button>
+        ) : (
+          /* Generate Structured Notes Button (no AI notes yet) */
+          <Button
+            onClick={onGenerateNotes}
+            disabled={isGenerating}
+            size="sm"
+            className="bg-teal-600 hover:bg-teal-700 text-white"
+          >
+            <Sparkles className={`h-4 w-4 mr-2 ${isGenerating ? 'animate-spin' : ''}`} />
+            {isGenerating ? 'Generating...' : 'Generate Structured Notes'}
+          </Button>
+        )}
       </div>
     </div>
   );

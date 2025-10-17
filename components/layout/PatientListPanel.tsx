@@ -36,6 +36,7 @@ interface LeftSidebarProps {
   activePatientId?: string;
   onPatientClick?: (patient: Patient) => void;
   onPatientAdded?: () => void; // Callback when patient is added
+  onPatientDeleted?: () => void; // Callback when patient is deleted
   isOpen?: boolean;
   onToggle?: () => void;
 }
@@ -45,6 +46,7 @@ export function LeftSidebar({
   activePatientId,
   onPatientClick,
   onPatientAdded,
+  onPatientDeleted,
   isOpen: controlledIsOpen,
   onToggle: controlledOnToggle,
 }: LeftSidebarProps) {
@@ -77,11 +79,15 @@ export function LeftSidebar({
   const handleConfirmAdd = () => {
     if (newInitials.length !== 2 || !newTime) return;
 
+    // Create time for today at the specified time
+    const today = moment().format("YYYY-MM-DD");
+    const timeISO = moment(`${today} ${newTime}`, "YYYY-MM-DD HH:mm").toISOString();
+
     // Create new patient with timestamp ID
     const newPatient: Patient = {
       id: Date.now().toString(),
       initials: newInitials.toUpperCase(),
-      time: moment(newTime, "HH:mm").toISOString(),
+      time: timeISO,
       status: "scheduled",
     };
 
@@ -112,6 +118,14 @@ export function LeftSidebar({
     } else if (e.key === "Escape") {
       handleCancelAdd();
     }
+  };
+
+  const handleDeletePatient = (patientId: string) => {
+    // Delete from localStorage
+    storage.deletePatient(patientId);
+
+    // Notify parent to reload patients and handle selection
+    onPatientDeleted?.();
   };
 
   return (
@@ -213,6 +227,7 @@ export function LeftSidebar({
           patients={patients}
           activePatientId={activePatientId}
           onPatientClick={onPatientClick}
+          onPatientDelete={handleDeletePatient}
         />
       </div>
     </CollapsibleSidebar>

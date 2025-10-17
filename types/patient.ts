@@ -9,4 +9,4 @@ export interface Patient {
   status: PatientStatus;
 }
 
-export type PatientStatus = 'completed' | 'active' | 'scheduled' | 'waiting';
+export type PatientStatus = 'scheduled' | 'active' | 'ready-to-copy' | 'completed' | 'waiting';

@@ -26,21 +26,21 @@ import { StatusBadge } from "@/components/shared/StatusBadge";
 
 interface SubjectiveCardProps {
   pmh: string;
-  pmhHighlights?: string[]; // Keywords to highlight in teal
+  pmhHighlights?: string[] | null; // Keywords to highlight in teal
   fh: string;
-  fhHighlights?: string[];
+  fhHighlights?: string[] | null;
   sh: string;
-  shHighlights?: string[];
+  shHighlights?: string[] | null;
   es: string;
   stressLevel: string;
   tcmReview?: {
-    [key: string]: string[];
+    [key: string]: string[] | null;
   };
 }
 
 // Helper function to highlight keywords in text
-function highlightText(text: string, highlights: string[] = []) {
-  if (!highlights.length) return <span>{text}</span>;
+function highlightText(text: string, highlights: string[] | null = []) {
+  if (!highlights || !highlights.length) return <span>{text}</span>;
 
   let lastIndex = 0;
   const parts: React.ReactNode[] = [];
@@ -106,6 +106,7 @@ export function SubjectiveCard({
 
   if (hasTCMReview) {
     const tcmText = Object.entries(tcmReview)
+      .filter(([_, items]) => Array.isArray(items) && items.length > 0)
       .map(
         ([category, items]) => {
           // Ensure items is an array
@@ -114,11 +115,18 @@ export function SubjectiveCard({
         }
       )
       .join("\n\n");
-    allText += `TCM Review of Systems:\n\n${tcmText}`;
+    if (tcmText) {
+      allText += `TCM Review of Systems:\n\n${tcmText}`;
+    }
   }
 
-  // Split TCM review categories into two columns
-  const tcmEntries = tcmReview ? Object.entries(tcmReview) : [];
+  // Filter TCM review to only include categories with actual data
+  const tcmEntries = tcmReview
+    ? Object.entries(tcmReview).filter(([_, items]) => {
+        // Keep only categories that have non-empty arrays
+        return Array.isArray(items) && items.length > 0;
+      })
+    : [];
 
   return (
     <PatientDemographicsCard
@@ -178,17 +186,12 @@ export function SubjectiveCard({
         )}
 
         {/* TCM Review of Systems */}
-        {hasTCMReview && (
+        {tcmEntries.length > 0 && (
           <div>
             <h4 className="text-xs font-semibold text-gray-700 mb-2">
               TCM Review of Systems
             </h4>
-            <div className="flex flex-wrap gap-1.5">
-              {tcmEntries.map(([category]) => (
-                <StatusBadge key={category} variant="tcm" label={category} />
-              ))}
-            </div>
-            <div className="mt-3 space-y-2">
+            <div className="space-y-2">
               {tcmEntries.map(([category, items]) => {
                 // Ensure items is an array
                 const itemsArray = Array.isArray(items) ? items : [];

@@ -1,0 +1,146 @@
+Input:
+Patient: 46 y/o male
+Date: 10/17/2025
+
+CC: fatigue x 2 months, poor sleep, mild digestive discomfort.
+
+Pt reports low energy esp. mornings, heavy limbs, feels foggy until noon. Sometimes skips breakfast. Noticed bloating after eating noodles or sweets. Stool soft, occasionally sticky, 1–2x/day.
+
+Has been feeling more stressed at work lately, managing 3 projects at once. Says, “I’m fine, just wiped out.” Feels better after walking outside.
+
+Appetite ok but gets full easily. Drinks little water, mostly coffee (3 cups/day). Thirst not strong. Urination normal, slightly yellow when dehydrated.
+
+Sleep light, wakes 2–3x/night thinking about work tasks. Hard to fall back asleep.
+
+PMH: chronic sinus congestion, mild reflux on/off.
+FH: both parents alive, father diabetic.
+SH: single, office job. Eats out most lunches. No alcohol, smokes occasionally when stressed. Minimal exercise.
+
+ES: reports mild worry and tension in upper chest. Says feels “mentally heavy.”
+
+During treatment:
+Discussed sleep issues—pt says dreams constantly, wakes sweaty sometimes. Mentions has felt warmer at night recently, especially chest and soles. Felt a bit better after reducing spicy foods last week. Still feels bloated after dinner.
+
+Tongue: pale w/ teeth marks, thin greasy coat center
+Pulse: soft, slightly slippery, weak at SP position
+
+Treatment notes:
+Supine, right side emphasized. Used BL-20, ST-36 (tonify), SP-9 (reduce), Ren-12 (even), and LV-3 (even, both). Added Yin Tang at end for relaxation. While needling SP-9, pt reported mild abdominal warmth and said “bloating’s easing up.”
+
+After needles in, discussed diet: advised reduce raw/cold foods, eat breakfast daily. Pt mentioned new coworker stress increasing recently — said can feel chest tightness again when overthinking.
+
+Needles retained 25 mins. Mild sweating mid-session. Energy seemed calmer after removal.
+
+No explicit treatment principle recorded this visit. Plan to re-evaluate next week and consider moxa if fatigue persists.
+
+Notes: overall better after session, abdomen softer, mood lighter.
+
+Output:
+
+{
+  "note_summary": "46-year-old male presents with fatigue and poor sleep, experiencing digestive discomfort and stress-related symptoms.",
+  "chiefComplaints": [
+    {
+      "text": "Fatigue for 2 months",
+      "icdCode": "R53.83",
+      "icdLabel": "Other fatigue"
+    },
+    {
+      "text": "Poor sleep for 2 months",
+      "icdCode": "G47.9",
+      "icdLabel": "Sleep disorder, unspecified"
+    }
+  ],
+  "hpi": "Patient reports low energy, especially in the mornings, with heavy limbs and mental fog until noon. Experiences bloating after eating noodles or sweets. Stool is soft and occasionally sticky, occurring 1-2 times per day. Increased stress at work managing multiple projects. Feels better after walking outside. Appetite is okay but gets full easily. Drinks mostly coffee, with little water intake. Sleep is light, waking 2-3 times per night due to work-related thoughts. Feels warmer at night, especially in the chest and soles.",
+  "subjective": {
+    "pmh": "Chronic sinus congestion, mild reflux on and off.",
+    "fh": "Father is diabetic; both parents are alive.",
+    "sh": "Single, works in an office job. Eats out most lunches. No alcohol, smokes occasionally when stressed. Minimal exercise.",
+    "es": "Reports mild worry and tension in the upper chest. Feels mentally heavy."
+  },
+  "tcmReview": {
+    "appetite": "Appetite is okay but gets full easily.",
+    "stool": "Soft, occasionally sticky, 1-2 times per day.",
+    "thirst": "Thirst not strong, drinks mostly coffee.",
+    "urine": "Urination normal, slightly yellow when dehydrated.",
+    "sleep": "Light sleep, wakes 2-3 times per night, dreams constantly, wakes sweaty sometimes.",
+    "energy": "Low energy, especially in the mornings, heavy limbs, feels foggy until noon.",
+    "temperature": "Warmer at night, especially in chest and soles.",
+    "sweat": "Wakes sweaty sometimes.",
+    "pain": "Mild abdominal warmth reported during treatment."
+  },
+  "tongue": {
+    "body": "Pale with teeth marks.",
+    "coating": "Thin greasy coat in the center."
+  },
+  "pulse": {
+    "text": "Soft, slightly slippery, weak at Spleen position."
+  },
+  "diagnosis": {
+    "tcmDiagnosis": "Spleen Qi Deficiency with Dampness",
+    "icdCodes": [
+      {
+        "code": "R53.83",
+        "label": "Other fatigue"
+      },
+      {
+        "code": "G47.9",
+        "label": "Sleep disorder, unspecified"
+      }
+    ]
+  },
+  "treatment": "Tonify Spleen Qi and resolve Dampness.",
+  "acupunctureTreatmentSide": "Right",
+  "acupuncture": [
+    {
+      "region": "Back",
+      "points": [
+        {
+          "name": "BL-20",
+          "side": null,
+          "method": null
+        }
+      ]
+    },
+    {
+      "region": "Lower Extremities",
+      "points": [
+        {
+          "name": "ST-36",
+          "side": null,
+          "method": "T"
+        },
+        {
+          "name": "SP-9",
+          "side": null,
+          "method": "R"
+        }
+      ]
+    },
+    {
+      "region": "Abdomen",
+      "points": [
+        {
+          "name": "Ren-12",
+          "side": null,
+          "method": "E"
+        }
+      ]
+    },
+    {
+      "region": "Head",
+      "points": [
+        {
+          "name": "LV-3",
+          "side": "Both",
+          "method": "E"
+        },
+        {
+          "name": "Yin Tang",
+          "side": null,
+          "method": null
+        }
+      ]
+    }
+  ]
+}

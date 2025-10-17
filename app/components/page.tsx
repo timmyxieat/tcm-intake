@@ -44,7 +44,7 @@ Treatment Plan
   const mockPatient = {
     id: "3",
     initials: "SC",
-    time: "9:30 AM",
+    time: "2025-10-10T09:30:00",
     status: "active" as const
   };
 
@@ -290,17 +290,17 @@ Treatment Plan
               <p className="text-sm text-gray-600 mb-4">Individual patient item with avatar, time, and status</p>
               <div className="space-y-3 max-w-sm">
                 <PatientCard
-                  patient={{ id: "1", initials: "DP", time: "8:45 AM", status: "completed" }}
+                  patient={{ id: "1", initials: "DP", time: "2025-10-10T08:45:00", status: "completed" }}
                 />
                 <PatientCard
-                  patient={{ id: "2", initials: "MS", time: "9:00 AM", status: "active" }}
+                  patient={{ id: "2", initials: "MS", time: "2025-10-10T09:00:00", status: "active" }}
                   isActive={true}
                 />
                 <PatientCard
-                  patient={{ id: "3", initials: "MR", time: "9:15 AM", status: "waiting" }}
+                  patient={{ id: "3", initials: "MR", time: "2025-10-10T09:15:00", status: "waiting" }}
                 />
                 <PatientCard
-                  patient={{ id: "4", initials: "ET", time: "9:30 AM", status: "scheduled" }}
+                  patient={{ id: "4", initials: "ET", time: "2025-10-10T09:30:00", status: "scheduled" }}
                 />
               </div>
             </div>
@@ -312,12 +312,12 @@ Treatment Plan
               <div className="max-w-sm">
                 <PatientList
                   patients={[
-                    { id: "1", initials: "DP", time: "8:45 AM", status: "completed" },
-                    { id: "2", initials: "JW", time: "9:00 AM", status: "completed" },
-                    { id: "3", initials: "MS", time: "9:15 AM", status: "active" },
-                    { id: "4", initials: "MR", time: "10:00 AM", status: "waiting" },
-                    { id: "5", initials: "SK", time: "10:30 AM", status: "waiting" },
-                    { id: "6", initials: "ET", time: "11:00 AM", status: "scheduled" },
+                    { id: "1", initials: "DP", time: "2025-10-10T08:45:00", status: "completed" },
+                    { id: "2", initials: "JW", time: "2025-10-10T09:00:00", status: "completed" },
+                    { id: "3", initials: "MS", time: "2025-10-10T09:15:00", status: "active" },
+                    { id: "4", initials: "MR", time: "2025-10-10T10:00:00", status: "waiting" },
+                    { id: "5", initials: "SK", time: "2025-10-10T10:30:00", status: "waiting" },
+                    { id: "6", initials: "ET", time: "2025-10-10T11:00:00", status: "scheduled" },
                   ]}
                   activePatientId={selectedPatientId}
                   onPatientClick={(patient) => setSelectedPatientId(patient.id)}
@@ -332,12 +332,12 @@ Treatment Plan
               <div className="h-96 border-2 border-gray-300">
                 <LeftSidebar
                   patients={[
-                    { id: "1", initials: "DP", time: "8:45 AM", status: "completed" },
-                    { id: "2", initials: "JW", time: "9:00 AM", status: "completed" },
-                    { id: "3", initials: "MS", time: "9:15 AM", status: "active" },
-                    { id: "4", initials: "MR", time: "10:00 AM", status: "waiting" },
-                    { id: "5", initials: "SK", time: "10:30 AM", status: "waiting" },
-                    { id: "6", initials: "ET", time: "11:00 AM", status: "scheduled" },
+                    { id: "1", initials: "DP", time: "2025-10-10T08:45:00", status: "completed" },
+                    { id: "2", initials: "JW", time: "2025-10-10T09:00:00", status: "completed" },
+                    { id: "3", initials: "MS", time: "2025-10-10T09:15:00", status: "active" },
+                    { id: "4", initials: "MR", time: "2025-10-10T10:00:00", status: "waiting" },
+                    { id: "5", initials: "SK", time: "2025-10-10T10:30:00", status: "waiting" },
+                    { id: "6", initials: "ET", time: "2025-10-10T11:00:00", status: "scheduled" },
                   ]}
                   activePatientId={selectedPatientId}
                   onPatientClick={(patient) => setSelectedPatientId(patient.id)}
