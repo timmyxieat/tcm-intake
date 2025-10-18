@@ -4,7 +4,7 @@ const masterTungPoints11 = [
     pinyin: "Dà Jiān",
     name: "Da Jian",
     chinese: "大間穴",
-    translation: "Big Space",
+    english: "Big Space",
     location: "2nd finger, middle of 1st segment, B line (palmar radial).",
     points: 1,
   },
@@ -13,7 +13,7 @@ const masterTungPoints11 = [
     pinyin: "Xiǎo Jiān",
     name: "Xiao Jian",
     chinese: "小間穴",
-    translation: "Small Space",
+    english: "Small Space",
     location:
       "2nd finger, 1st segment between Da Jian and distal crest, B line (palmar radial).",
     points: 1,
@@ -23,7 +23,7 @@ const masterTungPoints11 = [
     pinyin: "Fú Jiān",
     name: "Fu Jian",
     chinese: "浮間穴",
-    translation: "Floating Distance",
+    english: "Floating Distance",
     location:
       "2nd finger, proximal third of 2nd segment, B line (palmar radial).",
     points: 1,
@@ -33,7 +33,7 @@ const masterTungPoints11 = [
     pinyin: "Wài Jiān",
     name: "Wai Jian",
     chinese: "外間穴",
-    translation: "Outer Distance",
+    english: "Outer Distance",
     location:
       "2nd finger, distal third of 2nd segment, B line (palmar radial).",
     points: 1,
@@ -43,7 +43,7 @@ const masterTungPoints11 = [
     pinyin: "Zhōng Jiān",
     name: "Zhong Jian",
     chinese: "中間穴",
-    translation: "Center Distance",
+    english: "Center Distance",
     location: "2nd finger, middle of 1st segment, C line (palmar middle).",
     points: 1,
   },
@@ -52,7 +52,7 @@ const masterTungPoints11 = [
     pinyin: "Huán Cháo",
     name: "Huan Chao",
     chinese: "還巢穴",
-    translation: "Return to Nest",
+    english: "Return to Nest",
     location: "4th finger, center of middle segment, E line (ulnar).",
     points: 1,
   },
@@ -61,7 +61,7 @@ const masterTungPoints11 = [
     pinyin: "Zhǐ Sīmǎ",
     name: "Zhi Sima",
     chinese: "指四馬穴",
-    translation: "Finger Four Horses",
+    english: "Finger Four Horses",
     location:
       "2nd finger, middle segment, 3 points on E line (ulnar), divide into four equal parts.",
     points: 3,
@@ -71,7 +71,7 @@ const masterTungPoints11 = [
     pinyin: "Zhǐ Wǔ Jīn Zhǐ Qiān Jīn",
     name: "Zhi Wu Jin Zhi Qian Jin",
     chinese: "指五金穴 指千金穴",
-    translation: "Finger Five Metal and Finger One Thousand Metal",
+    english: "Finger Five Metal and Finger One Thousand Metal",
     location:
       "2nd finger, lower segment, 3 points on F line (dorsal ulnar), divide into four equal parts.",
     points: 3,
@@ -81,7 +81,7 @@ const masterTungPoints11 = [
     pinyin: "Xīn Xī",
     name: "Xin Xi",
     chinese: "心膝穴",
-    translation: "Heart Knee",
+    english: "Heart Knee",
     location:
       "Middle finger, middle of 2nd segment, 2 points on F and H lines (dorsal ulnar and dorsal radial).",
     points: 2,
@@ -91,7 +91,7 @@ const masterTungPoints11 = [
     pinyin: "Mù Huǒ",
     name: "Mu Huo",
     chinese: "木火穴",
-    translation: "Wood Fire",
+    english: "Wood Fire",
     location:
       "Middle finger, joint between 2nd and 3rd segments, G line (dorsal middle).",
     points: 1,
@@ -101,7 +101,7 @@ const masterTungPoints11 = [
     pinyin: "Fèi Xīn",
     name: "Fei Xin",
     chinese: "肺心穴",
-    translation: "Lung Heart",
+    english: "Lung Heart",
     location:
       "Middle finger, middle of 2nd segment, G line (dorsal middle), 3 points divided into four parts.",
     points: 3,
@@ -111,7 +111,7 @@ const masterTungPoints11 = [
     pinyin: "Èr Jiǎo Míng",
     name: "Er Jiao Ming",
     chinese: "二角明穴",
-    translation: "Two Bright Corners",
+    english: "Two Bright Corners",
     location:
       "Middle finger, middle of 1st segment, G line (dorsal middle), 2 points divided into three parts.",
     points: 2,
@@ -121,7 +121,7 @@ const masterTungPoints11 = [
     pinyin: "Dǎn",
     name: "Dan",
     chinese: "膽穴",
-    translation: "Gallbladder",
+    english: "Gallbladder",
     location:
       "Middle finger, middle of 1st segment, F and H lines (dorsal ulnar and dorsal radial), 2 points divided equally.",
     points: 2,
@@ -131,7 +131,7 @@ const masterTungPoints11 = [
     pinyin: "Zhǐ Sān Zhòng",
     name: "Zhi San Zhong",
     chinese: "指三重穴",
-    translation: "Finger Three Weights",
+    english: "Finger Three Weights",
     location:
       "Ring finger, middle of 2nd segment, F line (dorsal ulnar), 3 points divided into four parts.",
     points: 3,
@@ -141,7 +141,7 @@ const masterTungPoints11 = [
     pinyin: "Zhǐ Shèn",
     name: "Zhi Shen",
     chinese: "指腎穴",
-    translation: "Kidney Finger",
+    english: "Kidney Finger",
     location:
       "Ring finger, middle of 1st segment, F line (dorsal ulnar), 3 points divided into four parts.",
     points: 3,
@@ -151,7 +151,7 @@ const masterTungPoints11 = [
     pinyin: "Huǒ Xī",
     name: "Huo Xi",
     chinese: "火膝穴",
-    translation: "Fire Knee",
+    english: "Fire Knee",
     location:
       "5th finger, joint between 2nd and 3rd segments, H line (dorsal radial).",
     points: 1,
@@ -161,7 +161,7 @@ const masterTungPoints11 = [
     pinyin: "Mù",
     name: "Mu",
     chinese: "木穴",
-    translation: "Wood",
+    english: "Wood",
     location:
       "2nd finger, middle of 1st segment, D line (palmar ulnar), 2–3 points divided into three parts.",
     points: 3,
@@ -171,7 +171,7 @@ const masterTungPoints11 = [
     pinyin: "Pí Zhǒng",
     name: "Pi Zhong",
     chinese: "脾腫穴",
-    translation: "Spleen Swelling",
+    english: "Spleen Swelling",
     location:
       "3rd finger, middle of 2nd segment, C line (palmar middle), 2 points divided into four parts.",
     points: 2,
@@ -181,7 +181,7 @@ const masterTungPoints11 = [
     pinyin: "Xīn Cháng",
     name: "Xin Chang",
     chinese: "心常穴",
-    translation: "Normal Heart",
+    english: "Normal Heart",
     location:
       "3rd finger, middle of 1st segment, D line (palmar ulnar), 2–3 points divided into four parts.",
     points: 3,
@@ -191,7 +191,7 @@ const masterTungPoints11 = [
     pinyin: "Mù Yán",
     name: "Mu Yan",
     chinese: "木炎穴",
-    translation: "Wood Inflammation",
+    english: "Wood Inflammation",
     location:
       "4th finger, middle of 2nd segment, D line (palmar ulnar), 3 points divided into four parts.",
     points: 3,
@@ -201,7 +201,7 @@ const masterTungPoints11 = [
     pinyin: "Sān Yǎn",
     name: "San Yan",
     chinese: "三眼穴",
-    translation: "Three Eyes",
+    english: "Three Eyes",
     location:
       "4th finger, 1st segment, B line (palmar radial), 3 points divided into four equal parts.",
     points: 3,
@@ -211,7 +211,7 @@ const masterTungPoints11 = [
     pinyin: "Fù Yuán",
     name: "Fu Yuan",
     chinese: "復原穴",
-    translation: "Recovery",
+    english: "Recovery",
     location:
       "4th finger, 1st segment, D line (palmar ulnar), 3 points divided into four equal parts.",
     points: 3,
@@ -221,7 +221,7 @@ const masterTungPoints11 = [
     pinyin: "Yǎn Huáng",
     name: "Yan Huang",
     chinese: "眼黃穴",
-    translation: "Yellow Eyes",
+    english: "Yellow Eyes",
     location:
       "5th finger, palmar side, C line (palmar middle). Yan Huang Yi: middle of 2nd segment. Yan Huang Er: middle of 1st segment.",
     points: 2,
@@ -231,7 +231,7 @@ const masterTungPoints11 = [
     pinyin: "Fù Kē",
     name: "Fu Ke",
     chinese: "婦科穴",
-    translation: "Gynecology",
+    english: "Gynecology",
     location:
       "Thumb, 1st segment, E line (ulnar), 2 points divided into three parts. Hu Wen Zhi adds: 5 points on dorsal part of 1st finger, 1st segment, E line (ulnar), divided into six parts.",
     points: 2,
@@ -241,7 +241,7 @@ const masterTungPoints11 = [
     pinyin: "Zhǐ Xián",
     name: "Zhi Xian",
     chinese: "止涎穴",
-    translation: "Stop Drooling",
+    english: "Stop Drooling",
     location:
       "Thumb, 1st segment, A line (radial), 2 points divided into three equal parts.",
     points: 2,
@@ -251,7 +251,7 @@ const masterTungPoints11 = [
     pinyin: "Zhì Wū",
     name: "Zhi Wu",
     chinese: "制污穴",
-    translation: "Control Dirt",
+    english: "Control Dirt",
     location:
       "Thumb, dorsal side, middle of proximal segment, G line (dorsal middle), 3 points divided into four equal parts.",
     points: 3,
@@ -261,7 +261,7 @@ const masterTungPoints11 = [
     pinyin: "Wǔ Hǔ",
     name: "Wu Hu",
     chinese: "五虎穴",
-    translation: "Five Tigers",
+    english: "Five Tigers",
     location:
       "1st finger, palmar side, 1st segment, A line (radial), 5 points divided into six equal parts.",
     points: 5,
@@ -271,7 +271,7 @@ const masterTungPoints11 = [
     pinyin: "Bā Guān",
     name: "Ba Guan",
     chinese: "八關穴",
-    translation: "Eight Passages",
+    english: "Eight Passages",
     location:
       "Fingers 2–5, dorsal side, 1st segment, 8 total points. Each finger (2–5) has 2 points: one on A line (radial) and one on E line (ulnar), each 0.25 cun distal to the metacarpophalangeal joint.",
     points: 8,
@@ -281,7 +281,7 @@ const masterTungPoints11 = [
     pinyin: "Cè Jiān",
     name: "Ce Jian",
     chinese: "側間穴",
-    translation: "Side Distance",
+    english: "Side Distance",
     location:
       "2nd finger, 1st segment, B line (palmar radial), located between 11.01 Da Jian and the distal crest of the 1st segment.",
     points: 1,
@@ -291,7 +291,7 @@ const masterTungPoints11 = [
     pinyin: "Chén Yīn, Nèi Yīn",
     name: "Chen Yin, Nei Yin",
     chinese: "沉陰穴, 內陰穴",
-    translation: "Internal Yin, Heavy Yin",
+    english: "Internal Yin, Heavy Yin",
     location:
       "Nei Yin: 2nd finger, A line (radial), lower third of 3rd segment. Chen Yin: 2nd finger, A line (radial), upper third of 1st segment.",
     needling:
@@ -304,7 +304,7 @@ const masterTungPoints11 = [
     pinyin: "Dìng Chuǎn",
     name: "Ding Chuan",
     chinese: "定喘穴",
-    translation: "Stop Panting",
+    english: "Stop Panting",
     location:
       "4th finger, 2nd segment, palmar side, B line (palmar radial); 3 points dividing the segment into four equal parts.",
     needling: "Perpendicular 0.2–0.3 cun.",
@@ -319,7 +319,7 @@ const masterTungPoints11 = [
     pinyin: "Fèi Líng",
     name: "Fei Ling",
     chinese: "肺靈穴",
-    translation: "Efficient Lungs",
+    english: "Efficient Lungs",
     location:
       "Fei Ling Yi: 2nd finger, palmar side, crease between 1st and 2nd segments on D line (palmar ulnar). Fei Ling Er: same crease on B line (palmar radial).",
     needling: "Perpendicular 0.2–0.3 cun. For high fever, bleed the points.",
@@ -331,7 +331,7 @@ const masterTungPoints11 = [
     pinyin: "Fèng Cháo",
     name: "Feng Chao",
     chinese: "鳳巢穴",
-    translation: "Phoenix Nest",
+    english: "Phoenix Nest",
     location:
       "4th finger, 1st segment, A line (radial), 3 points dividing the segment into four equal parts.",
     needling:
@@ -347,7 +347,7 @@ const masterTungPoints11 = [
     pinyin: "Fēn Shuǐ",
     name: "Fen Shui",
     chinese: "分水穴",
-    translation: "Separate Water",
+    english: "Separate Water",
     location:
       "5th finger, 1st segment, palmar side, B line (palmar radial); 3 points dividing the segment into four equal parts.",
     needling: "Perpendicular 0.2–0.3 cun.",
@@ -364,7 +364,7 @@ const masterTungPoints11 = [
     pinyin: "Huǒ Lóng",
     name: "Huo Long",
     chinese: "火龍穴",
-    translation: "Dragon Fire",
+    english: "Dragon Fire",
     location:
       "3rd finger, 1st segment, palmar side, B line (palmar radial); 3 points dividing the segment into four equal parts.",
     needling: "Perpendicular 0.2–0.3 cun.",
@@ -381,7 +381,7 @@ const masterTungPoints11 = [
     pinyin: "Huǒ Xīng",
     name: "Huo Xing",
     chinese: "火星穴",
-    translation: "Fire Star",
+    english: "Fire Star",
     location:
       "3rd finger, aspect side along C line (palmar middle): Huo Xing Xia in middle of 2nd segment; Huo Xing Shang in middle of 1st segment.",
     needling:
@@ -394,7 +394,7 @@ const masterTungPoints11 = [
     pinyin: "Jiàn Pí",
     name: "Jian Pi",
     chinese: "建脾穴",
-    translation: "Establishing Spleen",
+    english: "Establishing Spleen",
     location:
       "4th finger, 1st segment, dorsal side on H line (dorsal radial); 3 points dividing the segment into four equal parts.",
     needling: "Perpendicular 0.1–0.3 cun.",
@@ -413,7 +413,7 @@ const masterTungPoints11 = [
     pinyin: "Kāi Pí",
     name: "Kai Pi",
     chinese: "開脾穴",
-    translation: "Open Spleen",
+    english: "Open Spleen",
     location: "3rd finger, 3rd segment, palmar aspect, middle of segment.",
     needling: "Perpendicular 0.1–0.2 cun.",
     reaction_area: "Spleen.",
@@ -428,7 +428,7 @@ const masterTungPoints11 = [
     pinyin: "Mù Huá",
     name: "Mu Hua",
     chinese: "木華穴",
-    translation: "Flourishing Tree",
+    english: "Flourishing Tree",
     location:
       "3rd finger, 2nd segment, palmar side: Mu Hua Yi on A line (radial) center; Mu Hua Er on E line (ulnar) center.",
     needling: "Transverse 0.2–0.3 cun.",
@@ -444,7 +444,7 @@ const masterTungPoints11 = [
     pinyin: "Mù Líng",
     name: "Mu Ling",
     chinese: "木靈穴",
-    translation: "Efficient Wood",
+    english: "Efficient Wood",
     location:
       "Mu Ling Yi: 4th finger, palmar side, at the first crease on line B (palmar radial). Mu Ling Er: 4th finger, palmar side, at the first crease on line D (palmar ulnar).",
     needling:
@@ -462,7 +462,7 @@ const masterTungPoints11 = [
     pinyin: "Piān Jiān",
     name: "Pian Jian",
     chinese: "偏肩穴",
-    translation: "Dislocated Shoulder",
+    english: "Dislocated Shoulder",
     location:
       "4th finger, middle of 2nd segment, on line E (ulnar). Same location as Huan Chao (11.06) in Tung’s 1973 text.",
     needling: "Perpendicular 0.2–0.3 cun.",
@@ -477,7 +477,7 @@ const masterTungPoints11 = [
     pinyin: "Qī Huá",
     name: "Qi Hua",
     chinese: "七華穴",
-    translation: "Seven Blossoms",
+    english: "Seven Blossoms",
     location:
       "Seven points total: two on each of the 2nd, 3rd, and 4th fingers, and one on the 5th finger. Located on the dorsal side of the fingers, at the joint between the 1st and 2nd segments, on both radial (A) and ulnar (E) lines. The 5th finger has one point on the ulnar (E) line.",
     needling: "Perpendicular 0.1–0.2 cun.",
@@ -495,7 +495,7 @@ const masterTungPoints11 = [
     pinyin: "Shuāng Líng",
     name: "Shuang Ling",
     chinese: "雙靈穴",
-    translation: "Double Efficiency",
+    english: "Double Efficiency",
     location:
       "3rd finger, palmar side, at the crease between 1st and 2nd segments. Shuang Ling Yi on line B (palmar radial), Shuang Ling Er on line D (palmar ulnar).",
     needling: "Perpendicular 0.2–0.3 cun.",
@@ -512,7 +512,7 @@ const masterTungPoints11 = [
     pinyin: "Shuǐ Hǎi",
     name: "Shui Hai",
     chinese: "水海穴",
-    translation: "Sea Water",
+    english: "Sea Water",
     location:
       "5th finger, 2nd segment, palmar side, on line D (palmar ulnar). Three points dividing the segment into four equal parts.",
     needling: "Perpendicular 0.2–0.3 cun.",
@@ -528,7 +528,7 @@ const masterTungPoints11 = [
     pinyin: "Shuǐ Qīng",
     name: "Shui Qing",
     chinese: "水清穴",
-    translation: "Clear Water",
+    english: "Clear Water",
     location:
       "5th finger, 2nd segment, palmar side, on line B (palmar radial). Three points dividing the segment into four equal parts.",
     needling: "Perpendicular 0.2–0.3 cun.",
@@ -547,7 +547,7 @@ const masterTungPoints11 = [
     pinyin: "Shuǐ Yuán",
     name: "Shui Yuan",
     chinese: "水源穴",
-    translation: "Water Source",
+    english: "Water Source",
     location:
       "5th finger, 1st segment, palmar side, on line D (palmar ulnar). Three points dividing the segment into four equal parts.",
     needling: "Perpendicular 0.2–0.3 cun.",
@@ -563,7 +563,7 @@ const masterTungPoints11 = [
     pinyin: "Shuǐ Yāo",
     name: "Shui Yao",
     chinese: "水腰穴",
-    translation: "Water Waist",
+    english: "Water Waist",
     location:
       "5th finger, 2nd segment, dorsal side. Shui Yao Yi on A line (dorsal radial), Shui Yao Er on G line (dorsal middle), Shui Yao San on E line (dorsal ulnar).",
     needling:
@@ -576,7 +576,7 @@ const masterTungPoints11 = [
     pinyin: "Shào Bái",
     name: "Shao Bai",
     chinese: "少白穴",
-    translation: "Small White",
+    english: "Small White",
     location:
       "5th finger, dorsal side, at the joint between the 1st and 2nd segments on the A line (dorsal radial).",
     needling: "Perpendicular 0.1–0.2 cun.",
@@ -592,7 +592,7 @@ const masterTungPoints11 = [
     pinyin: "Sān Yáng",
     name: "San Yang",
     chinese: "三陽穴",
-    translation: "Three Yang",
+    english: "Three Yang",
     location:
       "2nd finger, 2nd segment, on line A (radial). Three points dividing the segment into four equal parts.",
     needling:
@@ -609,7 +609,7 @@ const masterTungPoints11 = [
     pinyin: "Tōng Gǔ",
     name: "Tong Gu",
     chinese: "通骨穴",
-    translation: "Connect Bone",
+    english: "Connect Bone",
     location:
       "Tong Gu Yi: On the palmar side of the fifth finger, on the first crease on line D (palmar ulnar line). Tong Gu Er: On the palmar side of the fifth finger, on the first crease on line B (palmar radial line).",
     needling: "Perpendicular, 0.2–0.3 cun.",
@@ -625,7 +625,7 @@ const masterTungPoints11 = [
     pinyin: "Tǔ Háng",
     name: "Tu Hang",
     chinese: "土航穴",
-    translation: "Navigating Earth",
+    english: "Navigating Earth",
     location:
       "Tu Hang Yi: On the palmar side of the fourth finger, in the center of the second segment on line C (palmar middle line). Tu Hang Er: On the palmar side of the fourth finger, in the center of the first segment on line C (palmar middle line).",
     needling: "Perpendicular, 0.2–0.3 cun.",
@@ -640,7 +640,7 @@ const masterTungPoints11 = [
     pinyin: "Tǔ Xìng",
     name: "Tu Xing",
     chinese: "土興穴",
-    translation: "Flourishing Earth",
+    english: "Flourishing Earth",
     location:
       "Two points on the palmar side of the third finger, on the first segment along line C (palmar middle line). Tu Xing Yi is at the junction of the first and second quarters; Tu Xing Er is at the junction of the third and fourth quarters.",
     needling: "Perpendicular, 0.2–0.3 cun. Bloodletting.",
@@ -657,7 +657,7 @@ const masterTungPoints11 = [
     pinyin: "Xià Jiān",
     name: "Xia Jian",
     chinese: "下間穴",
-    translation: "Lower Distance",
+    english: "Lower Distance",
     location:
       "On the palmar aspect of the second finger, in the middle of the second segment, on line C (palmar middle line).",
     needling: "Perpendicular, 0.1–0.3 cun.",
@@ -674,7 +674,7 @@ const masterTungPoints11 = [
     pinyin: "Zhèng Shuǐ",
     name: "Zheng Shui",
     chinese: "正水穴",
-    translation: "Correct Water",
+    english: "Correct Water",
     location:
       "Three points on the dorsal part of the fifth finger, in the middle of the first segment: Zheng Shui Yi on line H (dorsal radial line), Zheng Shui Er on line G (dorsal middle line), Zheng Shui San on line F (dorsal ulnar line).",
     needling:
@@ -691,7 +691,7 @@ const masterTungPoints11 = [
     pinyin: "Zhèng Tǔ",
     name: "Zheng Tu",
     chinese: "正土穴",
-    translation: "Correct Earth",
+    english: "Correct Earth",
     location:
       "Three points on the dorsal aspect of the middle segment of the fourth finger, along line H (dorsal radial line). Divide the segment into four equal parts.",
     needling: "Perpendicular, 0.2–0.3 cun.",
@@ -711,7 +711,7 @@ const masterTungPoints11 = [
     pinyin: "Zhū Yuán",
     name: "Zhu Yuan",
     chinese: "珠圓穴",
-    translation: "Round Bead",
+    english: "Round Bead",
     location:
       "Two points on the thumb (first finger), between the first and second segments, on both sides of the crease: one on line A (radial line) and one on line E (ulnar line), close to the bone.",
     needling: "Perpendicular, 0.2–0.5 cun.",
@@ -730,7 +730,7 @@ const masterTungPoints11 = [
     pinyin: "Zhǐ Fèi",
     name: "Zhi Fei",
     chinese: "指肺穴",
-    translation: "Lung Finger",
+    english: "Lung Finger",
     location:
       "Three points located on the radial line on the dorsal aspect of the first segment of the second finger, on line H (dorsal radial line). Divide the segment into four equal parts.",
     needling: "Perpendicular, 0.1–0.2 cun.",
@@ -749,7 +749,7 @@ const masterTungPoints11 = [
     pinyin: "Zhǐ Sān Huáng",
     name: "Zhi San Huang",
     chinese: "指三黃穴",
-    translation: "Finger Three Yellows",
+    english: "Finger Three Yellows",
     location:
       "Three points on the palmar part of the thumb, in the first segment along line D (palmar ulnar line). Divide the segment into four equal parts.",
     needling: "Perpendicular, 0.2–0.4 cun.",
@@ -768,7 +768,7 @@ const masterTungPoints11 = [
     pinyin: "Zhǐ Wèi",
     name: "Zhi Wei",
     chinese: "指胃穴",
-    translation: "Stomach Finger",
+    english: "Stomach Finger",
     location:
       "Three points on the radial line on the dorsal aspect of the second segment of the second finger, on line H (dorsal radial line). Divide the segment into four equal parts.",
     needling: "Perpendicular, 0.1–0.2 cun.",
@@ -784,7 +784,7 @@ const masterTungPoints11 = [
     pinyin: "Shī Zhěn",
     name: "Shi Zhen",
     chinese: "失枕穴",
-    translation: "Lost Pillow",
+    english: "Lost Pillow",
     location:
       "On the palmar side of the second segment of the fifth finger, 0.2 cun ulnar and distal to 11.23 Yan Huang, between lines C (palmar middle line) and D (palmar ulnar line).",
     needling: "Perpendicular, 0.2–0.3 cun.",
@@ -801,7 +801,7 @@ const masterTungPoints11 = [
     pinyin: "Sān Xiān",
     name: "San Xian",
     chinese: "三仙穴",
-    translation: "Three Immortals",
+    english: "Three Immortals",
     location:
       "Three points on the dorsal aspect of the first segment of the second finger, on line G (dorsal middle line). Divide the segment into four equal parts.",
     needling: "Transverse, threading of the three points with one needle.",
@@ -818,7 +818,7 @@ const masterTungPoints11 = [
     pinyin: "Xī Líng",
     name: "Xi Ling",
     chinese: "膝靈穴",
-    translation: "Effective Knee",
+    english: "Effective Knee",
     location:
       "On the dorsal part of the third finger, on both sides of the nail (lateral and medial), 0.2 cun posterior to the nail’s corner. Corresponds to lines F (dorsal ulnar line) and H (dorsal radial line).",
     needling: "Oblique, towards the wrist joint, 0.2 cun.",
