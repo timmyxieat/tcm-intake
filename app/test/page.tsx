@@ -97,20 +97,18 @@ export default function TestPage() {
         fh: "Test FH",
         sh: "Test SH",
         es: "Test ES",
-        stressLevel: "5/10",
       },
       tcmReview: {
-        Pain: ["Lower back", "Radiating"],
+        Pain: "Lower back, Radiating",
+        Sleep: null,
+        Appetite: "Normal",
       },
       tongue: {
         body: "Pale",
-        bodyHighlights: ["Pale"],
         coating: "Thin white",
-        coatingHighlights: ["Thin", "White"],
       },
       pulse: {
         text: "Wiry",
-        highlights: ["Wiry"],
       },
       diagnosis: {
         tcmDiagnosis: "Kidney Deficiency",
@@ -122,11 +120,14 @@ export default function TestPage() {
         ],
       },
       treatment: "Tonify Kidney",
-      acupunctureTreatmentSide: "Both sides treatment" as const,
+      acupunctureTreatmentSide: "Both" as const,
       acupuncture: [
         {
-          name: "Back",
-          points: ["BL-23", "BL-25"],
+          region: "Back",
+          points: [
+            { name: "BL-23", side: "Both" as const, method: "T" as const },
+            { name: "BL-25", side: "Both" as const, method: "T" as const },
+          ],
         },
       ],
     };

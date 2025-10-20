@@ -17,9 +17,8 @@ export function transformAINotesToSidebarFormat(aiNotes: AIStructuredNotes) {
     const points = region.points;
 
     return {
-      name: region.name,  // Changed from region.region to region.name
+      name: region.region,  // Use region.region which matches the type definition
       points,
-      note: region.note,
     };
   });
 
@@ -33,24 +32,17 @@ export function transformAINotesToSidebarFormat(aiNotes: AIStructuredNotes) {
     hpi: aiNotes.hpi,
     subjective: {
       pmh: aiNotes.subjective.pmh,
-      pmhHighlights: aiNotes.subjective.pmhHighlights,
       fh: aiNotes.subjective.fh,
-      fhHighlights: aiNotes.subjective.fhHighlights,
       sh: aiNotes.subjective.sh,
-      shHighlights: aiNotes.subjective.shHighlights,
       es: aiNotes.subjective.es,
-      stressLevel: aiNotes.subjective.stressLevel || "0/10",
     },
     tcmReview,
     tongue: {
       body: aiNotes.tongue.body,
-      bodyHighlights: aiNotes.tongue.bodyHighlights || [],
-      coating: aiNotes.tongue.coating || "",
-      coatingHighlights: aiNotes.tongue.coatingHighlights || [],
+      coating: aiNotes.tongue.coating,
     },
     pulse: {
       text: aiNotes.pulse.text,
-      highlights: aiNotes.pulse.highlights || [],
     },
     diagnosis: {
       tcmDiagnosis: aiNotes.diagnosis.tcmDiagnosis,
